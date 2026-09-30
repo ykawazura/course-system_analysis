@@ -1,0 +1,3208 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="動的システム解析の理論と Python 実装の講義資料">
+      
+      
+      
+      
+        <link rel="prev" href="../linear-systems/">
+      
+      
+        <link rel="next" href="../exercises/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+    
+    
+      
+        <title>非線形系の線形化と平衡点解析 - システム解析入門</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/encrypt-solutions.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="システム解析入門" class="md-header__button md-logo" aria-label="システム解析入門" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            システム解析入門
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              非線形系の線形化と平衡点解析
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../week01/" class="md-tabs__link">
+          
+  
+  
+  講義ノート
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="システム解析入門" class="md-nav__button md-logo" aria-label="システム解析入門" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    システム解析入門
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    講義ノート
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    講義ノート
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第1回 ガイダンス
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第1回 ガイダンス
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week01/dynamical-systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    動的システムと状態空間表現
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week01/setup-colab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Google Colab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week01/setup-local/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ローカル環境
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week01/hello/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    動作確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第2回 フーリエ級数
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第2回 フーリエ級数
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week02/fourier-series/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    フーリエ級数展開
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week02/parseval-gibbs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    パーセバルの等式とGibbs現象
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week02/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第3回 フーリエ変換
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第3回 フーリエ変換
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week03/fourier-transform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    フーリエ変換
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week03/dft-fft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    標本化とFFT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week03/convolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高速畳み込みと相互相関
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week03/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第4回 スペクトル解析とフィルタリング
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第4回 スペクトル解析とフィルタリング
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week04/power-spectrum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    パワースペクトルと窓
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week04/welch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ピリオドグラムとウェルチ法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week04/filtering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    周波数領域フィルタリング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week04/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第5・15回 発表会
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第5・15回 発表会
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    発表会ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第6回 ラプラス変換(1)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第6回 ラプラス変換(1)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week06/definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ラプラス変換の定義と収束
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week06/inverse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    逆ラプラス変換とs平面
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week06/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第7回 ラプラス変換(2)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第7回 ラプラス変換(2)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week07/convolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    畳み込み積分と伝達関数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week07/theorems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ラプラス変換の公式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week07/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第8回 ラプラス変換の応用
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第8回 ラプラス変換の応用
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week08/stability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安定性とラウス・フルビッツ判別
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week08/feedback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    フィードバック制御
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week08/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第9回 短時間フーリエ変換
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第9回 短時間フーリエ変換
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week09/stft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    短時間フーリエ変換と時間周波数分解能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week09/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第10回 ウェーブレット変換
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第10回 ウェーブレット変換
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/wavelet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    連続・離散ウェーブレット変換
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_11" id="__nav_2_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第11回 線形安定性
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第11回 線形安定性
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear-systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    線形系の固有値と平衡点の分類
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    非線形系の線形化と平衡点解析
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    非線形系の線形化と平衡点解析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非線形系と平衡点
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ヤコビ行列による線形化
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        線形化はどこまで当たるか
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hartmangrobman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hartman–Grobman の定理と、その適用限界
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_12" id="__nav_2_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第12回 直交多項式展開
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第12回 直交多項式展開
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/orthogonal-polynomials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    直交多項式と最良近似
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/spectral-methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gauss求積とスペクトル法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第13回 特異値分解とその応用
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第13回 特異値分解とその応用
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week13/svd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SVDの原理と低ランク近似
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week13/image-compression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    画像圧縮とノイズ除去
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week13/pca-pod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PCA・PODと擬似逆行列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week13/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_14" id="__nav_2_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第14回 動的モード分解とその応用
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第14回 動的モード分解とその応用
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week14/dmd-algorithm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DMDのアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week14/dmd-modes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    モードと固有振動の解釈
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week14/dmd-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    時系列・流体データへの応用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week14/exercises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演習問題
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非線形系と平衡点
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ヤコビ行列による線形化
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        線形化はどこまで当たるか
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hartmangrobman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hartman–Grobman の定理と、その適用限界
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">非線形系の線形化と平衡点解析</h1>
+<p>前ページでは線形系 <span class="arithmatex">\(\dot{\mathbf x}=A\mathbf x\)</span> の運命が <span class="arithmatex">\(A\)</span> の固有値だけで決まることを見た。しかし現実のシステムはほとんどが非線形である ── 振り子は <span class="arithmatex">\(\sin\theta\)</span> を含み、生態系は個体数の積を含み、化学反応は濃度のべきを含む。伝達関数はこれらに定義すらできない。</p>
+<p>それでも <strong>平衡点のごく近くだけ</strong> を見るなら、非線形系を線形系で置き換えられる。本ページではその手続き（線形化）と、それがいつ正当化されるか（Hartman–Grobman の定理）、そして <strong>いつ破れるか</strong> を扱う。</p>
+<h2 id="_2">非線形系と平衡点</h2>
+<p>一般の自励系（時間を陽に含まない系）は</p>
+<div class="arithmatex">\[
+\dot{\mathbf x}=\mathbf f(\mathbf x),\qquad \mathbf f:\mathbb R^n\to\mathbb R^n
+\]</div>
+<p>と書ける。<span class="arithmatex">\(\mathbf f\)</span> が線形でなければ、解を閉じた形で書けることはまずない。そこで問いを変える ── <strong>すべての解を求めるのではなく、特別な解のまわりの振る舞いだけを知る</strong> のである。</p>
+<p><span class="arithmatex">\(\mathbf f(\mathbf x^{*})=\mathbf 0\)</span> を満たす <span class="arithmatex">\(\mathbf x^{*}\)</span> を <strong>平衡点（equilibrium point）</strong> または <strong>不動点（fixed point）</strong> という。ここに置かれた状態は動かない。線形系では <span class="arithmatex">\(\det A\neq0\)</span> でありさえすれば平衡点は原点ただ一つだったが（<span class="arithmatex">\(A\)</span> が特異なら <span class="arithmatex">\(\ker A\)</span> の全点が平衡点になる）、非線形系では <strong>複数あるのが普通</strong> である。</p>
+<p>本ページで扱う <strong>減衰振り子</strong> を例にとる。長さ <span class="arithmatex">\(L\)</span> の振り子の運動方程式を <span class="arithmatex">\(\sqrt{g/L}\)</span> で無次元化すると</p>
+<div class="arithmatex">\[
+\ddot\theta+b\dot\theta+\sin\theta=0
+\]</div>
+<p>となる。ここで無次元時間を <span class="arithmatex">\(\tau=t\sqrt{g/L}\)</span> と取り、ドットは <span class="arithmatex">\(\tau\)</span> による微分を表す。<span class="arithmatex">\(b\)</span> も無次元化された減衰係数である（以下では煩雑さを避けて <span class="arithmatex">\(\tau\)</span> を単に <span class="arithmatex">\(t\)</span> と書く）。<span class="arithmatex">\(\mathbf x=(\theta,\omega)^{\top}\)</span>、<span class="arithmatex">\(\omega=\dot\theta\)</span> と置けば</p>
+<div class="arithmatex">\[
+\dot{\mathbf x}=\mathbf f(\mathbf x)=\begin{pmatrix}\omega\\-b\,\omega-\sin\theta\end{pmatrix}
+\]</div>
+<p>である。平衡点は <span class="arithmatex">\(\omega=0\)</span> かつ <span class="arithmatex">\(\sin\theta=0\)</span>、すなわち</p>
+<div class="arithmatex">\[
+(\theta,\omega)=(n\pi,\,0),\qquad n\in\mathbb Z
+\]</div>
+<p>の <strong>無限個</strong> ある。<span class="arithmatex">\(n\)</span> が偶数なら真下に垂れ下がった状態、奇数なら真上に逆立ちした状態である。物理的直観では前者は安定、後者は不安定 ── これを固有値で言い当てられるようにしたい。</p>
+<h2 id="_3">ヤコビ行列による線形化</h2>
+<p>平衡点 <span class="arithmatex">\(\mathbf x^{*}\)</span> からのずれを <span class="arithmatex">\(\delta\mathbf x=\mathbf x-\mathbf x^{*}\)</span> と置き、<span class="arithmatex">\(\mathbf f\)</span> を <span class="arithmatex">\(\mathbf x^{*}\)</span> のまわりでテイラー展開する。以下では <span class="arithmatex">\(\mathbf f\)</span> が <span class="arithmatex">\(\mathbf x^{*}\)</span> の近傍で <span class="arithmatex">\(C^2\)</span> 級（もしくは、少なくともヤコビ行列が局所リプシッツ連続）であるとする ── 余項を <span class="arithmatex">\(O(\lVert\delta\mathbf x\rVert^2)\)</span> と書けるのはこの仮定のもとでのことである。</p>
+<div class="arithmatex">\[
+\frac{d}{dt}\delta\mathbf x=\mathbf f(\mathbf x^{*}+\delta\mathbf x)
+=\underbrace{\mathbf f(\mathbf x^{*})}_{=\mathbf 0}
++J(\mathbf x^{*})\,\delta\mathbf x+O(\lVert\delta\mathbf x\rVert^2)
+\]</div>
+<p>第1項は平衡点の定義から消える。第2項に現れる行列</p>
+<div class="arithmatex">\[
+\boxed{\
+J(\mathbf x)=\frac{\partial\mathbf f}{\partial\mathbf x}
+=\begin{pmatrix}
+\dfrac{\partial f_1}{\partial x_1}&amp;\cdots&amp;\dfrac{\partial f_1}{\partial x_n}\\
+\vdots&amp;\ddots&amp;\vdots\\
+\dfrac{\partial f_n}{\partial x_1}&amp;\cdots&amp;\dfrac{\partial f_n}{\partial x_n}
+\end{pmatrix}\ }
+\]</div>
+<p>を <strong>ヤコビ行列（Jacobian matrix）</strong> という。<span class="arithmatex">\(\lVert\delta\mathbf x\rVert\)</span> が小さければ 2 次以上の項は無視できて</p>
+<div class="arithmatex">\[
+\frac{d}{dt}\delta\mathbf x\approx J(\mathbf x^{*})\,\delta\mathbf x
+\]</div>
+<p>── これは前ページの線形系そのものである。<strong>平衡点ごとにヤコビ行列を計算し、その固有値を見る</strong>。これが線形安定性解析の全体像である。</p>
+<div class="admonition note">
+<p class="admonition-title">1 次元の場合と同じ発想</p>
+<p>スカラーの <span class="arithmatex">\(\dot x=f(x)\)</span> なら <span class="arithmatex">\(J\)</span> は数 <span class="arithmatex">\(f'(x^{*})\)</span> にすぎず、<span class="arithmatex">\(f'(x^{*})&lt;0\)</span> なら安定、<span class="arithmatex">\(&gt;0\)</span> なら不安定である。<span class="arithmatex">\(x^{*}\)</span> より右で <span class="arithmatex">\(f&lt;0\)</span>（左向きに押す）、左で <span class="arithmatex">\(f&gt;0\)</span>（右向きに押す）なら戻ってくる ── ヤコビ行列は、この「押し戻す向き」を多次元に一般化したものである。</p>
+</div>
+<p>振り子のヤコビ行列を <code>sympy</code> で記号的に求め、二つの平衡点で数値化して固有値を見る。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">th</span><span class="p">,</span> <span class="n">om</span><span class="p">,</span> <span class="n">bs</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;theta omega b&quot;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">F</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([</span><span class="n">om</span><span class="p">,</span> <span class="o">-</span><span class="n">bs</span><span class="o">*</span><span class="n">om</span> <span class="o">-</span> <span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)])</span>          <span class="c1"># (θ の時間微分, ω の時間微分)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">J</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">jacobian</span><span class="p">([</span><span class="n">th</span><span class="p">,</span> <span class="n">om</span><span class="p">])</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ヤコビ行列 J =&quot;</span><span class="p">,</span> <span class="n">J</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">b</span> <span class="o">=</span> <span class="mf">0.3</span>                                            <span class="c1"># 減衰係数</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">th0</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">&quot;(0, 0)  &quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;(pi, 0) &quot;</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="p">)):</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">Jn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">J</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">th</span><span class="p">:</span> <span class="n">th0</span><span class="p">,</span> <span class="n">bs</span><span class="p">:</span> <span class="n">b</span><span class="p">}),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">ev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">Jn</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ev</span><span class="o">.</span><span class="n">imag</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">1e-12</span><span class="p">:</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;安定焦点&quot;</span> <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;不安定焦点&quot;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;鞍点&quot;</span> <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">prod</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;結節点&quot;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: J=</span><span class="si">{</span><span class="n">Jn</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;          lambda=</span><span class="si">{</span><span class="n">ev</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">ev</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">  -&gt; </span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ヤコビ行列 J = [[0, 1], [-cos(theta), -b]]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>(0, 0)  : J=[[0.0, 1.0], [-1.0, -0.3]]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>          lambda=-0.1500+0.9887j, -0.1500-0.9887j  -&gt; 安定焦点
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>(pi, 0) : J=[[0.0, 1.0], [1.0, -0.3]]
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>          lambda=+0.8612, -1.1612  -&gt; 鞍点
+</code></pre></div>
+<p>ヤコビ行列は <span class="arithmatex">\(J=\begin{pmatrix}0&amp;1\\-\cos\theta&amp;-b\end{pmatrix}\)</span> で、平衡点によって <span class="arithmatex">\(\cos\theta\)</span> の符号が変わる。</p>
+<ul>
+<li><strong><span class="arithmatex">\((0,0)\)</span>（垂れ下がり）</strong>：<span class="arithmatex">\(\det J=1&gt;0\)</span>、<span class="arithmatex">\(\mathrm{tr}\,J=-0.3&lt;0\)</span>、判別式 <span class="arithmatex">\(0.09-4&lt;0\)</span> → <strong>安定焦点</strong>。固有値の実部 <span class="arithmatex">\(-0.15=-b/2\)</span> が減衰の速さ、虚部 <span class="arithmatex">\(0.9887=\sqrt{1-b^2/4}\)</span> が振動の角周波数である。</li>
+<li><strong><span class="arithmatex">\((\pi,0)\)</span>（逆立ち）</strong>：<span class="arithmatex">\(\det J=-1&lt;0\)</span> → 無条件に <strong>鞍点</strong>。<span class="arithmatex">\(\lambda=+0.8612\)</span> の方向に置かれたずれは指数的に増大する ── 逆立ちが不安定であることの数学的な理由である。</li>
+</ul>
+<p><strong>摩擦を強めても <span class="arithmatex">\((\pi,0)\)</span> が安定になることはない</strong>。<span class="arithmatex">\(\det J=-\cos\pi=-1\)</span> は <span class="arithmatex">\(b\)</span> に依らず負だからである。安定化するには制御入力（トルク）を加えて <span class="arithmatex">\(J\)</span> そのものを変えるしかない ── 倒立振子の制御問題である。</p>
+<h2 id="_4">線形化はどこまで当たるか</h2>
+<p>線形化は <span class="arithmatex">\(O(\lVert\delta\mathbf x\rVert^2)\)</span> を捨てた近似なので、平衡点から離れるほど当たらなくなる。どのくらいで崩れるかを数値で見る。線形化した振り子 <span class="arithmatex">\(\ddot\theta+b\dot\theta+\theta=0\)</span>（<span class="arithmatex">\(\sin\theta\approx\theta\)</span>）の解は、初速 <span class="arithmatex">\(0\)</span> ・初期角 <span class="arithmatex">\(\theta_0\)</span> に対して</p>
+<div class="arithmatex">\[
+\theta_{\text{lin}}(t)=\theta_0\,e^{-bt/2}
+\left(\cos\omega_dt+\frac{b}{2\omega_d}\sin\omega_dt\right),
+\qquad \omega_d=\sqrt{1-\frac{b^2}{4}}
+\]</div>
+<p>である。これを非線形方程式の数値解と突き合わせる。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_ivp</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">pendulum</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">wd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>                            <span class="c1"># 減衰角周波数</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">tt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">250001</span><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;線形化の予測: 減衰率 -b/2=</span><span class="si">{</span><span class="o">-</span><span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  減衰角周波数 </span><span class="si">{</span><span class="n">wd</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  &quot;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>      <span class="sa">f</span><span class="s2">&quot;周期 </span><span class="si">{</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">wd</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">for</span> <span class="n">th0</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">):</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">s</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">pendulum</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">[</span><span class="n">th0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">t_eval</span><span class="o">=</span><span class="n">tt</span><span class="p">,</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                  <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">)</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">lin</span> <span class="o">=</span> <span class="n">th0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">tt</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">wd</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">wd</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">wd</span><span class="o">*</span><span class="n">tt</span><span class="p">))</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">t_nl</span> <span class="o">=</span> <span class="n">tt</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">tt</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">])]</span>           <span class="c1"># 最初の谷の時刻</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="n">t_li</span> <span class="o">=</span> <span class="n">tt</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">lin</span><span class="p">[</span><span class="n">tt</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">])]</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="n">err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">lin</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;theta0=</span><span class="si">{</span><span class="n">th0</span><span class="si">:</span><span class="s2">4.2f</span><span class="si">}</span><span class="s2">: 最大差=</span><span class="si">{</span><span class="n">err</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">（振幅比 </span><span class="si">{</span><span class="n">err</span><span class="o">/</span><span class="n">th0</span><span class="si">:</span><span class="s2">6.2%</span><span class="si">}</span><span class="s2">）  &quot;</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>          <span class="sa">f</span><span class="s2">&quot;谷 t=</span><span class="si">{</span><span class="n">t_nl</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">（線形 </span><span class="si">{</span><span class="n">t_li</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">、</span><span class="si">{</span><span class="n">t_nl</span><span class="o">/</span><span class="n">t_li</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">+.2%</span><span class="si">}</span><span class="s2">）&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>線形化の予測: 減衰率 -b/2=-0.1500  減衰角周波数 0.9887  周期 6.3551
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>theta0=0.05: 最大差=0.0000（振幅比  0.02%）  谷 t=3.178（線形 3.178、+0.01%）
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>theta0=0.20: 最大差=0.0007（振幅比  0.37%）  谷 t=3.183（線形 3.178、+0.19%）
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>theta0=1.00: 最大差=0.0922（振幅比  9.22%）  谷 t=3.331（線形 3.178、+4.82%）
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>theta0=2.50: 最大差=1.8381（振幅比 73.52%）  谷 t=4.492（線形 3.178、+41.36%）
+</code></pre></div>
+<p><span class="arithmatex">\(\theta_0=0.05\)</span>（約 <span class="arithmatex">\(3^\circ\)</span>）では誤差 <span class="arithmatex">\(0.02\)</span>% で、線形化解と非線形解は事実上区別できない。<span class="arithmatex">\(\theta_0=0.2\)</span>（約 <span class="arithmatex">\(11^\circ\)</span>）でも <span class="arithmatex">\(0.37\)</span>%。ところが <span class="arithmatex">\(\theta_0=1.0\)</span>（約 <span class="arithmatex">\(57^\circ\)</span>）で <span class="arithmatex">\(9\)</span>%、<span class="arithmatex">\(\theta_0=2.5\)</span>（約 <span class="arithmatex">\(143^\circ\)</span>）では <span class="arithmatex">\(73\)</span>% にもなり、最初の谷の時刻も <span class="arithmatex">\(41\)</span>% 遅れる。<strong>振幅が大きいほど周期が伸びる</strong> のは振り子のよく知られた性質で、<span class="arithmatex">\(0&lt;|\theta|&lt;\pi\)</span> で <span class="arithmatex">\(|\sin\theta|&lt;|\theta|\)</span> ゆえに復元力が線形近似より弱くなるためである。この効果は非線形項が担っているので、線形化では原理的に再現できない。</p>
+<figure>
+  <img alt="減衰振り子の相図と線形化の当たり具合" src="../img/pendulum_phase.png" width="900" />
+<br />
+<figcaption>左：減衰振り子 $\ddot\theta+0.3\dot\theta+\sin\theta=0$ の相図。$(0,0)$ と $(\pm2\pi,0)$ は安定焦点（青の軌道が巻き込む）、$(\pm\pi,0)$ は鞍点（赤い四角）。鞍点へ **入っていく** 緑の曲線が安定多様体（この線上の状態だけが逆立ち点へ収束する。時間を逆向きに積分して描いている）、鞍点から **出ていく** 赤い曲線が不安定多様体で、そこから離れた状態はどちらかの安定焦点へ落ちる。右：初期角 $\theta_0=0.2$（青）と $2.5$（橙）に対する非線形数値解（実線）と線形化解（破線）。小振幅では両者が重なるが、大振幅では周期が伸びて位相が大きくずれていく。</figcaption>
+</figure>
+<p>相図の左半分は、非線形系の大域的な構造を見せている。鞍点から伸びる <strong>安定多様体（stable manifold）</strong> は「そこに乗れば逆立ち点に到達できる」ぎりぎりのエネルギーをもつ軌道であり、相平面を「左の焦点へ落ちる領域」と「右の焦点へ落ちる領域」に分ける ── このような境界を <strong>分離線（separatrix）</strong> という。どの平衡点に落ち着くか（<strong>吸引域</strong>）は、鞍点という不安定な点の性質が決めている。</p>
+<div class="admonition tip">
+<p class="admonition-title">線形化で分かること・分からないこと</p>
+<p>線形化は平衡点の <strong>局所的な</strong> 性質しか教えない。「<span class="arithmatex">\((0,0)\)</span> が安定焦点である」ことは分かるが、「どこまで離れた初期値なら <span class="arithmatex">\((0,0)\)</span> に戻るのか」（吸引域の広さ）は分からない。上の相図でいえば、分離線の位置は線形化からは出てこない。大域的な問いに答えるには数値積分や、リアプノフ関数のような別の道具が要る。</p>
+</div>
+<h2 id="hartmangrobman">Hartman–Grobman の定理と、その適用限界</h2>
+<p>線形化がなぜ正当化されるのかを述べるのが次の定理である。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Hartman–Grobman の定理</p>
+<p><span class="arithmatex">\(\mathbf f\)</span> が <span class="arithmatex">\(\mathbf x^{*}\)</span> の近傍で <span class="arithmatex">\(C^1\)</span> 級（解の存在と一意性が保証される）であり、平衡点 <span class="arithmatex">\(\mathbf x^{*}\)</span> でヤコビ行列 <span class="arithmatex">\(J(\mathbf x^{*})\)</span> の固有値がすべて <span class="arithmatex">\(\mathrm{Re}\,\lambda\neq0\)</span> を満たすとする（このような平衡点を <strong>双曲型（hyperbolic）</strong> という）。このとき <span class="arithmatex">\(\mathbf x^{*}\)</span> のある近傍で、非線形系 <span class="arithmatex">\(\dot{\mathbf x}=\mathbf f(\mathbf x)\)</span> の軌道と線形化系 <span class="arithmatex">\(\frac{d}{dt}\delta\mathbf x=J\delta\mathbf x\)</span> の軌道は、連続な 1 対 1 写像（同相写像）で互いに移り合う。</p>
+</div>
+<p>つまり <strong>双曲型でありさえすれば、平衡点の近くの相図は線形化のそれと定性的に同じ</strong> である。安定焦点は安定焦点、鞍点は鞍点であり、非線形項が結論を覆すことはない。振り子の <span class="arithmatex">\((0,0)\)</span>（<span class="arithmatex">\(\mathrm{Re}\,\lambda=-0.15\)</span>）も <span class="arithmatex">\((\pi,0)\)</span>（<span class="arithmatex">\(\lambda=+0.86,-1.16\)</span>）も双曲型なので、前節の判定は保証つきである。</p>
+<p>裏を返せば、<strong><span class="arithmatex">\(\mathrm{Re}\,\lambda=0\)</span> の固有値が一つでもあると定理は何も言わない</strong>。前ページで「渦心は面積ゼロの境界の上にしかない」と述べた話が、ここで効いてくる。線形化が渦心（<span class="arithmatex">\(\lambda=\pm j\omega\)</span>）を出したとき、非線形項がわずかでもあれば結末は内向きにも外向きにも転びうるのである。</p>
+<p>具体例で確かめる。まず <strong>捕食者–被食者系（ロトカ–ヴォルテラ系）</strong></p>
+<div class="arithmatex">\[
+\dot x=x\left(1-\tfrac12 y\right),\qquad
+\dot y=y\left(\tfrac12 x-1\right)
+\]</div>
+<p>の平衡点 <span class="arithmatex">\((2,2)\)</span> では <span class="arithmatex">\(J=\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}\)</span>、<span class="arithmatex">\(\lambda=\pm j\)</span> の渦心である。次に、線形部分がまったく同じで 3 次の項だけが違う系</p>
+<div class="arithmatex">\[
+\dot x=-y+a\,x(x^2+y^2),\qquad
+\dot y=\ \ x+a\,y(x^2+y^2)
+\]</div>
+<p>を考える。原点でのヤコビ行列は <span class="arithmatex">\(a\)</span> に依らず <span class="arithmatex">\(\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}\)</span> で、やはり <span class="arithmatex">\(\lambda=\pm j\)</span> である。ところが極座標 <span class="arithmatex">\(x=r\cos\theta,\ y=r\sin\theta\)</span> に移すと</p>
+<div class="arithmatex">\[
+\dot r=a\,r^3,\qquad \dot\theta=1
+\qquad\Longrightarrow\qquad
+r(t)=\frac{1}{\sqrt{r_0^{-2}-2at}}
+\]</div>
+<p>となり、<strong><span class="arithmatex">\(a&lt;0\)</span> なら <span class="arithmatex">\(r\to0\)</span>（安定焦点）、<span class="arithmatex">\(a&gt;0\)</span> なら有限時間で発散（不安定焦点）</strong> である。3 つとも線形化は同一なのに、結末は 3 通りに分かれる。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">lotka</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">cubic</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">r2</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="k">return</span> <span class="p">[</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">r2</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">r2</span><span class="p">]</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">Jlv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>       <span class="c1"># (2,2) でのヤコビ行列</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">ev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">Jlv</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;捕食者–被食者系 (2,2) での J=</span><span class="si">{</span><span class="n">Jlv</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  lambda=</span><span class="si">{</span><span class="n">ev</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">ev</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">s</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">lotka</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>              <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">,</span> <span class="n">dense_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="n">tt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200001</span><span class="p">)</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="n">y</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">sol</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="n">H</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>       <span class="c1"># 保存量</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">tt</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">,</span> <span class="n">tt</span> <span class="o">&gt;</span> <span class="mi">150</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;保存量 H の変動 = </span><span class="si">{</span><span class="n">H</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">H</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  x の振幅: t&lt;50 で </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">first</span><span class="p">])</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">、&quot;</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>      <span class="sa">f</span><span class="s2">&quot;t&gt;150 で </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">last</span><span class="p">])</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> ── 減衰しない&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">+</span><span class="mf">0.1</span><span class="p">):</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>    <span class="n">s</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">cubic</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">,),</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">)</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>    <span class="n">r1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="o">.</span><span class="n">y</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>    <span class="n">exact</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">0.5</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="mi">15</span><span class="p">)</span>                    <span class="c1"># 極座標での解析解</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;3 次項 a=</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2">: 半径 0.5000 -&gt; </span><span class="si">{</span><span class="n">r1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>          <span class="sa">f</span><span class="s2">&quot;（解析解 </span><span class="si">{</span><span class="n">exact</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">、誤差 </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">r1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">exact</span><span class="p">)</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">）&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>捕食者–被食者系 (2,2) での J=[[0.0, -1.0], [1.0, 0.0]]
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  lambda=+0.0+1.0j, +0.0-1.0j
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>保存量 H の変動 = 1.69e-11
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  x の振幅: t&lt;50 で 1.7484、t&gt;150 で 1.7484 ── 減衰しない
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>3 次項 a=-0.1: 半径 0.5000 -&gt; 0.3780（解析解 0.3780、誤差 5.35e-13）
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>3 次項 a=+0.1: 半径 0.5000 -&gt; 1.0000（解析解 1.0000、誤差 3.97e-12）
+</code></pre></div>
+<p>捕食者–被食者系では保存量 <span class="arithmatex">\(H=\tfrac12x-\ln x+\tfrac12y-\ln y\)</span> が <span class="arithmatex">\(10^{-11}\)</span>（数値積分の誤差の範囲）で一定に保たれ、<span class="arithmatex">\(t&lt;50\)</span> と <span class="arithmatex">\(t&gt;150\)</span> で振幅がともに <span class="arithmatex">\(1.7484\)</span> ── 200 単位時間たっても <strong>まったく減衰しない</strong>。閉軌道（真の渦心）である。一方、3 次項を入れた系は同じ線形化にもかかわらず <span class="arithmatex">\(a=-0.1\)</span> で半径が <span class="arithmatex">\(0.5\to0.378\)</span> と縮み、<span class="arithmatex">\(a=+0.1\)</span> で <span class="arithmatex">\(0.5\to1.0\)</span> と広がる。いずれも極座標の解析解と <span class="arithmatex">\(10^{-12}\)</span> 精度で一致する。</p>
+<figure>
+  <img alt="Hartman–Grobman の定理の限界" src="../img/hartman_grobman.png" width="900" />
+<br />
+<figcaption>3 つとも平衡点での線形化は $\lambda=\pm j$ の渦心で同一だが、結末は違う。3 枚とも横軸・縦軸は平衡点からのずれで、左は平衡点 $(2,2)$ を原点に移した偏差座標 $(x-2,\,y-2)$、中央・右はもともと平衡点が原点なのでそのままである。左：捕食者–被食者系は 3 つの初期値のいずれからも閉軌道を描き続ける（30 単位時間、真の渦心）。中央：3 次項 $a=-0.1$ を加えると内側へ巻き込む安定焦点になる。右：$a=+0.1$ では外へ広がる不安定焦点になる。中央・右の中抜きの丸が出発点、矢印が 35 単位時間後（約 5.6 周）の到達点である。$\mathrm{Re}\,\lambda=0$ のとき、線形化は結末について何も語らない。</figcaption>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title"><span class="arithmatex">\(\mathrm{Re}\,\lambda=0\)</span> が出たら止まる</p>
+<p>数値計算では固有値の実部がちょうど <span class="arithmatex">\(0\)</span> になることは稀で、<span class="arithmatex">\(10^{-8}\)</span> 程度の値が出る。これを機械的に「実部が負だから安定」と読んではいけない。<span class="arithmatex">\(\mathrm{Re}\,\lambda\)</span> が <span class="arithmatex">\(0\)</span> からどれだけ離れているかは、<strong>数値誤差とモデルパラメータの不確かさの幅</strong> と比べて判断する必要がある。真の実部が <span class="arithmatex">\(-10^{-8}\)</span> だと確信できるならその平衡点は双曲型で、線形化による判定はそのまま正しい。しかし誤差の幅が <span class="arithmatex">\(10^{-8}\)</span> より大きいなら符号すら決まっておらず、<strong>線形化では判定できない</strong> と結論するのが正しい。実際にどちらへ転ぶかは高次の項（中心多様体の理論や標準形の理論が扱う）か、数値積分で確かめるしかない。</p>
+<p>ちなみに <span class="arithmatex">\(\mathrm{Re}\,\lambda=0\)</span> が起こるのは偶然ではない。パラメータを連続的に動かすと固有値も動き、<strong>安定から不安定へ移る瞬間に必ず虚軸を横切る</strong>。この瞬間に系の定性的な振る舞いが変わることを <strong>分岐（bifurcation）</strong> といい、リミットサイクルの発生（ホップ分岐）などがここで起こる。境界は「めったに起きない例外」ではなく、<strong>現象が切り替わる最も面白い場所</strong> である（演習3 で扱う）。</p>
+</div>
+<h2 id="_5">まとめ</h2>
+<ul>
+<li>非線形系 <span class="arithmatex">\(\dot{\mathbf x}=\mathbf f(\mathbf x)\)</span> の平衡点は <span class="arithmatex">\(\mathbf f(\mathbf x^{*})=\mathbf 0\)</span> の解で、線形系と違って <strong>複数（振り子では無限個）</strong> ありうる。</li>
+<li>平衡点のまわりで <strong>ヤコビ行列</strong> <span class="arithmatex">\(J=\partial\mathbf f/\partial\mathbf x\)</span> による線形化 <span class="arithmatex">\(\frac{d}{dt}\delta\mathbf x\approx J(\mathbf x^{*})\delta\mathbf x\)</span> を作れば、前ページの固有値による分類がそのまま使える。減衰振り子では <span class="arithmatex">\((0,0)\)</span> が安定焦点（<span class="arithmatex">\(\lambda=-0.15\pm0.9887j\)</span>）、<span class="arithmatex">\((\pi,0)\)</span> が鞍点（<span class="arithmatex">\(\lambda=+0.8612,\,-1.1612\)</span>）と判定される。</li>
+<li>線形化は <strong>局所的な</strong> 近似である。振り子では <span class="arithmatex">\(\theta_0=0.2\)</span> で誤差 <span class="arithmatex">\(0.37\)</span>%、<span class="arithmatex">\(\theta_0=2.5\)</span> では <span class="arithmatex">\(73.5\)</span>% と崩れ、周期も <span class="arithmatex">\(41\)</span>% ずれる。吸引域の広さや分離線の位置は線形化からは分からない。</li>
+<li><strong>Hartman–Grobman の定理</strong>：固有値がすべて <span class="arithmatex">\(\mathrm{Re}\,\lambda\neq0\)</span>（双曲型）なら、平衡点近傍の相図は線形化のそれと定性的に一致する。</li>
+<li><strong><span class="arithmatex">\(\mathrm{Re}\,\lambda=0\)</span> では定理が使えない</strong>。線形化が同じ <span class="arithmatex">\(\lambda=\pm j\)</span> でも、捕食者–被食者系は閉軌道、<span class="arithmatex">\(a=\mp0.1\)</span> の 3 次項を加えた系は安定焦点／不安定焦点と、結末は分かれる。この境界こそが分岐の起こる場所である。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">本講義との接続</p>
+<p>第8回の伝達関数の極、本回の状態行列の固有値、そして非線形系のヤコビ行列の固有値 ── いずれも「システムの時間発展を、行列の固有値という代数的な量に還元する」同じ発想である。第13回の <strong>特異値分解</strong> は行列を別の観点（データの説明力）から分解する道具であり、第14回の <strong>動的モード分解</strong> はデータから直接この「システム行列」とその固有値を推定する手法で、本回の固有値解析をデータ駆動の形で再訪することになる。演習で扱うファン・デル・ポール振動子も、<span class="arithmatex">\(\mu=0\)</span> でちょうど固有値が虚軸を横切って原点の安定性が入れ替わる例である。ただしこの系のリミットサイクルは <span class="arithmatex">\(\mu\to0\)</span> でも振幅が <span class="arithmatex">\(2\)</span> のまま縮まず（<span class="arithmatex">\(\mu=\pm0.01\)</span> でも振幅は <span class="arithmatex">\(2.0000\)</span>）、振幅が <span class="arithmatex">\(\sqrt{|\mu|}\)</span> で立ち上がる教科書的なホップ分岐とは違う <strong>退化した</strong> 場合になっている。<span class="arithmatex">\(\mathrm{Re}\,\lambda=0\)</span> の境界では、線形化が結末を決めないだけでなく、分岐の型そのものも典型どおりとは限らない。</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../javascripts/encrypt-solutions.js"></script>
+      
+    
+  </body>
+</html>

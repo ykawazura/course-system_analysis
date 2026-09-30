@@ -1,0 +1,57 @@
+/* パスワード付き解答 callout のスタイル */
+
+.encrypted-solution .es-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+
+.encrypted-solution .es-input {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 0.85rem;
+  min-width: 12rem;
+}
+
+.encrypted-solution .es-btn {
+  padding: 0.3rem 0.9rem;
+  border: none;
+  border-radius: 0.2rem;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color, #fff);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.encrypted-solution .es-btn:hover {
+  opacity: 0.85;
+}
+
+.encrypted-solution .es-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.encrypted-solution .es-msg {
+  margin: 0.2rem 0;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.encrypted-solution .es-msg.es-error {
+  color: #c62828;
+}
+
+.encrypted-solution .es-content:empty {
+  display: none;
+}
+
+/* 解錠後は本文と末尾の余白を整える */
+.encrypted-solution.es-unlocked .es-content > :last-child {
+  margin-bottom: 0;
+}

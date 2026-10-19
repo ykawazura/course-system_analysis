@@ -2947,6 +2947,11 @@
 \]</div>
 <h2 id="fft">なぜ離散化と FFT が要るのか</h2>
 <p>フーリエ変換は連続な積分で定義されるが、計算機が扱えるのは <strong>有限個の標本（サンプル）</strong> だけである。そこで連続信号を間隔 <span class="arithmatex">\(\Delta t\)</span> で標本化し、積分を有限和に置き換えたものが <strong>離散フーリエ変換（DFT）</strong> であり、それを高速に計算するアルゴリズムが <strong>FFT（高速フーリエ変換）</strong> である。FFT は計算量を <span class="arithmatex">\(O(N^2)\)</span> から <span class="arithmatex">\(O(N\log N)\)</span> へ劇的に下げ、現代の信号処理・データ解析を支えている。</p>
+<figure>
+  <img alt="定義どおりの DFT と FFT の演算回数" src="img/fft_complexity.png" width="820" />
+<br />
+<figcaption>定義どおりの DFT（赤、$N^2$）と FFT（青、$N\log_2 N$）の演算回数の目安（定数倍は無視した）。左の線形の目盛りでは、$N=1000$ でも約 100 倍の差があり、FFT の線は底に張り付いて見える。右の両対数の目盛りでは、$N=10^6$ で $10^{12}$ と約 $2\times10^7$ になり、約 5 万倍の差になる。実際の速度比は、メモリアクセスなどの影響でこれと一致するとは限らない。</figcaption>
+</figure>
 <p>DFT <span class="arithmatex">\(X_k=\sum_n x_n e^{-i2\pi kn/N}\)</span> は連続フーリエ変換 <strong>そのもの</strong> ではなく、台形則と同じ発想の近似との間に <span class="arithmatex">\(\Delta t\)</span> の違いがある。すなわち <span class="arithmatex">\(F(\omega_k)\approx \Delta t\, X_k\)</span> であり（<span class="arithmatex">\(\omega_k=2\pi k/(N\Delta t)\)</span>）、単位も <span class="arithmatex">\(X_k\)</span> が信号と同じ単位なのに対し <span class="arithmatex">\(F\)</span> は「信号の単位 × 秒」になる。スペクトルの <strong>絶対値</strong> を物理量として比べるときは、この <span class="arithmatex">\(\Delta t\)</span> を忘れないこと。</p>
 <p>離散化には固有の注意点（<strong>ナイキスト周波数・エイリアシング・周波数分解能</strong>）があり、これを知らないとスペクトルを誤読する。本回ではこの落とし穴も実際に Python で再現して確かめる。</p>
 <div class="admonition info">

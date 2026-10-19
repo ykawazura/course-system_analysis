@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2736,7 +2708,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        標本化間隔とエイリアシング
+        サンプリング間隔とエイリアシング
       
     </span>
   </a>
@@ -2869,7 +2841,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        標本化間隔とエイリアシング
+        サンプリング間隔とエイリアシング
       
     </span>
   </a>
@@ -2927,8 +2899,8 @@
 
 
 <h1 id="_1">時系列・流体データへの応用</h1>
-<p>これまでは、答えの分かっているきれいなデータで DMD が正しく動くことを確かめてきた。実際のデータには雑音が乗り、標本化間隔は誰かが決めた値で固定され、そもそも系は線形ではない。このページでは <strong>ランク <span class="arithmatex">\(r\)</span> をどう選ぶか</strong>、<strong><span class="arithmatex">\(\Delta t\)</span> が粗いと何が壊れるか</strong>、<strong>学習区間の外へどこまで外挿できるか</strong> を数値で測り、DMD を使うときに何を疑うべきかを整理する。</p>
-<p>題材は前ページと同じ、減衰する波（<span class="arithmatex">\(\mathrm{Re}\,\omega=-0.10\)</span>、波数 <span class="arithmatex">\(1\)</span>、角周波数 <span class="arithmatex">\(2\)</span>）と成長する波（<span class="arithmatex">\(\mathrm{Re}\,\omega=+0.05\)</span>、波数 <span class="arithmatex">\(3\)</span>、角周波数 <span class="arithmatex">\(5\)</span>）を重ねた <span class="arithmatex">\(128\times80\)</span> の場である。真の <span class="arithmatex">\(\omega\)</span> が分かっているので、雑音や粗い標本化がどれだけ答えをずらすかを誤差として測れる。</p>
+<p>これまでは、答えの分かっているきれいなデータで DMD が正しく動くことを確かめてきた。実際のデータには雑音が乗り、サンプリング間隔は誰かが決めた値で固定され、そもそも系は線形ではない。このページでは <strong>ランク <span class="arithmatex">\(r\)</span> をどう選ぶか</strong>、<strong><span class="arithmatex">\(\Delta t\)</span> が粗いと何が壊れるか</strong>、<strong>学習区間の外へどこまで外挿できるか</strong> を数値で測り、DMD を使うときに何を疑うべきかを整理する。</p>
+<p>題材は前ページと同じ、減衰する波（<span class="arithmatex">\(\mathrm{Re}\,\omega=-0.10\)</span>、波数 <span class="arithmatex">\(1\)</span>、角周波数 <span class="arithmatex">\(2\)</span>）と成長する波（<span class="arithmatex">\(\mathrm{Re}\,\omega=+0.05\)</span>、波数 <span class="arithmatex">\(3\)</span>、角周波数 <span class="arithmatex">\(5\)</span>）を重ねた <span class="arithmatex">\(128\times80\)</span> の場である。真の <span class="arithmatex">\(\omega\)</span> が分かっているので、雑音や粗いサンプリングがどれだけ答えをずらすかを誤差として測れる。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -3014,12 +2986,12 @@
 <p class="admonition-title">余分なモードは「偽の成長」を生みうる</p>
 <p>上の例ではたまたま起きなかったが、雑音を拾ったモードが <span class="arithmatex">\(\lvert\lambda\rvert&gt;1\)</span> の位置に落ちることは珍しくない。学習区間の再構成は悪くならないので気づきにくく、<strong>外挿してはじめてその偽の成長が指数的に暴れる</strong>。ランクを多めに取ったときは、<span class="arithmatex">\(\mathrm{Re}\,\omega\)</span> の大きいモードについて重み <span class="arithmatex">\(\lvert b_i\rvert\lVert\phi_i\rVert\)</span> を必ず確認し、無視できるほど小さければ切り捨てる。</p>
 </div>
-<h2 id="_3">標本化間隔とエイリアシング</h2>
+<h2 id="_3">サンプリング間隔とエイリアシング</h2>
 <p><span class="arithmatex">\(\omega=\log\lambda/\Delta t\)</span> の対数は多価関数である。<span class="arithmatex">\(\lambda\)</span> の偏角は <span class="arithmatex">\((-\pi,\pi]\)</span> の範囲でしか決まらないので、DMD が同定できる角周波数には</p>
 <div class="arithmatex">\[
 |\mathrm{Im}\,\omega|&lt;\frac{\pi}{\Delta t}
 \]</div>
-<p>という上限がある。これは第3回の <strong>標本化定理</strong> そのもので、右辺は角周波数で書いたナイキスト周波数である。これを超える振動は折り返す。折り返し先は、整数 <span class="arithmatex">\(q\)</span> を適当に選んだ</p>
+<p>という上限がある。これは第3回の <strong>サンプリング定理</strong> そのもので、右辺は角周波数で書いたナイキスト周波数である。これを超える振動は折り返す。折り返し先は、整数 <span class="arithmatex">\(q\)</span> を適当に選んだ</p>
 <div class="arithmatex">\[
 \omega_{\mathrm{alias}}=\omega-\frac{2\pi q}{\Delta t}
 \]</div>
@@ -3042,7 +3014,7 @@
 <p class="admonition-title">折り返した周波数は「もっともらしい」</p>
 <p>エイリアシングの怖いところは、結果が壊れて見えないことである。<span class="arithmatex">\(\lvert\lambda\rvert\)</span> は <span class="arithmatex">\(1\)</span> 近くのままで、モードの形も一応それらしく、<span class="arithmatex">\(\omega=1.894\)</span> という数字だけが静かに間違っている。</p>
 <p>しかも <strong>得られた <span class="arithmatex">\(\omega\)</span> を眺めるだけでは折り返しを検出できない</strong>。折り返し先はナイキストのすぐ内側とは限らないからである。上の <span class="arithmatex">\(\Delta t=1.2152\)</span> の例では <span class="arithmatex">\(0.171\)</span> ── ナイキスト <span class="arithmatex">\(2.585\)</span> から遠く離れた、いかにも「ゆっくりした本物のモード」に見える位置に落ちている。「ナイキストの近くに出ていないから大丈夫」という確認は、何も保証しない。</p>
-<p>防ぎ方は <span class="arithmatex">\(2\)</span> つしかない。<span class="arithmatex">\(1\)</span> つは <strong>測る前に</strong> 対象がどこまで速く振動しうるかを見積もり、<span class="arithmatex">\(\Delta t\)</span> をその周期の半分より細かく取ること（第3回で見た標本化定理の使い方そのものである）。もう <span class="arithmatex">\(1\)</span> つは、<strong>同じ現象を <span class="arithmatex">\(2\)</span> 通りの <span class="arithmatex">\(\Delta t\)</span> で測って <span class="arithmatex">\(\omega\)</span> を比べる</strong> こと。本物の <span class="arithmatex">\(\omega\)</span> は <span class="arithmatex">\(\Delta t\)</span> を変えても動かないが、折り返した偽の <span class="arithmatex">\(\omega\)</span> は <span class="arithmatex">\(2\pi/\Delta t\)</span> に引きずられて動く。上の表がまさにその実演になっている。</p>
+<p>防ぎ方は <span class="arithmatex">\(2\)</span> つしかない。<span class="arithmatex">\(1\)</span> つは <strong>測る前に</strong> 対象がどこまで速く振動しうるかを見積もり、<span class="arithmatex">\(\Delta t\)</span> をその周期の半分より細かく取ること（第3回で見たサンプリング定理の使い方そのものである）。もう <span class="arithmatex">\(1\)</span> つは、<strong>同じ現象を <span class="arithmatex">\(2\)</span> 通りの <span class="arithmatex">\(\Delta t\)</span> で測って <span class="arithmatex">\(\omega\)</span> を比べる</strong> こと。本物の <span class="arithmatex">\(\omega\)</span> は <span class="arithmatex">\(\Delta t\)</span> を変えても動かないが、折り返した偽の <span class="arithmatex">\(\omega\)</span> は <span class="arithmatex">\(2\pi/\Delta t\)</span> に引きずられて動く。上の表がまさにその実演になっている。</p>
 </div>
 <h2 id="_4">短期予測と外挿の限界</h2>
 <p>DMD の表現 <span class="arithmatex">\(x_k\simeq\Phi\,\mathrm{diag}(\lambda_i^k)\,b\)</span> は <span class="arithmatex">\(k\)</span> について解析的なので、<span class="arithmatex">\(k\)</span> に学習区間より大きい値を入れれば <strong>予測</strong> になる。ただしそれは「系が今後も同じ線形則に従う」という仮定を置くことでもある。仮定が正しい場合と正しくない場合を並べて測る。</p>
@@ -3106,7 +3078,7 @@ u(x,t)=\frac{\cos(x-2t)}{1+e^{-(t-7)}}
 <ul>
 <li>雑音下のランク選択は、特異値スペクトルの <strong>段差</strong> を探す。雑音床の目安は <span class="arithmatex">\(\sigma(\sqrt m+\sqrt n)\)</span> で、実測ともよく合う。</li>
 <li>ランク不足は致命的（<span class="arithmatex">\(r=2\)</span> で誤差 <span class="arithmatex">\(54\%\)</span>、しかも成長するモードだけが残って減衰側が消える）。過剰なランクは再構成の精度こそ落とさない（<span class="arithmatex">\(r=40\)</span> でも <span class="arithmatex">\(r=4\)</span> とほぼ同じ）が、<span class="arithmatex">\(\omega\)</span> の一覧に真値から <span class="arithmatex">\(20\)</span> も離れた偽のモードを並べる。迷ったら多めに取り、<span class="arithmatex">\(\lvert b_i\rvert\lVert\phi_i\rVert\)</span> の小さいモードを後から捨てる。</li>
-<li>同定できる角周波数には <span class="arithmatex">\(|\mathrm{Im}\,\omega|&lt;\pi/\Delta t\)</span> という上限がある（第3回の標本化定理）。超えた成分は <span class="arithmatex">\(2\pi/\Delta t\)</span> を引いた偽の周波数に化け、しかも結果は壊れて見えない。</li>
+<li>同定できる角周波数には <span class="arithmatex">\(|\mathrm{Im}\,\omega|&lt;\pi/\Delta t\)</span> という上限がある（第3回のサンプリング定理）。超えた成分は <span class="arithmatex">\(2\pi/\Delta t\)</span> を引いた偽の周波数に化け、しかも結果は壊れて見えない。</li>
 <li>仮定した形（空間形状 <span class="arithmatex">\(\times\)</span> 指数関数の和）がデータの真の形と合っていれば外挿は当たる（学習 <span class="arithmatex">\(1/3\)</span> で残り全部を機械精度で予測）。合っていなければ ── 振幅が飽和するなど ── 成長率を過大評価し、予測区間の誤差が <span class="arithmatex">\(1440\%\)</span> に達する。予測できる時間は経験則ではなく、データを分割した実測で決める。</li>
 <li>同じランクでの再構成精度で DMD が POD を上回ることはない（真のランクに達すれば並ぶ）。一方、周波数・成長率の解釈は DMD が上である。平行移動する構造、過渡と定常の混在は DMD の苦手分野である。</li>
 </ul>

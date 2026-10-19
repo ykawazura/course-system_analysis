@@ -14,7 +14,7 @@
         <link rel="prev" href="../fourier-transform/">
       
       
-        <link rel="next" href="../convolution/">
+        <link rel="next" href="../exercises/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>標本化とFFT - システム解析入門</title>
+        <title>サンプリングとFFT - システム解析入門</title>
       
     
     
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              標本化とFFT
+              サンプリングとFFT
             
           </span>
         </div>
@@ -836,7 +836,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
+    サンプリングとFFT
   
 
     
@@ -854,7 +854,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
+    サンプリングとFFT
   
 
     
@@ -883,7 +883,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        標本化と標本化定理
+        サンプリングとサンプリング定理
       
     </span>
   </a>
@@ -910,6 +910,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="離散フーリエ変換（DFT）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#x_k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複素フーリエ係数としての \(X_k\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -932,6 +949,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="numpy.fft の使い方">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#x_n-a_k-b_k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        順変換：\(x_n\) から \(a_k\), \(b_k\) を求める
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a_k-b_k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逆変換：\(a_k\), \(b_k\) から波形を作る
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -949,34 +994,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2869,7 +2886,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        標本化と標本化定理
+        サンプリングとサンプリング定理
       
     </span>
   </a>
@@ -2896,6 +2913,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="離散フーリエ変換（DFT）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#x_k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複素フーリエ係数としての \(X_k\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2917,6 +2951,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="numpy.fft の使い方">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#x_n-a_k-b_k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        順変換：\(x_n\) から \(a_k\), \(b_k\) を求める
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a_k-b_k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逆変換：\(a_k\), \(b_k\) から波形を作る
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2948,49 +3010,55 @@
 
 
 
-<h1 id="fft">標本化と FFT</h1>
-<p>フーリエ変換は連続な積分で定義されるが、計算機が扱えるのは <strong>有限個の標本</strong> だけである。本ページでは、連続信号を標本化するときの基本定理（<strong>ナイキスト・エイリアシング</strong>）、離散版の <strong>DFT</strong>、それを高速化する <strong>FFT</strong>、そして <code>numpy.fft</code> の使い方を扱う。</p>
-<h2 id="_1">標本化と標本化定理</h2>
-<p>連続信号 <span class="arithmatex">\(x(t)\)</span> を一定間隔 <span class="arithmatex">\(\Delta t\)</span> ごとに測ることを <strong>標本化（サンプリング）</strong> という。<span class="arithmatex">\(\Delta t\)</span> を <strong>標本化間隔</strong>、その逆数 <span class="arithmatex">\(f_s=1/\Delta t\)</span> を <strong>標本化周波数</strong> と呼ぶ。</p>
-<p>標本化で重要なのが <strong>標本化定理（サンプリング定理）</strong> である。</p>
+<h1 id="fft">サンプリングと FFT</h1>
+<p>フーリエ変換は連続な積分で定義されるが、計算機が扱えるのは <strong>有限個のサンプル</strong> だけである。本ページでは、連続信号をサンプリングするときの基本定理（<strong>ナイキスト・エイリアシング</strong>）、離散版の <strong>DFT</strong> と、<span class="arithmatex">\(X_k\)</span> と余弦・正弦の係数 <span class="arithmatex">\(a_k\)</span>, <span class="arithmatex">\(b_k\)</span> の関係、それを高速化する <strong>FFT</strong>、そして <code>numpy.fft</code> による変換と <code>irfft</code> による波形の合成を扱う。</p>
+<h2 id="_1">サンプリングとサンプリング定理</h2>
+<p>連続信号 <span class="arithmatex">\(x(t)\)</span> を一定間隔 <span class="arithmatex">\(\Delta t\)</span> ごとに測ることを <strong>サンプリング</strong> という。<span class="arithmatex">\(\Delta t\)</span> を <strong>サンプリング間隔</strong>、その逆数 <span class="arithmatex">\(f_s=1/\Delta t\)</span> を <strong>サンプリング周波数</strong> と呼ぶ。この <span class="arithmatex">\(\Delta t\)</span> は、<a href="../fourier-transform/">フーリエ変換</a> の不確定性関係の時間幅 <span class="arithmatex">\(\Delta t\)</span> とは別の量である。以下の <span class="arithmatex">\(\Delta t\)</span> は、すべてサンプリング間隔を表す。</p>
+<p>サンプリングで重要なのが <strong>サンプリング定理</strong> である。</p>
 <div class="admonition abstract">
-<p class="admonition-title">標本化定理（ナイキスト）</p>
-<p>信号が <span class="arithmatex">\(f_{\max}\)</span> より高い周波数成分をもたない（<strong>帯域制限されている</strong>）とする。標本化周波数が</p>
+<p class="admonition-title">サンプリング定理（ナイキスト）</p>
+<p>信号が <span class="arithmatex">\(f_{\max}\)</span> より高い周波数成分をもたない（<strong>帯域制限されている</strong>）とする。サンプリング周波数が</p>
 <div class="arithmatex">\[
 f_s &gt; 2 f_{\max}
 \]</div>
-<p>を満たせば、標本列から元の連続信号を <strong>完全に復元できる</strong>。境界となる <span class="arithmatex">\(f_s/2\)</span> を <strong>ナイキスト周波数</strong> と呼ぶ。</p>
+<p>を満たせば、サンプル列から元の連続信号を <strong>完全に復元できる</strong>。境界となる <span class="arithmatex">\(f_s/2\)</span> を <strong>ナイキスト周波数</strong> と呼ぶ。</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">「完全に復元」の意味</p>
-<p>この主張が言うのは、<span class="arithmatex">\(-\infty&lt;n&lt;\infty\)</span> の <strong>無限個の正確な標本</strong> <span class="arithmatex">\(x(n\Delta t)\)</span> と理想的な sinc 補間</p>
+<p>この主張が言うのは、<span class="arithmatex">\(-\infty&lt;n&lt;\infty\)</span> の <strong>無限個の正確なサンプル</strong> <span class="arithmatex">\(x(n\Delta t)\)</span> と理想的な sinc 補間</p>
 <div class="arithmatex">\[
 x(t)=\sum_{n=-\infty}^{\infty} x(n\Delta t)\,\mathrm{sinc}\!\left(\frac{t-n\Delta t}{\Delta t}\right)
 \]</div>
-<p>を使えば元の連続信号が復元できる、ということである。実際に手元にあるのは有限個・有限桁の標本なので、区間の端では誤差が残る。また現実の信号は厳密には帯域制限されていないので、標本化の前にアナログの低域通過フィルタ（<strong>アンチエイリアシングフィルタ</strong>）で <span class="arithmatex">\(f_s/2\)</span> 以上を落としておくのが実務の定石である。</p>
+<p>を使えば元の連続信号が復元できる、ということである。ここで <span class="arithmatex">\(\mathrm{sinc}\,x=\sin(\pi x)/(\pi x)\)</span> で、<span class="arithmatex">\(x=0\)</span> で <span class="arithmatex">\(1\)</span>、<span class="arithmatex">\(0\)</span> 以外の整数 <span class="arithmatex">\(x\)</span> で <span class="arithmatex">\(0\)</span> になる。そのため各サンプル点では、その点のサンプルの値だけが残る。これは、<a href="../fourier-transform/">フーリエ変換</a> の表の「sinc 型」の <span class="arithmatex">\(\sin x/x\)</span> で、<span class="arithmatex">\(x\)</span> を <span class="arithmatex">\(\pi x\)</span> に置き換えた形である。実際に手元にあるのは有限個・有限桁のサンプルなので、区間の端では誤差が残る。また現実の信号は厳密には帯域制限されていないので、サンプリングの前にアナログの低域通過フィルタ（<strong>アンチエイリアシングフィルタ</strong>）で <span class="arithmatex">\(f_s/2\)</span> 以上を落としておくのが実務の定石である。</p>
 </div>
 <p>つまり、興味のある最高周波数の <strong>2倍より速く</strong> 測れば情報は失われない。逆に、これを破ると次の現象が起きる。</p>
 <h2 id="_2">エイリアシング</h2>
-<p>ナイキスト周波数 <span class="arithmatex">\(f_s/2\)</span> を <strong>超える</strong> 周波数成分は、標本化すると低い周波数に <strong>化けて</strong> 現れる。これを <strong>エイリアシング（折り返し）</strong> と呼ぶ。見かけの周波数は</p>
+<p>ナイキスト周波数 <span class="arithmatex">\(f_s/2\)</span> を <strong>超える</strong> 周波数成分は、サンプリングすると低い周波数に <strong>化けて</strong> 現れる。これを <strong>エイリアシング（折り返し）</strong> と呼ぶ。見かけの周波数は</p>
 <div class="arithmatex">\[
 f_{\text{alias}}=\bigl\lvert\, f-\mathrm{round}(f/f_s)\cdot f_s \,\bigr\rvert
 \]</div>
-<p>で与えられる。たとえば <span class="arithmatex">\(f=18\)</span> Hz の信号を <span class="arithmatex">\(f_s=20\)</span> Hz（ナイキスト <span class="arithmatex">\(10\)</span> Hz）で標本化すると、<span class="arithmatex">\(\lvert 18-20\rvert=2\)</span> Hz の信号と標本点が <strong>完全に一致</strong> し、<span class="arithmatex">\(2\)</span> Hz の波にしか見えなくなる。</p>
+<p>で与えられる。<span class="arithmatex">\(\mathrm{round}\)</span> は最も近い整数への丸めである。たとえば <span class="arithmatex">\(f=18\)</span> Hz の信号を <span class="arithmatex">\(f_s=20\)</span> Hz（ナイキスト <span class="arithmatex">\(10\)</span> Hz）でサンプリングすると、<span class="arithmatex">\(\mathrm{round}(18/20)=\mathrm{round}(0.9)=1\)</span> より</p>
+<div class="arithmatex">\[
+f_{\text{alias}}=\lvert 18-20\rvert=2\ \text{Hz}
+\]</div>
+<p>となる。サンプル点は <span class="arithmatex">\(2\)</span> Hz の信号と <strong>完全に一致</strong> し、<span class="arithmatex">\(2\)</span> Hz の波にしか見えなくなる。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">18</span> <span class="o">*</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span>   <span class="c1"># 真の 18Hz を fs=20Hz で標本化</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">18</span> <span class="o">*</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span>   <span class="c1"># 真の 18Hz を fs=20Hz でサンプリング</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">xa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span>  <span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span>   <span class="c1"># 見かけの 2Hz</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;max|標本(18Hz) - 標本(2Hz)| = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xs</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">xa</span><span class="p">))</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># -&gt; max|...| = 1.88e-14   （標本点では区別できない）</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;max|サンプル(18Hz) - サンプル(2Hz)| = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xs</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">xa</span><span class="p">))</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>max|サンプル(18Hz) - サンプル(2Hz)| = 1.88e-14
+</code></pre></div>
+<p>差は丸め誤差だけで、サンプル点では <span class="arithmatex">\(18\)</span> Hz と <span class="arithmatex">\(2\)</span> Hz を区別できない。</p>
 <p><figure markdown="span">
   <img alt="エイリアシング" src="../img/aliasing.png" width="820" />
 <br />
-<figcaption>灰色＝真の 18Hz の波、赤丸＝$f_s=20$Hz の標本点、青破線＝見かけの 2Hz の波。標本点だけ見ると高速な 18Hz と低速な 2Hz を区別できない。これがエイリアシングであり、防ぐには測定前に高周波を除く（アンチエイリアシングフィルタ）か、$f_s$ を上げる。</figcaption></p>
+<figcaption>灰色＝真の 18Hz の波、赤丸＝$f_s=20$Hz のサンプル点、青破線＝見かけの 2Hz の波。サンプル点だけ見ると高速な 18Hz と低速な 2Hz を区別できない。これがエイリアシングであり、防ぐには測定前に高周波を除く（アンチエイリアシングフィルタ）か、$f_s$ を上げる。</figcaption></p>
 </figure>
 <h2 id="dft">離散フーリエ変換（DFT）</h2>
-<p><span class="arithmatex">\(N\)</span> 個の標本 <span class="arithmatex">\(x_0,x_1,\dots,x_{N-1}\)</span>（間隔 <span class="arithmatex">\(\Delta t\)</span>）に対する <strong>離散フーリエ変換（DFT）</strong> と逆変換を次で定義する。</p>
+<p><span class="arithmatex">\(N\)</span> 個のサンプル <span class="arithmatex">\(x_0,x_1,\dots,x_{N-1}\)</span>（間隔 <span class="arithmatex">\(\Delta t\)</span>）に対する <strong>離散フーリエ変換（DFT）</strong> と逆変換を次で定義する。</p>
 <div class="arithmatex">\[
 X_k=\sum_{n=0}^{N-1} x_n\, e^{-i 2\pi k n/N}
 \qquad(k=0,1,\dots,N-1)
@@ -2998,6 +3066,13 @@ X_k=\sum_{n=0}^{N-1} x_n\, e^{-i 2\pi k n/N}
 <div class="arithmatex">\[
 x_n=\frac{1}{N}\sum_{k=0}^{N-1} X_k\, e^{i 2\pi k n/N}
 \]</div>
+<p>参考に、<a href="../fourier-transform/">フーリエ変換</a> の変換対を並べる。</p>
+<div class="arithmatex">\[
+F(\omega)=\int_{-\infty}^{\infty} f(t)\, e^{-i\omega t}\,dt,
+\qquad
+f(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty} F(\omega)\, e^{i\omega t}\,d\omega
+\]</div>
+<p>どちらも順変換の指数は <span class="arithmatex">\(-\)</span>、逆変換の指数は <span class="arithmatex">\(+\)</span> で、係数（<span class="arithmatex">\(1/N\)</span> と <span class="arithmatex">\(1/2\pi\)</span>）は逆変換の側にある。</p>
 <p>各 <span class="arithmatex">\(X_k\)</span> は周波数</p>
 <div class="arithmatex">\[
 f_k=\frac{k}{N\Delta t}=\frac{k\,f_s}{N}
@@ -3006,61 +3081,224 @@ f_k=\frac{k}{N\Delta t}=\frac{k\,f_s}{N}
 <div class="arithmatex">\[
 k=0,1,\dots,\left\lfloor \frac{N}{2} \right\rfloor
 \]</div>
-<p>である。<span class="arithmatex">\(N\)</span> が偶数なら最後の <span class="arithmatex">\(k=N/2\)</span> がちょうどナイキスト周波数 <span class="arithmatex">\(f_s/2\)</span> に対応するが、<span class="arithmatex">\(N\)</span> が奇数なら片側は <span class="arithmatex">\(k=0,\dots,(N-1)/2\)</span> までで <strong>ナイキスト成分は存在しない</strong>（<code>np.fft.rfftfreq</code> が返す長さは <span class="arithmatex">\(\lfloor N/2\rfloor+1\)</span> で、この違いを自動で処理してくれる）。ここから2つの実務的な量が読み取れる。</p>
-<ul>
-<li><strong>周波数分解能</strong>：<span class="arithmatex">\(\displaystyle \Delta f=\frac{f_s}{N}=\frac{1}{N\Delta t}=\frac{1}{T_{\text{obs}}}\)</span>。観測時間 <span class="arithmatex">\(T_{\text{obs}}\)</span> が長いほど細かく分解できる。</li>
-<li><strong>片側振幅</strong>：実信号では、振幅 <span class="arithmatex">\(A\)</span> の正弦波は <span class="arithmatex">\(\pm f\)</span> に半分ずつ分かれる。片側だけ見るときの振幅は <span class="arithmatex">\(\dfrac{2\lvert X_k\rvert}{N}\)</span>。ただし <strong>直流 <span class="arithmatex">\(k=0\)</span></strong> と、<span class="arithmatex">\(N\)</span> が偶数のときの <strong>ナイキスト <span class="arithmatex">\(k=N/2\)</span></strong> は対になる負の周波数をもたないので <span class="arithmatex">\(\dfrac{\lvert X_k\rvert}{N}\)</span> とする。</li>
-</ul>
-<h2 id="fft_1">FFT（高速フーリエ変換）</h2>
-<p>DFT を定義どおり計算すると、<span class="arithmatex">\(N\)</span> 個の <span class="arithmatex">\(X_k\)</span> それぞれに <span class="arithmatex">\(N\)</span> 回の積和が必要で <span class="arithmatex">\(O(N^2)\)</span> かかる。<strong>FFT（Fast Fourier Transform）</strong> は、<span class="arithmatex">\(N\)</span> が合成数のとき DFT を約数ごとに分割して計算量を下げるアルゴリズムである。</p>
-<p>最も基本的な <strong>Cooley–Tukey の radix-2</strong> 法は、<span class="arithmatex">\(N\)</span> が偶数のとき偶数番目と奇数番目の標本に分けることで、長さ <span class="arithmatex">\(N\)</span> の DFT を長さ <span class="arithmatex">\(N/2\)</span> の DFT 2つに帰着させる。</p>
+<p>である（<span class="arithmatex">\(\lfloor\cdot\rfloor\)</span> は切り捨て）。<code>np.fft.rfftfreq</code> は、この範囲の <span class="arithmatex">\(\lfloor N/2\rfloor+1\)</span> 個の周波数を返す。</p>
+<h3 id="x_k">複素フーリエ係数としての <span class="arithmatex">\(X_k\)</span></h3>
+<p>逆変換の式は、係数 <span class="arithmatex">\(X_k/N\)</span> をもつ <strong>有限項の複素フーリエ級数</strong> である。第2回の複素フーリエ級数 <span class="arithmatex">\(f(x)=\sum_n c_n e^{inx}\)</span> と見比べると、<span class="arithmatex">\(X_k/N\)</span> が複素フーリエ係数 <span class="arithmatex">\(c_k\)</span> に当たる。実際、周期 <span class="arithmatex">\(T=N\Delta t\)</span> の信号の係数</p>
 <div class="arithmatex">\[
-X_k=\underbrace{\sum_{m} x_{2m}\,e^{-i2\pi k m/(N/2)}}_{\text{偶数部 }E_k}
-\;+\;e^{-i2\pi k/N}\underbrace{\sum_{m} x_{2m+1}\,e^{-i2\pi k m/(N/2)}}_{\text{奇数部 }O_k}
+c_k=\frac{1}{T}\int_0^{T} x(t)\,e^{-i2\pi kt/T}\,dt
 \]</div>
-<p>この2分割を最後まで繰り返せるのは <span class="arithmatex">\(N=2^m\)</span> のときで、そのとき <span class="arithmatex">\(\log_2 N\)</span> 段で計算が終わる。<span class="arithmatex">\(N\)</span> が <span class="arithmatex">\(2\)</span> のべき乗でない合成数（例：<span class="arithmatex">\(N=12=4\times3\)</span>）でも、素因数ごとに同じ分割（mixed-radix）ができるので <span class="arithmatex">\(O(N\log N)\)</span> は保たれる。<span class="arithmatex">\(N\)</span> が大きな素数のときだけは別の手法（Bluestein 法など）が必要になる。<code>numpy.fft</code> はこれらを自動で使い分けるが、<span class="arithmatex">\(N\)</span> を <span class="arithmatex">\(2\)</span> のべき乗に取ると最も速い。</p>
-<p><span class="arithmatex">\(N=10^6\)</span> なら、演算回数は <span class="arithmatex">\(N^2=10^{12}\)</span> に対し <span class="arithmatex">\(N\log_2 N\approx 2\times10^7\)</span> で、<strong>主要演算回数の比は約5万倍</strong>になる。ただしメモリアクセスやキャッシュの効き方が違うため、実測の速度比はこれと一致するとは限らない（次ページで実測する）。それでもこの桁違いの高速性が、信号処理・数値解析・データ駆動科学を実用にしている。</p>
+<p>をサンプル点での台形則（<a href="../fourier-transform/">フーリエ変換のページ</a> で使ったもの）で近似すると、ちょうど <span class="arithmatex">\(X_k/N\)</span> になる。被積分関数が周期 <span class="arithmatex">\(T\)</span> をもつので、台形則の両端の項が 1 つにまとまるからである。</p>
+<div class="admonition note">
+<p class="admonition-title"><span class="arithmatex">\(X_k\)</span> は複素フーリエ係数である</p>
+<p><span class="arithmatex">\(X_k\)</span> はあくまで <strong>複素フーリエ係数（の <span class="arithmatex">\(N\)</span> 倍）</strong> であり、振幅そのものではない。<span class="arithmatex">\(X_k\)</span> は複素数で、余弦の成分と正弦の成分を 1 つの数にまとめてもっている。余弦・正弦の係数や振幅は、以下のように <span class="arithmatex">\(X_k\)</span> から計算して初めて得られる。</p>
+</div>
+<p><span class="arithmatex">\(x_n\)</span> が実数なら、DFT の定義で <span class="arithmatex">\(k\)</span> を <span class="arithmatex">\(N-k\)</span> に置き換え、<span class="arithmatex">\(e^{-i2\pi n}=1\)</span> を使うと</p>
+<div class="arithmatex">\[
+X_{N-k}=\sum_{n=0}^{N-1} x_n\,e^{-i2\pi(N-k)n/N}=\sum_{n=0}^{N-1} x_n\,e^{i2\pi kn/N}=\overline{X_k}
+\]</div>
+<p>が成り立つ。また <span class="arithmatex">\(e^{i2\pi(N-k)n/N}=e^{-i2\pi kn/N}\)</span> である。したがって逆変換の和のうち、<span class="arithmatex">\(k\)</span> 番目と <span class="arithmatex">\(N-k\)</span> 番目の項は互いに複素共役になる。<span class="arithmatex">\(\theta_k=2\pi kn/N\)</span> とおくと、2 項の和は</p>
+<div class="arithmatex">\[
+X_k e^{i\theta_k}+\overline{X_k e^{i\theta_k}}
+=2\operatorname{Re}\bigl(X_k e^{i\theta_k}\bigr)
+=2\bigl(\operatorname{Re}X_k\cos\theta_k-\operatorname{Im}X_k\sin\theta_k\bigr)
+\]</div>
+<p>となり、実数になる。組になるのは <span class="arithmatex">\(k=1,\dots,N/2-1\)</span> である。直流 <span class="arithmatex">\(k=0\)</span> と、<span class="arithmatex">\(N\)</span> が偶数のときのナイキスト <span class="arithmatex">\(k=N/2\)</span> は自分自身が相手なので組にならない（<span class="arithmatex">\(X_0\)</span> と <span class="arithmatex">\(X_{N/2}\)</span> は実数である）。よって <span class="arithmatex">\(N\)</span> が偶数なら</p>
+<div class="arithmatex">\[
+x_n=\frac{a_0}{2}+\sum_{k=1}^{N/2-1}\bigl(a_k\cos\theta_k+b_k\sin\theta_k\bigr)+\frac{a_{N/2}}{2}\cos\pi n
+\]</div>
+<div class="arithmatex">\[
+a_k=\frac{2}{N}\operatorname{Re}X_k,\qquad
+b_k=-\frac{2}{N}\operatorname{Im}X_k
+\qquad\Bigl(k=0,1,\dots,\frac{N}{2}\Bigr)
+\]</div>
+<p>と書ける。<span class="arithmatex">\(N\)</span> が奇数なら、和は <span class="arithmatex">\(k=(N-1)/2\)</span> までとなり、ナイキストの項はない。</p>
+<ul>
+<li>係数の <span class="arithmatex">\(2\)</span> は、<span class="arithmatex">\(k\)</span> と <span class="arithmatex">\(N-k\)</span>（正と負の周波数）の 2 項を 1 項にまとめることから出る。<span class="arithmatex">\(1/N\)</span> は逆変換の係数から、<span class="arithmatex">\(b_k\)</span> の負号は <span class="arithmatex">\(\operatorname{Re}\bigl(X_k e^{i\theta_k}\bigr)\)</span> の展開から出る。</li>
+<li>第2回の <span class="arithmatex">\(c_n=(a_n-ib_n)/2\)</span> を <span class="arithmatex">\(a_n\)</span>, <span class="arithmatex">\(b_n\)</span> について解くと、<span class="arithmatex">\(a_n=2\operatorname{Re}c_n\)</span>, <span class="arithmatex">\(b_n=-2\operatorname{Im}c_n\)</span> となる。上の式は、この <span class="arithmatex">\(c_n\)</span> を <span class="arithmatex">\(X_k/N\)</span> に置き換えたものである。</li>
+<li>定数項を <span class="arithmatex">\(a_0/2\)</span> と書く第2回の流儀に合わせたので、直流とナイキストにも同じ式が使える（<span class="arithmatex">\(b_0=b_{N/2}=0\)</span>）。<span class="arithmatex">\(a_0/2=X_0/N\)</span> はサンプルの平均である。</li>
+</ul>
+<p>周波数 <span class="arithmatex">\(f_k\)</span> の成分 <span class="arithmatex">\(a_k\cos\theta_k+b_k\sin\theta_k\)</span> は、三角関数の合成により振幅</p>
+<div class="arithmatex">\[
+A_k=\sqrt{a_k^2+b_k^2}=\frac{2\lvert X_k\rvert}{N}\qquad\Bigl(1\le k&lt;\frac{N}{2}\Bigr)
+\]</div>
+<p>の正弦波である。片側（<span class="arithmatex">\(k\le N/2\)</span>）だけで読む振幅なので、これを <strong>片側振幅</strong> と呼ぶ。直流とナイキストは組にならないので、成分の大きさは <span class="arithmatex">\(\lvert X_0\rvert/N\)</span> と <span class="arithmatex">\(\lvert X_{N/2}\rvert/N\)</span> であり、<span class="arithmatex">\(2\)</span> を掛けない。片側振幅 <span class="arithmatex">\(A_k\)</span> は、余弦と正弦の割合（位相）を捨てている。時間をずらした信号は位相だけが変わり、振幅は変わらない。そのため、振幅スペクトルだけからは元の波形に戻せない。</p>
+<h2 id="fft_1">FFT（高速フーリエ変換）</h2>
+<p>DFT を定義どおり計算すると、<span class="arithmatex">\(N\)</span> 個の <span class="arithmatex">\(X_k\)</span> それぞれに <span class="arithmatex">\(N\)</span> 回の積和が必要で、<span class="arithmatex">\(O(N^2)\)</span> かかる。<span class="arithmatex">\(O(N^2)\)</span> は、演算回数が <span class="arithmatex">\(N^2\)</span> に比例して増えることを表す。<strong>FFT（Fast Fourier Transform）</strong> は、<span class="arithmatex">\(N\)</span> が合成数のとき DFT を約数ごとに分割して、計算量を下げるアルゴリズムである。FFT の計算量は <span class="arithmatex">\(O(N\log N)\)</span> である。</p>
+<p><span class="arithmatex">\(N=10^6\)</span> なら、演算回数は <span class="arithmatex">\(N^2=10^{12}\)</span> に対し <span class="arithmatex">\(N\log_2 N\approx 2\times10^7\)</span> で、<strong>主要演算回数の比は約5万倍</strong>になる。ただしメモリアクセスやキャッシュの効き方が違うため、実測の速度比はこれと一致するとは限らない。それでもこの桁違いの高速性が、信号処理・数値解析・データ駆動科学を実用にしている。</p>
 <h2 id="numpyfft"><code>numpy.fft</code> の使い方</h2>
-<p>NumPy には実装済みの FFT がある。実数信号には片側だけを返す <code>rfft</code> が便利である。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">fs</span> <span class="o">=</span> <span class="mf">128.0</span>                  <span class="c1"># サンプリング周波数 [Hz]</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">T</span>  <span class="o">=</span> <span class="mf">4.0</span>                    <span class="c1"># 観測時間 [s]</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">N</span>  <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fs</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>            <span class="c1"># サンプル数</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">t</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">x</span>  <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">5</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">12</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">X</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>             <span class="c1"># 実信号 → 片側スペクトル（長さ ⌊N/2⌋+1）</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>   <span class="c1"># 対応する周波数軸 [Hz]</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">amp</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>           <span class="c1"># 片側振幅</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">amp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="mi">2</span>                       <span class="c1"># 直流は対になる負の周波数がないので 2 倍しない</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="k">if</span> <span class="n">N</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">amp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="mi">2</span>                  <span class="c1"># ナイキストも同様（N が偶数のときだけ存在）</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">for</span> <span class="n">fpk</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">):</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">freq</span> <span class="o">-</span> <span class="n">fpk</span><span class="p">))</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fpk</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">Hz: 振幅 </span><span class="si">{</span><span class="n">amp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">   (Δf = fs/N = </span><span class="si">{</span><span class="n">fs</span><span class="o">/</span><span class="n">N</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> Hz)&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="c1"># 例外処理が要ることの確認：直流とナイキストだけの信号</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">&quot;DC       &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>                <span class="p">(</span><span class="s2">&quot;Nyquist  &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">)))]:</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span>
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="mi">2</span>
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="mi">2</span>
-<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: 補正なし </span><span class="si">{</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mi">8</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">  補正あり </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">  (真値 1.0)&quot;</span><span class="p">)</span>
+<p>NumPy には実装済みの FFT がある。主な関数は、順変換と逆変換の 2 組と、それぞれに対応する周波数軸である。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>順変換 <span class="arithmatex">\(x_n\to X_k\)</span></th>
+<th>逆変換 <span class="arithmatex">\(X_k\to x_n\)</span></th>
+<th>周波数軸</th>
+<th><span class="arithmatex">\(X_k\)</span> の個数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>複素信号</td>
+<td><code>fft(x)</code></td>
+<td><code>ifft(X)</code></td>
+<td><code>fftfreq(N, 1/fs)</code></td>
+<td><span class="arithmatex">\(N\)</span></td>
+</tr>
+<tr>
+<td>実数信号</td>
+<td><code>rfft(x)</code></td>
+<td><code>irfft(X, n=N)</code></td>
+<td><code>rfftfreq(N, 1/fs)</code></td>
+<td><span class="arithmatex">\(\lfloor N/2\rfloor+1\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>どれも <code>np.fft.</code> を付けて呼ぶ。規約は上の DFT の定義と同じで、<code>fft</code> は係数なし、<code>ifft</code> だけが <span class="arithmatex">\(1/N\)</span> を掛ける。</li>
+<li><code>fft</code> は <span class="arithmatex">\(k=0,1,\dots,N-1\)</span> のすべての <span class="arithmatex">\(X_k\)</span> を返す。<code>fftfreq</code> は後半（<span class="arithmatex">\(k&gt;N/2\)</span>）に負の周波数を返し、<code>fftshift</code> で小さい順に並べ替えられる。</li>
+<li>実信号では <span class="arithmatex">\(X_{N-k}=\overline{X_k}\)</span> なので、後半は前半から決まる。<code>rfft</code> は前半 <span class="arithmatex">\(k=0,\dots,\lfloor N/2\rfloor\)</span> だけを返し、その値は <code>fft</code> の前半と同じである。<code>irfft</code> は片側の <span class="arithmatex">\(X_k\)</span> から実数の <span class="arithmatex">\(x_n\)</span> に戻す。</li>
+<li><code>ifft</code> は実信号でも複素数の配列を返す（虚部は 0 か丸め誤差）。実信号には <code>rfft</code> と <code>irfft</code> を使うのが簡単で、以下でもこの 2 つを使う。</li>
+</ul>
+<p>次のコードで、長さ・値・型の違いを確かめられる。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>  <span class="c1"># 実数、N = 8</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">X</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>            <span class="c1"># 全成分：k = 0, 1, ..., N-1</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">Xr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>           <span class="c1"># 片側：k = 0, 1, ..., N//2</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;length               :&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">Xr</span><span class="p">))</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rfft == fft[:N//2+1] :&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">Xr</span><span class="p">,</span> <span class="n">X</span><span class="p">[:</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>           <span class="c1"># 複素数の配列で返る</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">irfft</span><span class="p">(</span><span class="n">Xr</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>    <span class="c1"># 実数の配列で返る</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dtype                :&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">x2</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;back to x            :&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a> 5Hz: 振幅 1.0000   (Δf = fs/N = 0.2500 Hz)
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>12Hz: 振幅 0.5000   (Δf = fs/N = 0.2500 Hz)
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>DC       : 補正なし 2.0  補正あり 1.0  (真値 1.0)
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Nyquist  : 補正なし 2.0  補正あり 1.0  (真値 1.0)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>length               : 8 5
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>rfft == fft[:N//2+1] : True
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>dtype                : complex128 float64
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>back to x            : True True
 </code></pre></div>
-<p>振幅スペクトルが、合成に使った <span class="arithmatex">\(5\)</span> Hz（振幅 <span class="arithmatex">\(1.0\)</span>）と <span class="arithmatex">\(12\)</span> Hz（振幅 <span class="arithmatex">\(0.5\)</span>）を正しく分離・定量できている。後半の確認が示すとおり、直流とナイキストに <span class="arithmatex">\(2\)</span> を掛けたままにすると振幅が <strong>2 倍に出てしまう</strong> ので、この 2 点だけは必ず補正する。</p>
+<h3 id="x_n-a_k-b_k">順変換：<span class="arithmatex">\(x_n\)</span> から <span class="arithmatex">\(a_k\)</span>, <span class="arithmatex">\(b_k\)</span> を求める</h3>
+<p><span class="arithmatex">\(5\)</span> Hz の余弦（振幅 <span class="arithmatex">\(1.0\)</span>）と <span class="arithmatex">\(12\)</span> Hz の正弦（振幅 <span class="arithmatex">\(0.5\)</span>）の和を <code>rfft</code> で変換し、<span class="arithmatex">\(a_k\)</span>, <span class="arithmatex">\(b_k\)</span> を求める。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">fs</span> <span class="o">=</span> <span class="mf">128.0</span>                  <span class="c1"># サンプリング周波数 [Hz]</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">T</span>  <span class="o">=</span> <span class="mf">4.0</span>                    <span class="c1"># 観測時間 [s]</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">N</span>  <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fs</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>            <span class="c1"># サンプル数</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">t</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">x</span>  <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">5</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">12</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">X</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>             <span class="c1"># 実信号 → 片側の X_k（長さ ⌊N/2⌋+1）</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>   <span class="c1"># 対応する周波数軸 [Hz]</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">a</span> <span class="o">=</span>  <span class="mi">2</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">real</span> <span class="o">/</span> <span class="n">N</span>               <span class="c1"># cos の係数 a_k</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">imag</span> <span class="o">/</span> <span class="n">N</span>               <span class="c1"># sin の係数 b_k</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="k">for</span> <span class="n">fpk</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">):</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">freq</span> <span class="o">-</span> <span class="n">fpk</span><span class="p">))</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fpk</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">Hz: a = </span><span class="si">{</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2">   b = </span><span class="si">{</span><span class="n">b</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="c1"># 図：上は時間波形（最初の 1 秒）、下は a_k と b_k（0〜20 Hz）</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="n">axT</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="n">axA</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="n">axB</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">axA</span><span class="p">)</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="n">m</span> <span class="o">=</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mf">1.0</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="n">axT</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">m</span><span class="p">])</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="n">axT</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;time series&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="n">axT</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$t$ [s]&quot;</span><span class="p">);</span> <span class="n">axT</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$x(t)$&quot;</span><span class="p">);</span> <span class="n">axT</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="n">sel</span> <span class="o">=</span> <span class="n">freq</span> <span class="o">&lt;=</span> <span class="mi">20</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">axA</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="s2">&quot;$a_k$ (cos)&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">axB</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&quot;$b_k$ (sin)&quot;</span><span class="p">)]:</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">freq</span><span class="p">[</span><span class="n">sel</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">sel</span><span class="p">],</span> <span class="n">basefmt</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$f$ [Hz]&quot;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="n">axA</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a> 5Hz: a =  1.0000   b =  0.0000
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>12Hz: a = -0.0000   b =  0.5000
+</code></pre></div>
+<p>5 Hz の余弦は <span class="arithmatex">\(a_k\)</span> だけに、12 Hz の正弦は <span class="arithmatex">\(b_k\)</span> だけに現れ、合成に使った振幅 <span class="arithmatex">\(1.0\)</span> と <span class="arithmatex">\(0.5\)</span> がそのまま読める。ほかの係数はすべて <span class="arithmatex">\(0\)</span> になる（<code>-0.0000</code> は <span class="arithmatex">\(10^{-15}\)</span> 程度の丸め誤差で、<span class="arithmatex">\(0\)</span> とみなせる）。<span class="arithmatex">\(a_k\)</span>, <span class="arithmatex">\(b_k\)</span> の式は直流とナイキストにもそのまま使えるので、補正は要らない。一方、<span class="arithmatex">\(\lvert X_k\rvert\)</span> だけを見る振幅スペクトルでは、5 Hz と 12 Hz のどちらが余弦でどちらが正弦かは区別できない。</p>
 <figure>
-  <img alt="FFT による振幅スペクトル" src="../img/fft_spectrum.png" width="760" />
+  <img alt="FFT から求めた a_k と b_k" src="../img/fft_spectrum.png" width="760" />
 <br />
-<figcaption>上：時間波形（5Hz と 12Hz の重ね合わせ）。下：FFT による片側振幅スペクトル。2つの正弦波が正しい周波数・振幅のピークとして現れる。複雑な波形も、周波数領域では2本の線に分解される。</figcaption>
+<figcaption>上：時間波形（5Hz の余弦と 12Hz の正弦の重ね合わせ）。下：FFT から求めた余弦の係数 $a_k$（左）と正弦の係数 $b_k$（右）。余弦の成分は $a_k$ の 5Hz だけに、正弦の成分は $b_k$ の 12Hz だけに、合成に使った振幅で現れる。ほかの係数はすべて 0 である。</figcaption>
+</figure>
+<h3 id="a_k-b_k">逆変換：<span class="arithmatex">\(a_k\)</span>, <span class="arithmatex">\(b_k\)</span> から波形を作る</h3>
+<p>逆向きもたどれる。上の <span class="arithmatex">\(a_k\)</span>, <span class="arithmatex">\(b_k\)</span> の式を <span class="arithmatex">\(X_k\)</span> について解くと</p>
+<div class="arithmatex">\[
+X_k=\frac{N}{2}\bigl(a_k-ib_k\bigr)\qquad\Bigl(k=0,1,\dots,\frac{N}{2}\Bigr)
+\]</div>
+<p>である。第2回の <span class="arithmatex">\(c_k=(a_k-ib_k)/2\)</span> を使えば <span class="arithmatex">\(X_k=Nc_k\)</span> となり、上で見た「<span class="arithmatex">\(X_k/N\)</span> は複素フーリエ係数」という対応そのものである。<code>np.fft.irfft</code> は片側の <span class="arithmatex">\(X_0,\dots,X_{N/2}\)</span> を受け取り、残りを <span class="arithmatex">\(X_{N-k}=\overline{X_k}\)</span> で補って逆変換し、実数の <span class="arithmatex">\(x_n\)</span> を返す。したがって、好きな <span class="arithmatex">\(a_k\)</span>, <span class="arithmatex">\(b_k\)</span> から <span class="arithmatex">\(X_k\)</span> を作って <code>irfft</code> に渡せば、その三角級数の波形が得られる。次の例は観測時間を <span class="arithmatex">\(T=1\)</span> s にしたので、隣り合う周波数の間隔 <span class="arithmatex">\(\Delta f=f_s/N=1/T\)</span> が <span class="arithmatex">\(1\)</span> Hz になり、<span class="arithmatex">\(k\)</span> がそのまま周波数 [Hz] になる。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">fs</span> <span class="o">=</span> <span class="mf">128.0</span>                  <span class="c1"># サンプリング周波数 [Hz]</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">T</span>  <span class="o">=</span> <span class="mf">1.0</span>                    <span class="c1"># 観測時間 [s]（Δf = 1/T = 1 Hz）</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">N</span>  <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fs</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>            <span class="c1"># サンプル数</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">t</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>            <span class="c1"># cos の係数 a_k（k = 0, 1, ..., N/2）</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>            <span class="c1"># sin の係数 b_k</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.4</span>                        <span class="c1"># 直流（平均は a_0/2 = 0.2）</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>                        <span class="c1"># 2 Hz の cos</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="n">b</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span>                        <span class="c1"># 5 Hz の sin</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="n">a</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span>            <span class="c1"># 9 Hz は cos と sin の両方</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="n">X</span> <span class="o">=</span> <span class="n">N</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">b</span><span class="p">)</span>              <span class="c1"># X_k = (N/2)(a_k - i b_k)</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">irfft</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>          <span class="c1"># 実数の x_n（長さ N）。n=N を必ず渡す</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="c1"># 確認：三角級数を直接足した値と比べる</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="k">def</span><span class="w"> </span><span class="nf">series</span><span class="p">(</span><span class="n">tt</span><span class="p">):</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;a_0/2 + Σ(a_k cos + b_k sin) + (a_{N/2}/2) cos を直接足す&quot;&quot;&quot;</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>    <span class="n">s</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">freq</span><span class="p">[</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">):</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">freq</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>                 <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">freq</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">tt</span><span class="p">))</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>    <span class="k">return</span> <span class="n">s</span>
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;irfft == series :&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">series</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mean of x       : </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>
+<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="c1"># 図：上は与えた a_k と b_k（0〜12 Hz）、下は irfft の x_n（点）と三角級数（線）</span>
+<a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a><span class="n">axA</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a><span class="n">axB</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">axA</span><span class="p">)</span>
+<a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a><span class="n">axX</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a><span class="n">sel</span> <span class="o">=</span> <span class="n">freq</span> <span class="o">&lt;=</span> <span class="mi">12</span>
+<a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a><span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">axA</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="s2">&quot;$a_k$ (cos)&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">axB</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&quot;$b_k$ (sin)&quot;</span><span class="p">)]:</span>
+<a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">freq</span><span class="p">[</span><span class="n">sel</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">sel</span><span class="p">],</span> <span class="n">basefmt</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<a id="__codelineno-6-42" name="__codelineno-6-42" href="#__codelineno-6-42"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$f$ [Hz]&quot;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<a id="__codelineno-6-43" name="__codelineno-6-43" href="#__codelineno-6-43"></a><span class="n">tf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>    <span class="c1"># 線を描く細かい時間軸</span>
+<a id="__codelineno-6-44" name="__codelineno-6-44" href="#__codelineno-6-44"></a><span class="n">axX</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span> <span class="n">series</span><span class="p">(</span><span class="n">tf</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;series&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-45" name="__codelineno-6-45" href="#__codelineno-6-45"></a><span class="n">axX</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;irfft $x_n$&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-46" name="__codelineno-6-46" href="#__codelineno-6-46"></a><span class="n">axX</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$t$ [s]&quot;</span><span class="p">);</span> <span class="n">axX</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">);</span> <span class="n">axX</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<a id="__codelineno-6-47" name="__codelineno-6-47" href="#__codelineno-6-47"></a><span class="n">axX</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<a id="__codelineno-6-48" name="__codelineno-6-48" href="#__codelineno-6-48"></a><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<a id="__codelineno-6-49" name="__codelineno-6-49" href="#__codelineno-6-49"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>irfft == series : True
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>mean of x       : 0.2000
+</code></pre></div>
+<p><code>irfft</code> の出力は、三角級数を直接足した値と丸め誤差の範囲で一致し（<code>np.allclose</code> が <code>True</code>）、平均は <span class="arithmatex">\(a_0/2=0.2\)</span> になる。下の図でも、点（<code>irfft</code> の <span class="arithmatex">\(x_n\)</span>）が線（三角級数）の上にのっている。</p>
+<ul>
+<li><code>n=N</code> は必ず渡す。省くと <code>irfft</code> は長さを <code>2*(len(X)-1)</code> と推定するので、<span class="arithmatex">\(N\)</span> が奇数のとき 1 点短くなる（<span class="arithmatex">\(N=127\)</span> なら 126 点）。</li>
+<li><span class="arithmatex">\(b_0\)</span> と <span class="arithmatex">\(b_{N/2}\)</span> は使われない。<span class="arithmatex">\(\sin 0=0\)</span>、<span class="arithmatex">\(\sin\pi n=0\)</span> だからで、<code>irfft</code> も <span class="arithmatex">\(X_0\)</span> と <span class="arithmatex">\(X_{N/2}\)</span> の虚部を無視する。</li>
+<li>振幅スペクトル <span class="arithmatex">\(\lvert X_k\rvert\)</span> だけを渡しても、元の波形には戻らない。<span class="arithmatex">\(a_k\)</span> と <span class="arithmatex">\(b_k\)</span> の割合（位相）がないからである。</li>
+</ul>
+<figure>
+  <img alt="irfft で作った波形" src="../img/irfft_synthesis.png" width="760" />
+<br />
+<figcaption>上：与えた余弦の係数 $a_k$（左）と正弦の係数 $b_k$（右）。下：$X_k=\frac{N}{2}(a_k-ib_k)$ を irfft して得た $x_n$（点）と、三角級数を細かい時間軸で直接足した値（線）。点は線の上にのり、平均は $a_0/2=0.2$ である。</figcaption>
 </figure>
 <div class="admonition tip">
 <p class="admonition-title">実務上の注意：分解能とスペクトル漏れ</p>
@@ -3072,14 +3310,14 @@ X_k=\underbrace{\sum_{m} x_{2m}\,e^{-i2\pi k m/(N/2)}}_{\text{偶数部 }E_k}
 </div>
 <h2 id="_3">まとめ</h2>
 <ul>
-<li>標本化周波数 <span class="arithmatex">\(f_s\)</span> と <strong>ナイキスト周波数</strong> <span class="arithmatex">\(f_s/2\)</span>。帯域制限された信号を <span class="arithmatex">\(f_s&gt;2f_{\max}\)</span> で測れば（無限個の標本と sinc 補間のもとで）復元可能（<strong>標本化定理</strong>）。</li>
+<li>サンプリング周波数 <span class="arithmatex">\(f_s\)</span> と <strong>ナイキスト周波数</strong> <span class="arithmatex">\(f_s/2\)</span>。帯域制限された信号を <span class="arithmatex">\(f_s&gt;2f_{\max}\)</span> で測れば（無限個のサンプルと sinc 補間のもとで）復元可能（<strong>サンプリング定理</strong>）。</li>
 <li><span class="arithmatex">\(f_s/2\)</span> を超える成分は低周波に化ける（<strong>エイリアシング</strong>）。<span class="arithmatex">\(18\)</span>Hz@<span class="arithmatex">\(20\)</span>Hz → <span class="arithmatex">\(2\)</span>Hz を数値で確認した。</li>
-<li><strong>DFT</strong> は標本に対するフーリエ変換。周波数格子 <span class="arithmatex">\(f_k=k f_s/N\)</span>、分解能 <span class="arithmatex">\(\Delta f=f_s/N\)</span>、片側振幅 <span class="arithmatex">\(2\lvert X_k\rvert/N\)</span>（直流と、<span class="arithmatex">\(N\)</span> が偶数のときのナイキストだけは <span class="arithmatex">\(\lvert X_k\rvert/N\)</span>）。</li>
-<li><strong>FFT</strong> は DFT を <span class="arithmatex">\(O(N\log N)\)</span> で計算する（radix-2 の再帰が最後まで使えるのは <span class="arithmatex">\(N=2^m\)</span>）。<code>numpy.fft.rfft</code> / <code>rfftfreq</code> でスペクトルが求まる。</li>
+<li><strong>DFT</strong> はサンプルに対するフーリエ変換。<span class="arithmatex">\(X_k/N\)</span> は複素フーリエ係数で、余弦・正弦の係数は <span class="arithmatex">\(a_k=2\operatorname{Re}X_k/N\)</span>, <span class="arithmatex">\(b_k=-2\operatorname{Im}X_k/N\)</span>。周波数格子 <span class="arithmatex">\(f_k=k f_s/N\)</span>、分解能 <span class="arithmatex">\(\Delta f=f_s/N\)</span>、片側振幅 <span class="arithmatex">\(2\lvert X_k\rvert/N\)</span>（直流と、<span class="arithmatex">\(N\)</span> が偶数のときのナイキストだけは <span class="arithmatex">\(\lvert X_k\rvert/N\)</span>）。</li>
+<li><strong>FFT</strong> は DFT を <span class="arithmatex">\(O(N\log N)\)</span> で計算する。<code>numpy.fft.rfft</code> / <code>rfftfreq</code> でスペクトルが求まる。逆に、<span class="arithmatex">\(X_k=N(a_k-ib_k)/2\)</span> を <code>irfft</code> に渡すと、好きな <span class="arithmatex">\(a_k\)</span>, <span class="arithmatex">\(b_k\)</span> の波形が作れる。</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">本講義との接続</p>
-<p>FFT は本講義全体の中心的な道具になる。次ページでは FFT を使った <a href="../convolution/">高速畳み込みと相互相関</a> を扱い、<strong>第4回</strong>ではスペクトル解析（窓関数・パワースペクトル）とその応用としての <strong>フィルタリング</strong> へ進む。また周波数領域での「掛け算」は <strong>ラプラス変換と伝達関数</strong>（第6〜8回）に、時空間データのモード分解は <strong>動的モード分解 DMD</strong>（第14回）につながる。</p>
+<p>FFT は本講義全体の中心的な道具になる。<strong>第4回</strong>ではスペクトル解析（窓関数・パワースペクトル）とその応用としての <strong>フィルタリング</strong> へ進む。また周波数領域での「掛け算」は <strong>ラプラス変換と伝達関数</strong>（第6〜8回）に、時空間データのモード分解は <strong>動的モード分解 DMD</strong>（第14回）につながる。</p>
 </div>
 
 

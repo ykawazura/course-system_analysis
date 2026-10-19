@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2951,7 +2923,7 @@
 <h1 id="pcapod">PCA・POD と擬似逆行列</h1>
 <p>前ページまでは行列を「圧縮するもの」として見た。同じ操作を「データを説明するもの」として読み直すと、統計の <strong>主成分分析</strong>、流体の <strong>固有直交分解</strong>、そして最小二乗の <strong>擬似逆行列</strong> が現れる。名前は分野ごとに違うが、計算しているのはどれも SVD である。</p>
 <h2 id="_1">データ行列と中心化</h2>
-<p><span class="arithmatex">\(N\)</span> 個の標本をそれぞれ <span class="arithmatex">\(p\)</span> 個の変数で測ったとき、<span class="arithmatex">\(N\times p\)</span> の <strong>データ行列</strong> <span class="arithmatex">\(X\)</span> ができる（行が標本、列が変数）。ここで大事な前処理が <strong>中心化</strong> で、各列から平均を引いた</p>
+<p><span class="arithmatex">\(N\)</span> 個のサンプルをそれぞれ <span class="arithmatex">\(p\)</span> 個の変数で測ったとき、<span class="arithmatex">\(N\times p\)</span> の <strong>データ行列</strong> <span class="arithmatex">\(X\)</span> ができる（行がサンプル、列が変数）。ここで大事な前処理が <strong>中心化</strong> で、各列から平均を引いた</p>
 <div class="arithmatex">\[
 X_c=X-\mathbf 1\bar x^\top
 \]</div>

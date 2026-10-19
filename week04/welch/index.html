@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2976,7 +2948,7 @@
 <p>変動係数が <span class="arithmatex">\(1.04\to 0.27\)</span> へ下がった（分散にして約 <span class="arithmatex">\(15\)</span> 倍の低減）。<span class="arithmatex">\(8\)</span> s の信号を <span class="arithmatex">\(\text{nperseg}=1024\)</span>（<span class="arithmatex">\(1.024\)</span> s）で <span class="arithmatex">\(50\)</span>% 重ねると <span class="arithmatex">\(K=14\)</span> 区間とれるので、ばらつきは <span class="arithmatex">\(1/\sqrt{K}\approx 1/\sqrt{14}\approx 0.27\)</span> とよく合う。雑音フロアが平らになり、<span class="arithmatex">\(80\)</span> Hz のピークがはっきり立ち上がる。</p>
 <div class="admonition note">
 <p class="admonition-title">重複した区間は独立ではない</p>
-<p><span class="arithmatex">\(1/K\)</span>・<span class="arithmatex">\(1/\sqrt K\)</span> は本来 <strong>独立な</strong> <span class="arithmatex">\(K\)</span> 区間を平均したときの値である。<span class="arithmatex">\(50\)</span>% 重ねた区間は同じ標本を共有しているので独立ではなく、隣り合う区間のピリオドグラムには相関が残る。Hann 窓・<span class="arithmatex">\(50\)</span>% 重複の場合、この相関係数は <span class="arithmatex">\(\rho=1/6\)</span>（<span class="arithmatex">\(\rho^2\approx1/36\)</span>）で、有効な平均数は</p>
+<p><span class="arithmatex">\(1/K\)</span>・<span class="arithmatex">\(1/\sqrt K\)</span> は本来 <strong>独立な</strong> <span class="arithmatex">\(K\)</span> 区間を平均したときの値である。<span class="arithmatex">\(50\)</span>% 重ねた区間は同じサンプルを共有しているので独立ではなく、隣り合う区間のピリオドグラムには相関が残る。Hann 窓・<span class="arithmatex">\(50\)</span>% 重複の場合、この相関係数は <span class="arithmatex">\(\rho=1/6\)</span>（<span class="arithmatex">\(\rho^2\approx1/36\)</span>）で、有効な平均数は</p>
 <div class="arithmatex">\[
 K_{\text{eff}}=\frac{K}{1+2\rho^2\frac{K-1}{K}}\approx\frac{14}{1.052}\approx 13.3
 \]</div>

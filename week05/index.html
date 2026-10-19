@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -3071,7 +3043,7 @@
 <h2 id="_4">課題の内容</h2>
 <p>その回のテーマに含まれる手法で解ける実問題を1つ選び、解く。</p>
 <ul>
-<li><strong>使う手法の例（①フーリエ変換系）</strong>: FFT による周波数スペクトルの推定、ウェルチ法による安定なスペクトル推定、窓関数によるリーケージ低減、周波数領域フィルタリングによる雑音・妨害の除去、相互相関による 2 信号間の遅延の検出、スペクトル解析による周期の検出（同じ信号どうしの相互相関＝自己相関を使ってもよい。<a href="../week03/convolution/">第3回</a> で触れている）、高速畳み込みなど。</li>
+<li><strong>使う手法の例（①フーリエ変換系）</strong>: FFT による周波数スペクトルの推定、ウェルチ法による安定なスペクトル推定、窓関数によるリーケージ低減、周波数領域フィルタリングによる雑音・妨害の除去、スペクトル解析による周期の検出など。</li>
 <li><strong>使う手法の例（②第6〜14回の手法）</strong>:<ul>
 <li><strong>ラプラス変換（第6〜8回）</strong>: 伝達関数と極・零点の配置によるシステムの特徴付け、過渡応答（ステップ応答・インパルス応答）の解析、微分方程式で書ける系（回路・振動系など）の応答計算、フィードバック系の安定性解析（ラウス・フルビッツ判別）。周波数応答 <span class="arithmatex">\(H(j\omega)\)</span> は第4回で扱った道具だが、安定な系では伝達関数を虚軸に制限したものなので、②で組み合わせて使ってよい（<a href="../week04/filtering/">第4回</a> 参照）。</li>
 <li><strong>時間周波数解析（第9・10回）</strong>: 短時間フーリエ変換によるスペクトログラム、ウェーブレット変換による<strong>時間とともに変わる周波数</strong>の追跡（チャープ・過渡現象・非定常信号）、離散ウェーブレット変換による雑音除去。</li>
@@ -3205,7 +3177,7 @@
 </div>
 <h2 id="_7">準備のヒント</h2>
 <ul>
-<li><strong>発表会①（フーリエ変換）の復習</strong>: <a href="../week03/dft-fft/">第3回 標本化と FFT</a>・<a href="../week03/convolution/">高速畳み込みと相互相関</a>、<a href="../week04/power-spectrum/">第4回 パワースペクトルと窓関数</a>・<a href="../week04/welch/">ピリオドグラムとウェルチ法</a>・<a href="../week04/filtering/">周波数領域フィルタリング</a> が土台になる。</li>
+<li><strong>発表会①（フーリエ変換）の復習</strong>: <a href="../week03/dft-fft/">第3回 サンプリングと FFT</a>、<a href="../week04/power-spectrum/">第4回 パワースペクトルと窓関数</a>・<a href="../week04/welch/">ピリオドグラムとウェルチ法</a>・<a href="../week04/filtering/">周波数領域フィルタリング</a> が土台になる。</li>
 <li><strong>発表会②（第6〜14回の手法）の復習</strong>: <a href="../week06/definition/">第6回 ラプラス変換の定義と収束</a>・<a href="../week06/inverse/">逆ラプラス変換と s 平面</a>、<a href="../week07/convolution/">第7回 畳み込み積分と伝達関数</a>・<a href="../week07/theorems/">ラプラス変換の公式</a>、<a href="../week08/stability/">第8回 安定性とラウス・フルビッツ判別</a>・<a href="../week08/feedback/">フィードバック制御</a>、<a href="../week09/stft/">第9回 短時間フーリエ変換と時間周波数分解能</a>、<a href="../week10/wavelet/">第10回 連続・離散ウェーブレット変換</a>、<a href="../week11/linear-systems/">第11回 線形系の固有値と平衡点の分類</a>・<a href="../week11/linearization/">非線形系の線形化と平衡点解析</a>、<a href="../week12/orthogonal-polynomials/">第12回 直交多項式と最良近似</a>・<a href="../week12/spectral-methods/">Gauss 求積とスペクトル法</a>、<a href="../week13/svd/">第13回 SVD の原理と低ランク近似</a>・<a href="../week13/image-compression/">画像圧縮とノイズ除去</a>・<a href="../week13/pca-pod/">PCA・POD と擬似逆行列</a>、<a href="../week14/dmd-algorithm/">第14回 DMD のアルゴリズム</a>・<a href="../week14/dmd-modes/">モードと固有振動の解釈</a>・<a href="../week14/dmd-applications/">時系列・流体データへの応用</a> が土台になる。</li>
 <li><strong>環境</strong>: 解析は Python（<code>numpy</code>, <code>scipy</code>, <code>matplotlib</code>）で行う。環境がまだの場合は第1回の <a href="../week01/setup-colab/">Google Colab</a> または <a href="../week01/setup-local/">ローカル環境</a> を参照。</li>
 <li><strong>再現性</strong>: 乱数を使う場合は <code>np.random.default_rng(シード)</code> でシードを固定し、誰が実行しても同じ結果になるようにしておくと発表しやすい。</li>

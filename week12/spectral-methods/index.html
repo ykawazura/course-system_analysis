@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2905,7 +2877,7 @@
 
 
 <h1 id="gauss">Gauss 求積とスペクトル法</h1>
-<p>前ページでは直交多項式を「関数を展開する道具」として使った。ここでは、それが定める <strong>標本点</strong> に注目する。数値積分には <span class="arithmatex">\(P_n\)</span> の零点（Gauss 点）を、微分と微分方程式には <span class="arithmatex">\(T_N\)</span> の極値点（Chebyshev–Gauss–Lobatto 点）を選ぶ。標本点をこう取り替えるだけで、数値積分は同じ点数で桁違いに正確になり、微分方程式の解法は誤差が指数的に減る <strong>スペクトル法</strong> になる。展開係数の減衰の速さが、そのまま計算精度に化けるのがこの章の主題である。</p>
+<p>前ページでは直交多項式を「関数を展開する道具」として使った。ここでは、それが定める <strong>サンプル点</strong> に注目する。数値積分には <span class="arithmatex">\(P_n\)</span> の零点（Gauss 点）を、微分と微分方程式には <span class="arithmatex">\(T_N\)</span> の極値点（Chebyshev–Gauss–Lobatto 点）を選ぶ。サンプル点をこう取り替えるだけで、数値積分は同じ点数で桁違いに正確になり、微分方程式の解法は誤差が指数的に減る <strong>スペクトル法</strong> になる。展開係数の減衰の速さが、そのまま計算精度に化けるのがこの章の主題である。</p>
 <h2 id="gausslegendre">Gauss–Legendre 求積</h2>
 <p><span class="arithmatex">\(\int_{-1}^{1}f(x)\,dx\)</span> を、節点 <span class="arithmatex">\(x_i\)</span> と重み <span class="arithmatex">\(w_i\)</span> による和</p>
 <div class="arithmatex">\[
@@ -2927,14 +2899,15 @@ w_i=\frac{2}{(1-x_i^2)\,[P_n'(x_i)]^2}
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">xq</span><span class="p">,</span> <span class="n">wq</span> <span class="o">=</span> <span class="n">leg</span><span class="o">.</span><span class="n">leggauss</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;節点 x_i:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">xq</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;重み w_i:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">wq</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P5 の零点:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">leg</span><span class="o">.</span><span class="n">legroots</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">6</span><span class="p">)[</span><span class="mi">5</span><span class="p">])),</span> <span class="mi">6</span><span class="p">))</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;重みの和 = </span><span class="si">{</span><span class="n">wq</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.12f</span><span class="si">}</span><span class="s2">（区間の長さ 2 に等しい）&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">wq</span> <span class="o">*</span> <span class="n">xq</span><span class="o">**</span><span class="n">m</span><span class="p">)</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">exact</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">m</span> <span class="o">%</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;∫x^</span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">dx: 数値=</span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="s2">.12f</span><span class="si">}</span><span class="s2">  厳密=</span><span class="si">{</span><span class="n">exact</span><span class="si">:</span><span class="s2">.12f</span><span class="si">}</span><span class="s2">&quot;</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>          <span class="sa">f</span><span class="s2">&quot;  誤差=</span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">num</span><span class="o">-</span><span class="n">exact</span><span class="p">)</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">z5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">leg</span><span class="o">.</span><span class="n">legroots</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">6</span><span class="p">)[</span><span class="mi">5</span><span class="p">])</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>  <span class="c1"># 版により複素数で返るので実部</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P5 の零点:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">z5</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;重みの和 = </span><span class="si">{</span><span class="n">wq</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.12f</span><span class="si">}</span><span class="s2">（区間の長さ 2 に等しい）&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">wq</span> <span class="o">*</span> <span class="n">xq</span><span class="o">**</span><span class="n">m</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">exact</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">m</span> <span class="o">%</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;∫x^</span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">dx: 数値=</span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="s2">.12f</span><span class="si">}</span><span class="s2">  厳密=</span><span class="si">{</span><span class="n">exact</span><span class="si">:</span><span class="s2">.12f</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>          <span class="sa">f</span><span class="s2">&quot;  誤差=</span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">num</span><span class="o">-</span><span class="n">exact</span><span class="p">)</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>節点 x_i: [-0.90618  -0.538469  0.        0.538469  0.90618 ]
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>重み w_i: [0.236927 0.478629 0.568889 0.478629 0.236927]
@@ -2957,7 +2930,7 @@ w_i=\frac{2}{(1-x_i^2)\,[P_n'(x_i)]^2}
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">xg</span><span class="p">,</span> <span class="n">wg</span> <span class="o">=</span> <span class="n">leg</span><span class="o">.</span><span class="n">leggauss</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">xt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n=</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">: Gauss 誤差=</span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">wg</span><span class="o">*</span><span class="n">g</span><span class="p">(</span><span class="n">xg</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">exact</span><span class="p">)</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">   &quot;</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>          <span class="sa">f</span><span class="s2">&quot;台形則 誤差=</span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">xt</span><span class="p">),</span><span class="w"> </span><span class="n">xt</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">exact</span><span class="p">)</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>          <span class="sa">f</span><span class="s2">&quot;台形則 誤差=</span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">xt</span><span class="p">),</span><span class="w"> </span><span class="n">xt</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">exact</span><span class="p">)</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>厳密値 = -0.639928454472
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>n= 4: Gauss 誤差=3.034e-03   台形則 誤差=2.987e-01

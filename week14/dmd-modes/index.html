@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2929,7 +2901,7 @@
 <h1 id="_1">モードと固有振動の解釈</h1>
 <p>アルゴリズムが返すのは複素数の固有値 <span class="arithmatex">\(\lambda_i\)</span>、複素ベクトルのモード <span class="arithmatex">\(\phi_i\)</span>、複素の振幅 <span class="arithmatex">\(b_i\)</span> である。数字の羅列のままでは何も分からない。ここでは、それらを <strong>「どの形が、どの周波数で、どれだけの速さで成長・減衰するか」</strong> という物理の言葉に翻訳する。翻訳の鍵は <span class="arithmatex">\(\lambda=e^{\omega\Delta t}\)</span> というただ一つの関係式で、その先は第8回の極・第11回の固有値とまったく同じ読み方になる。</p>
 <h2 id="_2">離散の固有値と連続時間の固有値</h2>
-<p>DMD が当てはめたのは離散の漸化式 <span class="arithmatex">\(x_{k+1}=Ax_k\)</span> である。いま元のデータが、連続時間の線形系 <span class="arithmatex">\(\dot x=\mathcal Ax\)</span> を <span class="arithmatex">\(\Delta t\)</span> 間隔で標本化したものだったとしよう。この系の厳密解は <span class="arithmatex">\(x(t+\Delta t)=e^{\mathcal A\Delta t}x(t)\)</span> だから、<span class="arithmatex">\(A=e^{\mathcal A\Delta t}\)</span> が成り立ち、固有値も指数関数で対応する。</p>
+<p>DMD が当てはめたのは離散の漸化式 <span class="arithmatex">\(x_{k+1}=Ax_k\)</span> である。いま元のデータが、連続時間の線形系 <span class="arithmatex">\(\dot x=\mathcal Ax\)</span> を <span class="arithmatex">\(\Delta t\)</span> 間隔でサンプリングしたものだったとしよう。この系の厳密解は <span class="arithmatex">\(x(t+\Delta t)=e^{\mathcal A\Delta t}x(t)\)</span> だから、<span class="arithmatex">\(A=e^{\mathcal A\Delta t}\)</span> が成り立ち、固有値も指数関数で対応する。</p>
 <div class="arithmatex">\[
 \lambda_i=e^{\omega_i\Delta t},\qquad
 \omega_i=\frac{\log\lambda_i}{\Delta t}
@@ -2939,10 +2911,10 @@
 |\lambda_i|=e^{\mathrm{Re}\,\omega_i\,\Delta t},\qquad
 \arg\lambda_i\equiv\mathrm{Im}\,\omega_i\,\Delta t\ \ (\mathrm{mod}\ 2\pi)
 \]</div>
-<p>すなわち <strong><span class="arithmatex">\(\mathrm{Re}\,\omega\)</span> は成長率、<span class="arithmatex">\(\mathrm{Im}\,\omega\)</span> は角周波数</strong> である。<span class="arithmatex">\(\lambda\)</span> のままでは <span class="arithmatex">\(\Delta t\)</span> に依存した量なので、標本化間隔の違うデータどうしを比べるときは必ず <span class="arithmatex">\(\omega\)</span> に直す。第 <span class="arithmatex">\(2\)</span> 式が「<span class="arithmatex">\(2\pi\)</span> を法として」になっているのは、偏角が <span class="arithmatex">\((-\pi,\pi]\)</span> の範囲でしか決まらないからである。<span class="arithmatex">\(|\mathrm{Im}\,\omega_i|\,\Delta t&lt;\pi\)</span> なら剰余は消えてただの等号になる。破ったときに何が起きるかは <a href="../dmd-applications/">応用のページ</a> で扱う。</p>
+<p>すなわち <strong><span class="arithmatex">\(\mathrm{Re}\,\omega\)</span> は成長率、<span class="arithmatex">\(\mathrm{Im}\,\omega\)</span> は角周波数</strong> である。<span class="arithmatex">\(\lambda\)</span> のままでは <span class="arithmatex">\(\Delta t\)</span> に依存した量なので、サンプリング間隔の違うデータどうしを比べるときは必ず <span class="arithmatex">\(\omega\)</span> に直す。第 <span class="arithmatex">\(2\)</span> 式が「<span class="arithmatex">\(2\pi\)</span> を法として」になっているのは、偏角が <span class="arithmatex">\((-\pi,\pi]\)</span> の範囲でしか決まらないからである。<span class="arithmatex">\(|\mathrm{Im}\,\omega_i|\,\Delta t&lt;\pi\)</span> なら剰余は消えてただの等号になる。破ったときに何が起きるかは <a href="../dmd-applications/">応用のページ</a> で扱う。</p>
 <div class="admonition warning">
 <p class="admonition-title"><span class="arithmatex">\(A=e^{\mathcal A\Delta t}\)</span> はいつでも成り立つわけではない</p>
-<p>この関係が言えるのは、<strong>元の系が本当に線形時不変で、しかも等間隔に標本化されている</strong> ときだけである。DMD が返す <span class="arithmatex">\(A\)</span> は、そうであってほしいという願いのもとでデータに当てはめた行列にすぎず、その素性は何も保証されていない。系が非線形だったり、観測が状態の一部しか見ていなかったりすれば、<span class="arithmatex">\(\omega=\log\lambda/\Delta t\)</span> は「そう読むと便利な量」ではあっても、真の連続時間固有値とは限らない。実際 <a href="../dmd-applications/">応用のページ</a> の飽和するデータでは、<span class="arithmatex">\(\mathrm{Re}\,\omega\)</span> が実際の振る舞いとまったく合わなくなる。</p>
+<p>この関係が言えるのは、<strong>元の系が本当に線形時不変で、しかも等間隔にサンプリングされている</strong> ときだけである。DMD が返す <span class="arithmatex">\(A\)</span> は、そうであってほしいという願いのもとでデータに当てはめた行列にすぎず、その素性は何も保証されていない。系が非線形だったり、観測が状態の一部しか見ていなかったりすれば、<span class="arithmatex">\(\omega=\log\lambda/\Delta t\)</span> は「そう読むと便利な量」ではあっても、真の連続時間固有値とは限らない。実際 <a href="../dmd-applications/">応用のページ</a> の飽和するデータでは、<span class="arithmatex">\(\mathrm{Re}\,\omega\)</span> が実際の振る舞いとまったく合わなくなる。</p>
 </div>
 <p>まず第1回のショーケースと同じ <span class="arithmatex">\(\mathrm{sech}\)</span> 型の <span class="arithmatex">\(2\)</span> モードデータで確かめる。空間形状 <span class="arithmatex">\(\mathrm{sech}(x+3)\)</span> が角周波数 <span class="arithmatex">\(\omega=1.0\)</span> で、<span class="arithmatex">\(2\,\mathrm{sech}(x)\tanh(x)\)</span> が <span class="arithmatex">\(\omega=6.0\)</span> で振動しているだけの、答えの分かっているデータである。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -3037,7 +3009,7 @@
 <p><span class="arithmatex">\(4\)</span> 個の固有値が <span class="arithmatex">\(2\)</span> 組の共役対をなしている。<span class="arithmatex">\(|\lambda|=1.0076&gt;1\)</span> の対は単位円のわずかに外側にあり、<span class="arithmatex">\(\mathrm{Re}\,\omega=+0.05\)</span> ── 成長するモードである。<span class="arithmatex">\(|\lambda|=0.9849&lt;1\)</span> の対は内側で <span class="arithmatex">\(\mathrm{Re}\,\omega=-0.10\)</span>、減衰するモードである。偏角の <span class="arithmatex">\(\pm43.5^\circ\)</span> は <span class="arithmatex">\(\mathrm{Im}\,\omega\,\Delta t=5\times0.1519=0.7595\ \mathrm{rad}\)</span>、<span class="arithmatex">\(\pm17.4^\circ\)</span> は <span class="arithmatex">\(2\times0.1519=0.3038\ \mathrm{rad}\)</span> に対応している。</p>
 <div class="admonition warning">
 <p class="admonition-title">単位円のすぐ外は「成長」と即断できない</p>
-<p><span class="arithmatex">\(|\lambda|=1.0076\)</span> という値は、<span class="arithmatex">\(\Delta t=0.1519\)</span> では成長率 <span class="arithmatex">\(+0.05\)</span> に相当するが、<span class="arithmatex">\(1\)</span> からのずれはわずか <span class="arithmatex">\(0.8\%\)</span> でしかない。雑音や標本化誤差で <span class="arithmatex">\(|\lambda|\)</span> が <span class="arithmatex">\(1\%\)</span> 動くことは珍しくないので、<strong>単位円の近くに落ちた固有値については「成長する」とも「減衰する」とも言えない</strong> のが実情である。</p>
+<p><span class="arithmatex">\(|\lambda|=1.0076\)</span> という値は、<span class="arithmatex">\(\Delta t=0.1519\)</span> では成長率 <span class="arithmatex">\(+0.05\)</span> に相当するが、<span class="arithmatex">\(1\)</span> からのずれはわずか <span class="arithmatex">\(0.8\%\)</span> でしかない。雑音やサンプリング誤差で <span class="arithmatex">\(|\lambda|\)</span> が <span class="arithmatex">\(1\%\)</span> 動くことは珍しくないので、<strong>単位円の近くに落ちた固有値については「成長する」とも「減衰する」とも言えない</strong> のが実情である。</p>
 <p>ここで気をつけたいのは、<span class="arithmatex">\(\mathrm{Re}\,\omega=\log\lvert\lambda\rvert/\Delta t\)</span> に直したところで判定が楽になるわけではない、という点である。<span class="arithmatex">\(\Delta t\)</span> で割れば数値は大きくなるが、推定の誤差も同じだけ大きくなるので、両者の比は何も変わらない。効くのは <strong>観測区間の長さ</strong> のほうである。全長 <span class="arithmatex">\(T\)</span> のあいだに振幅が <span class="arithmatex">\(e^{\mathrm{Re}\,\omega\,T}\)</span> 倍になるので、この倍率が雑音より大きいかどうかが実質的な判定条件になる。上の例なら <span class="arithmatex">\(T=12\)</span> 秒で <span class="arithmatex">\(e^{0.05\times12}=1.82\)</span> 倍 ── これだけ育てば見て取れる。同じ <span class="arithmatex">\(\mathrm{Re}\,\omega\)</span> でも <span class="arithmatex">\(T=1\)</span> 秒しか測っていなければ <span class="arithmatex">\(1.05\)</span> 倍にしかならず、雑音に埋もれる。データを長く取ること、あるいは区間を前半・後半に分けて推定値がどれだけばらつくかを実測することが、唯一の確かめ方である。</p>
 </div>
 <figure>

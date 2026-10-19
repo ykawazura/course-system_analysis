@@ -924,35 +924,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2934,13 +2906,24 @@
 \]</div>
 <p>となる。以下では <span class="arithmatex">\(\frac1\pi\)</span> で規格化した最初の形を使う。</p>
 <div class="admonition example">
-<p class="admonition-title">矩形波で確かめる</p>
-<p>矩形波は <span class="arithmatex">\(\lvert f\rvert^2 = 1\)</span> なので左辺は <span class="arithmatex">\(\frac1\pi\int_{-\pi}^{\pi}1\,dx = 2\)</span>。右辺は <span class="arithmatex">\(b_n=4/(n\pi)\)</span>（奇数）より</p>
+<p class="admonition-title"><span class="arithmatex">\(\cos^2 x\)</span> で確かめる</p>
+<p><span class="arithmatex">\(f(x)=\cos^2 x\)</span> とする。まず右辺を求める。半角の公式より</p>
 <div class="arithmatex">\[
-\sum_{n:\text{odd}} b_n^2 = \frac{16}{\pi^2}\sum_{n:\text{odd}}\frac{1}{n^2}
-= \frac{16}{\pi^2}\cdot\frac{\pi^2}{8} = 2.
+\cos^2 x = \frac{1}{2} + \frac{1}{2}\cos 2x
 \]</div>
-<p>両辺が一致する（平均パワーで測れば両辺とも <span class="arithmatex">\(1\)</span> で、<span class="arithmatex">\(\lvert f\rvert=1\)</span> の矩形波として当然の値になる）。逆にこの関係から、級数和 <span class="arithmatex">\(\displaystyle\sum_{n:\text{odd}}\frac{1}{n^2}=\frac{\pi^2}{8}\)</span> が得られる。</p>
+<p>である。フーリエ級数 <span class="arithmatex">\(\frac{a_0}{2}+\sum_{n=1}^{\infty}(a_n\cos nx+b_n\sin nx)\)</span> と見比べると <span class="arithmatex">\(a_0=1\)</span>、<span class="arithmatex">\(a_2=\frac12\)</span>、ほかの係数は <span class="arithmatex">\(0\)</span> である（係数の積分公式に代入しても、直交性から同じ値になる。有限個の三角関数の和で書けたら、それがそのままフーリエ級数である）。よって右辺は</p>
+<div class="arithmatex">\[
+\frac{a_0^2}{2}+\sum_{n=1}^{\infty}\bigl(a_n^2+b_n^2\bigr) = \frac{1}{2}+\frac{1}{4} = \frac{3}{4}
+\]</div>
+<p>となる。次に左辺を求める。<span class="arithmatex">\(\lvert f\rvert^2=\cos^4 x\)</span> を半角の公式で展開すると</p>
+<div class="arithmatex">\[
+\cos^4 x = \frac{(1+\cos 2x)^2}{4} = \frac{1}{4}+\frac{1}{2}\cos 2x+\frac{1}{4}\cos^2 2x
+\]</div>
+<p>である。最後の項にもう一度半角の公式 <span class="arithmatex">\(\cos^2 2x=\frac{1+\cos 4x}{2}\)</span> を使うと、<span class="arithmatex">\(\cos^4 x=\frac38+\frac12\cos 2x+\frac18\cos 4x\)</span> となる。<span class="arithmatex">\(\cos 2x\)</span> と <span class="arithmatex">\(\cos 4x\)</span> は <span class="arithmatex">\([-\pi,\pi]\)</span> で積分すると <span class="arithmatex">\(0\)</span> なので</p>
+<div class="arithmatex">\[
+\frac{1}{\pi}\int_{-\pi}^{\pi}\cos^4 x\,dx = \frac{1}{\pi}\cdot\frac{3}{8}\cdot 2\pi = \frac{3}{4}
+\]</div>
+<p>となり、右辺の <span class="arithmatex">\(\frac34\)</span> と一致する。</p>
 </div>
 <h2 id="gibbs_1">Gibbs 現象</h2>
 <p>部分和 <span class="arithmatex">\(S_N\)</span> で不連続点の近くを拡大すると、<span class="arithmatex">\(f\)</span> を <strong>行き過ぎる（オーバーシュートする）</strong> 突起が見える。驚くべきことに、この突起の高さは <span class="arithmatex">\(N\)</span> を大きくしても <strong>減らない</strong>。これを <strong>Gibbs 現象（Gibbs phenomenon）</strong> と呼ぶ。</p>

@@ -929,35 +929,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2934,47 +2906,40 @@
 <ul>
 <li>周期関数のフーリエ級数を <strong>非周期関数</strong> へ拡張した <strong>フーリエ変換</strong> の定義と逆変換を理解する</li>
 <li>フーリエ変換の基本的な性質（シフト・スケーリング・<strong>畳み込み定理</strong>・パーセバル）を使えるようになる</li>
-<li>計算機で扱うための <strong>離散フーリエ変換（DFT）と FFT</strong>、<strong>標本化定理・エイリアシング</strong> を理解し、<code>numpy.fft</code> でスペクトルを求められるようになる</li>
-<li>畳み込み定理を使った <strong>高速畳み込み</strong>（<span class="arithmatex">\(O(N^2)\to O(N\log N)\)</span>）と、<strong>相互相関</strong> による遅延推定を理解し、<code>scipy.signal</code> で実行できるようになる</li>
+<li>計算機で扱うための <strong>離散フーリエ変換（DFT）と FFT</strong>、<strong>サンプリング定理・エイリアシング</strong> を理解し、<code>numpy.fft</code> でスペクトルを求められるようになる</li>
 </ul>
 <h2 id="2">第2回からの接続</h2>
-<p>第2回では、<strong>周期</strong> <span class="arithmatex">\(2\pi\)</span> の関数を三角関数（複素指数）の重ね合わせ（フーリエ級数）で表した。複素係数 <span class="arithmatex">\(c_n\)</span> は <strong>とびとびの周波数</strong> <span class="arithmatex">\(n\omega_0\)</span>（<span class="arithmatex">\(\omega_0=2\pi/T\)</span>）に対応する、いわば <strong>離散スペクトル</strong> だった。</p>
-<p>では実際の信号の多くがそうであるように <strong>周期をもたない関数</strong> はどう扱うのか。発想は単純で、<strong>周期 <span class="arithmatex">\(T\)</span> を無限大に飛ばす</strong>。<span class="arithmatex">\(T\to\infty\)</span> とすると基本周波数 <span class="arithmatex">\(\omega_0=2\pi/T\to 0\)</span> となり、とびとびだった周波数 <span class="arithmatex">\(n\omega_0\)</span> は <strong>連続な <span class="arithmatex">\(\omega\)</span></strong> に変わる。こうして級数（和）は積分に置き換わり、離散的な係数 <span class="arithmatex">\(c_n\)</span> を <span class="arithmatex">\(F(\omega_n)\equiv T c_n\)</span> とスケールしたものが <strong>連続スペクトル</strong> <span class="arithmatex">\(F(\omega)\)</span> になる。これが <strong>フーリエ変換（Fourier transform）</strong> である。</p>
+<p>第2回では、<strong>周期</strong> <span class="arithmatex">\(2\pi\)</span>（一般には周期 <span class="arithmatex">\(T\)</span>）の関数を三角関数（複素指数）の重ね合わせ（フーリエ級数）で表した。複素係数 <span class="arithmatex">\(c_n\)</span> は <strong>とびとびの周波数</strong> <span class="arithmatex">\(n\omega_0\)</span>（<span class="arithmatex">\(\omega_0=2\pi/T\)</span>）に対応する、いわば <strong>離散スペクトル</strong> だった。</p>
+<p>では実際の信号の多くがそうであるように <strong>周期をもたない関数</strong> はどう扱うのか。発想は単純で、<strong>周期 <span class="arithmatex">\(T\)</span> を無限大に飛ばす</strong>。<span class="arithmatex">\(T\to\infty\)</span> とすると基本角周波数 <span class="arithmatex">\(\omega_0=2\pi/T\to 0\)</span> となり、とびとびだった周波数 <span class="arithmatex">\(n\omega_0\)</span> は <strong>連続な <span class="arithmatex">\(\omega\)</span></strong> に変わる。こうして級数（和）は積分に置き換わり、離散的な係数 <span class="arithmatex">\(c_n\)</span> を <span class="arithmatex">\(F(\omega_n)\equiv T c_n\)</span> とスケールしたものが <strong>連続スペクトル</strong> <span class="arithmatex">\(F(\omega)\)</span> になる。これが <strong>フーリエ変換（Fourier transform）</strong> である。</p>
 <div class="arithmatex">\[
 \underbrace{f(x)=\sum_{n} c_n\, e^{in\omega_0 x}}_{\text{周期関数：フーリエ級数}}
 \quad\xrightarrow{\;T\to\infty\;}\quad
 \underbrace{f(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty} F(\omega)\, e^{i\omega t}\,d\omega}_{\text{非周期関数：フーリエ変換}}
 \]</div>
 <h2 id="fft">なぜ離散化と FFT が要るのか</h2>
-<p>フーリエ変換は連続な積分で定義されるが、計算機が扱えるのは <strong>有限個の標本（サンプル）</strong> だけである。そこで連続信号を間隔 <span class="arithmatex">\(\Delta t\)</span> で標本化し、積分を有限和に置き換えたものが <strong>離散フーリエ変換（DFT）</strong> であり、それを高速に計算するアルゴリズムが <strong>FFT（高速フーリエ変換）</strong> である。FFT は計算量を <span class="arithmatex">\(O(N^2)\)</span> から <span class="arithmatex">\(O(N\log N)\)</span> へ劇的に下げ、現代の信号処理・データ解析を支えている。</p>
+<p>フーリエ変換は連続な積分で定義されるが、計算機が扱えるのは <strong>有限個のサンプル</strong> だけである。そこで連続信号を間隔 <span class="arithmatex">\(\Delta t\)</span> でサンプリングし、積分を有限和に置き換えたものが <strong>離散フーリエ変換（DFT）</strong> であり、それを高速に計算するアルゴリズムが <strong>FFT（高速フーリエ変換）</strong> である。FFT は計算量を <span class="arithmatex">\(O(N^2)\)</span> から <span class="arithmatex">\(O(N\log N)\)</span> へ劇的に下げ、現代の信号処理・データ解析を支えている。</p>
 <figure>
   <img alt="定義どおりの DFT と FFT の演算回数" src="img/fft_complexity.png" width="820" />
 <br />
 <figcaption>定義どおりの DFT（赤、$N^2$）と FFT（青、$N\log_2 N$）の演算回数の目安（定数倍は無視した）。左の線形の目盛りでは、$N=1000$ でも約 100 倍の差があり、FFT の線は底に張り付いて見える。右の両対数の目盛りでは、$N=10^6$ で $10^{12}$ と約 $2\times10^7$ になり、約 5 万倍の差になる。実際の速度比は、メモリアクセスなどの影響でこれと一致するとは限らない。</figcaption>
 </figure>
-<p>DFT <span class="arithmatex">\(X_k=\sum_n x_n e^{-i2\pi kn/N}\)</span> は連続フーリエ変換 <strong>そのもの</strong> ではなく、台形則と同じ発想の近似との間に <span class="arithmatex">\(\Delta t\)</span> の違いがある。すなわち <span class="arithmatex">\(F(\omega_k)\approx \Delta t\, X_k\)</span> であり（<span class="arithmatex">\(\omega_k=2\pi k/(N\Delta t)\)</span>）、単位も <span class="arithmatex">\(X_k\)</span> が信号と同じ単位なのに対し <span class="arithmatex">\(F\)</span> は「信号の単位 × 秒」になる。スペクトルの <strong>絶対値</strong> を物理量として比べるときは、この <span class="arithmatex">\(\Delta t\)</span> を忘れないこと。</p>
-<p>離散化には固有の注意点（<strong>ナイキスト周波数・エイリアシング・周波数分解能</strong>）があり、これを知らないとスペクトルを誤読する。本回ではこの落とし穴も実際に Python で再現して確かめる。</p>
+<p>離散化には固有の注意点（<strong>ナイキスト周波数・エイリアシング・周波数分解能</strong>）があり、これを知らないとスペクトルを誤読する。本回では、このうちエイリアシングを実際に Python で再現して確かめる。</p>
 <div class="admonition info">
 <p class="admonition-title">今回の題材</p>
-<p>連続フーリエ変換では <strong>矩形パルス</strong>（→ sinc）と <strong>ガウス関数</strong>（→ ガウス）を、DFT/FFT では <strong>合成正弦波</strong>（5Hz＋12Hz）と <strong>エイリアシング</strong>（18Hz が 20Hz 標本化で 2Hz に化ける）を一貫した例として使う。応用編の高速畳み込みでは <strong>直接法と FFT 法の速度比較</strong>、相互相関では <strong>未知の遅延をもつ雑音信号からの遅延推定</strong> を扱う。</p>
+<p>連続フーリエ変換では <strong>矩形パルス</strong>（→ sinc）と <strong>ガウス関数</strong>（→ ガウス）を、DFT/FFT では <strong>5 Hz の余弦と 12 Hz の正弦の和</strong> と <strong>エイリアシング</strong>（18Hz が 20Hz サンプリングで 2Hz に化ける）を一貫した例として使う。<code>irfft</code> では、与えた <span class="arithmatex">\(a_k\)</span>, <span class="arithmatex">\(b_k\)</span>（直流と 2・5・9 Hz）から波形を作る。</p>
 </div>
 <h2 id="_2">このページの構成</h2>
 <ul>
-<li><a href="fourier-transform/">フーリエ変換</a> — 級数からの導出、定義と規約、基本性質、パーセバル、代表的な変換対</li>
-<li><a href="dft-fft/">標本化と FFT</a> — 標本化定理・ナイキスト・エイリアシング、DFT の定義、FFT、<code>numpy.fft</code> の使い方</li>
-<li><a href="convolution/">高速畳み込みと相互相関</a> — FFT による高速畳み込み、巡回 vs 線形畳み込み、相互相関と遅延推定</li>
+<li><a href="fourier-transform/">フーリエ変換</a> — 級数からの導出、定義と規約、基本性質、パーセバル、代表的な変換対、不確定性関係</li>
+<li><a href="dft-fft/">サンプリングと FFT</a> — サンプリング定理・ナイキスト・エイリアシング、DFT の定義、<span class="arithmatex">\(X_k\)</span> と <span class="arithmatex">\(a_k\)</span>, <span class="arithmatex">\(b_k\)</span> の関係、FFT、<code>numpy.fft</code> の使い方、<code>irfft</code> による波形の合成</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">授業の進め方</p>
-<p>授業内では <strong>フーリエ変換・FFT・エイリアシング</strong>（<a href="fourier-transform/">フーリエ変換</a>・<a href="dft-fft/">標本化と FFT</a>）を中心に扱う。<strong>高速畳み込みと相互相関</strong>（<a href="convolution/">convolution.md</a>）は畳み込み定理の応用として位置づけた <strong>発展パート</strong> で、主に第5回の発表会①の準備や自習で活用してほしい。演習も、演習4（高速畳み込み）・演習5（相互相関）は <strong>発展扱い</strong> である。</p>
-</div>
 <h2 id="_3">演習</h2>
 <ul>
-<li><a href="exercises/">演習問題</a> — 矩形パルスの FT、FFT による振幅スペクトル、エイリアシングの数値実験、高速畳み込みと相互相関</li>
+<li><a href="exercises/">演習問題</a> — 雑音を含むデータから <code>rfft</code> で成分を読み取り、<code>irfft</code> で雑音を除く</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">前提</p>
-<p>第2回のフーリエ級数、複素指数 <span class="arithmatex">\(e^{i\theta}\)</span>、定積分、Python の基本（<code>numpy</code>, <code>scipy</code>, <code>matplotlib</code>）を使う。環境がまだの場合は第1回の <a href="../week01/setup-colab/">Google Colab</a> を参照のこと。</p>
+<p>第2回のフーリエ級数、複素指数 <span class="arithmatex">\(e^{i\theta}\)</span>、定積分、Python の基本（<code>numpy</code>, <code>matplotlib</code>）を使う。環境がまだの場合は第1回の <a href="../week01/setup-colab/">Google Colab</a> を参照のこと。</p>
 </div>
 
 

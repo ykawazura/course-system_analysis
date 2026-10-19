@@ -918,35 +918,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2918,11 +2890,11 @@
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matplotlib :&quot;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </code></pre></div>
 <p>バージョンがエラーなく表示されれば、必要なライブラリは揃っている。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>NumPy      : 1.26.4
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>SciPy      : 1.13.1
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Matplotlib : 3.8.4
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>NumPy      : 2.5.3
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>SciPy      : 1.18.1
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Matplotlib : 3.11.2
 </code></pre></div>
-<p>（バージョン番号は環境によって異なってよい。）</p>
+<p>（バージョン番号は環境によって異なってよい。ただし NumPy は 2.0 以上であること。第2回から使う <code>np.trapezoid</code> は 1.x には無い。）</p>
 <h2 id="2">ステップ 2: 簡単な計算</h2>
 <p>NumPy で配列の計算ができることを確認する。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>   <span class="c1"># 0 から 2π を 5 点に分割</span>

@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -3068,7 +3040,7 @@ A=\begin{pmatrix}0&amp;1\\-\omega_n^2&amp;-2\zeta\omega_n\end{pmatrix}
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="p">(</span><span class="s2">&quot;安定焦点&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">]])),</span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">]</span>
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">M</span> <span class="ow">in</span> <span class="n">systems</span><span class="p">:</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">ev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">ev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real_if_close</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">M</span><span class="p">))</span>  <span class="c1"># 実の固有値は実数で表示</span>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">tr</span><span class="p">,</span> <span class="n">det</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">M</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tr=</span><span class="si">{</span><span class="n">tr</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2">  det=</span><span class="si">{</span><span class="n">det</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">  tr^2-4det=</span><span class="si">{</span><span class="n">tr</span><span class="o">**</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">4</span><span class="o">*</span><span class="n">det</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2"> &quot;</span>
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>          <span class="sa">f</span><span class="s2">&quot;lambda=</span><span class="si">{</span><span class="n">ev</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">ev</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -3080,6 +3052,10 @@ A=\begin{pmatrix}0&amp;1\\-\omega_n^2&amp;-2\zeta\omega_n\end{pmatrix}
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>tr=-1.0  det=+4.25  tr^2-4det=-16.00 lambda=-0.50+2.00j, -0.50-2.00j -&gt; 安定焦点
 </code></pre></div>
 <p>固有値を見れば型は分かるが、実は <strong>固有値を計算しなくても</strong> トレースと行列式だけで分類できる。上の表をよく見ると、<span class="arithmatex">\(\det\)</span> の符号・<span class="arithmatex">\(\mathrm{tr}\)</span> の符号・<span class="arithmatex">\(\mathrm{tr}^2-4\det\)</span> の符号の 3 つで型が決まっていることが読み取れる（ちょうど <span class="arithmatex">\(0\)</span> になる退化した場合については次節で触れる）。</p>
+<div class="admonition note">
+<p class="admonition-title">固有値の表示を揃える</p>
+<p>NumPy の版によっては、<code>np.linalg.eigvals</code> が実の固有値も <code>-2.00+0.00j</code> のような虚部 <span class="arithmatex">\(0\)</span> の複素数で返す。上のコードの <code>np.real_if_close</code> は、虚部がすべて丸め誤差程度なら実数の配列に直す関数で、どの版でも同じ表示になるように使った。渦心・安定焦点の固有値は複素数のまま残る。</p>
+</div>
 <h2 id="_4">トレース–行列式平面</h2>
 <p><span class="arithmatex">\(2\times2\)</span> 行列の特性方程式は</p>
 <div class="arithmatex">\[

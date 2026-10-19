@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -3070,7 +3042,7 @@ A_r=\begin{pmatrix}0.99\cos0.3&amp;-0.99\sin0.3&amp;0\\0.99\sin0.3&amp;0.99\cos0
 <p>計算量も見ておく。<span class="arithmatex">\(n\times m\)</span> の SVD が <span class="arithmatex">\(O(nm^2)\)</span>、<span class="arithmatex">\(r\times r\)</span> の固有値問題が <span class="arithmatex">\(O(r^3)\)</span>、モードの構成が <span class="arithmatex">\(O(nmr)\)</span> で、<strong><span class="arithmatex">\(n\)</span> について線形</strong> である。<span class="arithmatex">\(n=10^5\)</span>、<span class="arithmatex">\(m=200\)</span>、<span class="arithmatex">\(r=10\)</span> でも数秒で終わる。<span class="arithmatex">\(A\)</span> を陽に作る <span class="arithmatex">\(O(n^2m)\)</span> とは比べものにならない。</p>
 <div class="admonition tip">
 <p class="admonition-title">スナップショットは等間隔でなければならない</p>
-<p><span class="arithmatex">\(\lambda\)</span> から <span class="arithmatex">\(\omega=\log\lambda/\Delta t\)</span> に直す段階で <span class="arithmatex">\(\Delta t\)</span> が一定であることを使っている。そもそも <span class="arithmatex">\(X_1\)</span> と <span class="arithmatex">\(X_2\)</span> を「<span class="arithmatex">\(1\)</span> 列ずらす」という作り方自体が、隣り合う列の時間差がどこでも同じであることを前提にしている。観測が不等間隔なら、補間して等間隔に直すか、観測時刻を直接式に持ち込む変種（optimized DMD、連続時間 DMD など）を使う。なお <strong>DMD with control</strong> という名前をよく見かけるが、これは外部入力 <span class="arithmatex">\(u_k\)</span> がある系 <span class="arithmatex">\(x_{k+1}=Ax_k+Bu_k\)</span> を扱う手法で、不等間隔標本化のための道具ではない。また <span class="arithmatex">\(\Delta t\)</span> が大きすぎると速い振動が折り返してしまう ── 第3回の標本化定理がそのまま効いてくる話で、<a href="../dmd-applications/">応用のページ</a> で数値的に確かめる。</p>
+<p><span class="arithmatex">\(\lambda\)</span> から <span class="arithmatex">\(\omega=\log\lambda/\Delta t\)</span> に直す段階で <span class="arithmatex">\(\Delta t\)</span> が一定であることを使っている。そもそも <span class="arithmatex">\(X_1\)</span> と <span class="arithmatex">\(X_2\)</span> を「<span class="arithmatex">\(1\)</span> 列ずらす」という作り方自体が、隣り合う列の時間差がどこでも同じであることを前提にしている。観測が不等間隔なら、補間して等間隔に直すか、観測時刻を直接式に持ち込む変種（optimized DMD、連続時間 DMD など）を使う。なお <strong>DMD with control</strong> という名前をよく見かけるが、これは外部入力 <span class="arithmatex">\(u_k\)</span> がある系 <span class="arithmatex">\(x_{k+1}=Ax_k+Bu_k\)</span> を扱う手法で、不等間隔サンプリングのための道具ではない。また <span class="arithmatex">\(\Delta t\)</span> が大きすぎると速い振動が折り返してしまう ── 第3回のサンプリング定理がそのまま効いてくる話で、<a href="../dmd-applications/">応用のページ</a> で数値的に確かめる。</p>
 </div>
 <h2 id="_4">まとめ</h2>
 <ul>

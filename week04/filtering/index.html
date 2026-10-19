@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2985,7 +2957,7 @@ Y(\omega)=X(\omega)\,H(\omega)
 <p><code>H</code> を変えるだけで他のフィルタも作れる。例えばハイパスは <code>freq &gt;= fc</code>、バンドパスは <code>(freq &gt;= f1) &amp; (freq &lt;= f2)</code> とすればよい。</p>
 <div class="admonition note">
 <p class="admonition-title">このマスク方式は「周期境界を仮定したオフライン処理」</p>
-<p><code>rfft</code>→マスク→<code>irfft</code> は、記録全体を一度に周波数領域へ移して掛け算する処理である。DFT は有限記録が <strong>周期的に繰り返す</strong> とみなす（第3回 <a href="../../week03/convolution/">高速畳み込みと相互相関</a> の巡回畳み込みの注意と同じ）ので、これは実質的に <strong>周期延長した信号への巡回畳み込み</strong> にあたる。しかも実数の矩形マスク <span class="arithmatex">\(H\)</span> は <strong>零位相</strong>（位相を動かさない）かつ <strong>非因果</strong>（出力が未来の入力にも依存する）で、通常の逐次的な LTI 線形畳み込み（因果的フィルタ）とは性質が異なる。記録全体がそろってから処理する <strong>オフライン解析</strong> では有効だが、端の近くでは周期の折り返しの影響を受けやすい。
+<p><code>rfft</code>→マスク→<code>irfft</code> は、記録全体を一度に周波数領域へ移して掛け算する処理である。DFT は有限記録が <strong>周期的に繰り返す</strong> とみなすので、これは実質的に <strong>周期延長した信号への巡回畳み込み</strong>（信号を長さ <span class="arithmatex">\(N\)</span> の周期で繰り返すとみなして行う畳み込み）にあたる。しかも実数の矩形マスク <span class="arithmatex">\(H\)</span> は <strong>零位相</strong>（位相を動かさない）かつ <strong>非因果</strong>（出力が未来の入力にも依存する）で、通常の逐次的な LTI 線形畳み込み（因果的フィルタ）とは性質が異なる。記録全体がそろってから処理する <strong>オフライン解析</strong> では有効だが、端の近くでは周期の折り返しの影響を受けやすい。
 実時間・ストリーミングや因果的な処理が必要なときは、<code>scipy.signal</code> の FIR フィルタ設計（<code>firwin</code>）や IIR フィルタ（<code>butter</code>＋<code>sosfilt</code>）を使う。零位相のオフライン処理をきれいに行いたいときは、前後2方向にかけて位相ずれを打ち消す <code>scipy.signal.sosfiltfilt</code> が定番である。</p>
 </div>
 <h2 id="_3">理想フィルタの落とし穴：リンギング</h2>
@@ -3004,7 +2976,7 @@ Y(\omega)=X(\omega)\,H(\omega)
 </ul>
 <div class="admonition note">
 <p class="admonition-title">本講義との接続</p>
-<p>第3回のフーリエ変換・FFT・高速畳み込みに続き、第4回ではスペクトル解析（パワースペクトル・窓・ウェルチ法）とフィルタリングまで、フーリエ変換の理論と応用が一通りそろった。次回の <strong>第5回 発表会①</strong> では、これらの手法を使って各自が見つけた実問題を解き、発表する。準備の進め方や発表のフォーマットは <a href="../../week05/">発表会ガイド</a> を参照すること。</p>
+<p>第3回のフーリエ変換・FFT に続き、第4回ではスペクトル解析（パワースペクトル・窓・ウェルチ法）とフィルタリングまで、フーリエ変換の理論と応用が一通りそろった。次回の <strong>第5回 発表会①</strong> では、これらの手法を使って各自が見つけた実問題を解き、発表する。準備の進め方や発表のフォーマットは <a href="../../week05/">発表会ガイド</a> を参照すること。</p>
 </div>
 
 

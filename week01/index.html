@@ -1023,35 +1023,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -3145,7 +3117,7 @@
 <p>システム解析の手法は、現代の科学技術のいたるところで使われている。ここでは、本講義で学ぶ手法が<strong>実際にどんなことを可能にするのか</strong>を、計算結果の図とともに紹介する。各例には本講義のどの回で扱うかを示した。今は数式の細部が分からなくても構わない。「こんなことができるのか」という感覚を持ち帰ってほしい。</p>
 <div class="admonition tip">
 <p class="admonition-title">身近なところにもシステム解析</p>
-<p>音声認識・音楽アプリの周波数表示・心電図の解析・地震計の波形処理・制御工学（エアコンや自動運転）・画像圧縮・推薦システム ── これらはすべて、本講義で学ぶ手法の延長線上にある。</p>
+<p>音声認識・音楽アプリの周波数表示・心電図の解析・地震計の波形処理・制御工学（エアコンや自動運転）・画像圧縮 ── これらはすべて、本講義で学ぶ手法の延長線上にある。</p>
 </div>
 <h3 id="1_1">① 周波数で世界を見る — フーリエ解析</h3>
 <p>複雑に見える信号も、<strong>異なる周波数の波の重ね合わせ</strong>として表すことができる。信号を周波数成分に分解する道具が<strong>フーリエ変換</strong>である。下図左の雑音に埋もれた時間波形を周波数の世界へ移すと（右）、もとの信号に含まれる <span class="arithmatex">\(5\ \mathrm{Hz}\)</span> と <span class="arithmatex">\(12\ \mathrm{Hz}\)</span> の成分が鋭いピークとしてはっきり現れる。</p>
@@ -3158,10 +3130,10 @@
 <div class="arithmatex">\[
 F(\omega) = \int_{-\infty}^{\infty} f(t)\, e^{-i\omega t}\, dt
 \]</div>
-<p>ここで <span class="arithmatex">\(\omega\)</span> は <strong>角周波数</strong>（単位 rad/s）で、図の横軸に使った周波数 <span class="arithmatex">\(f\)</span>［Hz］とは <span class="arithmatex">\(\omega = 2\pi f\)</span> の関係にある。この積分が収束するには <span class="arithmatex">\(f\)</span> に条件（例えば絶対可積分）が要るが、詳しくは第3回で扱う。実際の計算では、計算量を <span class="arithmatex">\(O(N^2)\)</span> から <span class="arithmatex">\(O(N\log N)\)</span> に削減する<strong>高速フーリエ変換</strong>（FFT）を用いる。</p>
+<p>ここで <span class="arithmatex">\(\omega\)</span> は <strong>角周波数</strong>（単位 rad/s）で、図の横軸に使った周波数 <span class="arithmatex">\(f\)</span>［Hz］とは <span class="arithmatex">\(\omega = 2\pi f\)</span> の関係にある。実際の計算では、計算量を <span class="arithmatex">\(O(N^2)\)</span> から <span class="arithmatex">\(O(N\log N)\)</span> に削減する<strong>高速フーリエ変換</strong>（FFT）を用いる。</p>
 <div class="admonition note">
 <p class="admonition-title">本講義との接続</p>
-<p><strong><a href="../week02/">第2〜4回 フーリエ変換</a></strong>。フーリエ級数・パーセバルの等式と Gibbs 現象・フーリエ変換と FFT・高速畳み込み・スペクトル解析とフィルタリングを学ぶ。学んだ手法は <strong><a href="../week05/">第5回の発表会①</a></strong> で各自の実問題に応用する。</p>
+<p><strong><a href="../week02/">第2〜4回 フーリエ変換</a></strong>。フーリエ級数・パーセバルの等式と Gibbs 現象・フーリエ変換と FFT・スペクトル解析とフィルタリングを学ぶ。学んだ手法は <strong><a href="../week05/">第5回の発表会①</a></strong> で各自の実問題に応用する。</p>
 </div>
 <h3 id="2">② 過渡応答と安定性 — ラプラス変換</h3>
 <p>目標値を与えたとき、システムの出力が<strong>どう立ち上がり、行き過ぎ、落ち着くか</strong>（過渡応答）は、制御工学の中心的な問いである。<strong>ラプラス変換</strong>は、微分方程式を <span class="arithmatex">\(s\)</span> の代数方程式に変換し、システムを<strong>伝達関数</strong>として扱えるようにする。下図は、2 次系のステップ応答を<strong>減衰比 <span class="arithmatex">\(\zeta\)</span></strong> を変えて計算したものである。<span class="arithmatex">\(\zeta\)</span> が小さいと大きく行き過ぎて振動し、大きいとゆっくり立ち上がる。</p>
@@ -3206,7 +3178,7 @@ F(\omega) = \int_{-\infty}^{\infty} f(t)\, e^{-i\omega t}\, dt
 <p><strong><a href="../week11/">第11回 線形安定性</a></strong>。固有値解析によって平衡点の安定性を判定する方法を学ぶ。</p>
 </div>
 <h3 id="5">⑤ 大きなデータを絞り込む — 特異値分解</h3>
-<p>画像・センサ・実験データは、しばしば<strong>巨大だが本質は少数の成分に集約できる</strong>。<strong>特異値分解</strong>（SVD）は、行列を重要な成分の順に分解し、ごく一部だけで全体をよく近似することを可能にする。下図は、グレースケール画像をランク（使う成分数）を変えて再構成したもので、わずか数十成分で元画像がほぼ復元できることが分かる。画像圧縮・ノイズ除去・主成分分析・推薦システムの背骨となる手法である。</p>
+<p>画像・センサ・実験データは、しばしば<strong>巨大だが本質は少数の成分に集約できる</strong>。<strong>特異値分解</strong>（SVD）は、行列を重要な成分の順に分解し、ごく一部だけで全体をよく近似することを可能にする。下図は、グレースケール画像をランク（使う成分数）を変えて再構成したもので、わずか数十成分で元画像がほぼ復元できることが分かる。画像圧縮・ノイズ除去・主成分分析の背骨となる手法である。</p>
 <figure>
   <img alt="特異値分解による画像の低ランク近似" src="img/svd.png" width="900" />
 <br />
@@ -3218,7 +3190,7 @@ F(\omega) = \int_{-\infty}^{\infty} f(t)\, e^{-i\omega t}\, dt
 <p><strong><a href="../week13/">第13回 特異値分解とその応用</a></strong>。SVD の原理と、画像やデータへの応用を学ぶ。</p>
 </div>
 <h3 id="6">⑥ データから方程式を取り出す — 動的モード分解</h3>
-<p>観測された時系列データだけから、その背後にある<strong>支配的なモード（空間パターン）とその振動周波数</strong>を抽出できたら強力である。<strong>動的モード分解</strong>（DMD）は、SVD と固有値解析を組み合わせて、まさにこれを実現する。ただしうまくいくのは、データが少数のモードの線形な重ね合わせでよく表され、標本化間隔が細かく（エイリアシングを起こさず）、雑音が大きすぎない場合である。下図では、2 つの空間モードが異なる周波数で振動する時空間データ（左）から、DMD が空間モード（中）と固有周波数（右）を正しく取り出している。</p>
+<p>観測された時系列データだけから、その背後にある<strong>支配的なモード（空間パターン）とその振動周波数</strong>を抽出できたら強力である。<strong>動的モード分解</strong>（DMD）は、SVD と固有値解析を組み合わせて、まさにこれを実現する。ただしうまくいくのは、データが少数のモードの線形な重ね合わせでよく表され、サンプリング間隔が細かく（エイリアシングを起こさず）、雑音が大きすぎない場合である。下図では、2 つの空間モードが異なる周波数で振動する時空間データ（左）から、DMD が空間モード（中）と固有周波数（右）を正しく取り出している。</p>
 <figure>
   <img alt="動的モード分解" src="img/dmd.png" width="900" />
 <br />

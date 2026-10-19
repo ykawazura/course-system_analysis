@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2982,7 +2954,7 @@ C_\psi=\int_{0}^{\infty}\frac{|\Psi(f)|^{2}}{f}\,df&lt;\infty
 =\frac{1}{\sqrt{a}}\int x(t)\,\overline{\psi\!\left(\frac{t-b}{a}\right)}\,dt\ }
 \]</div>
 <p>である（<span class="arithmatex">\(\overline{\phantom{x}}\)</span> は複素共役）。<span class="arithmatex">\(|W(a,b)|\)</span> ないしその 2 乗 <span class="arithmatex">\(|W(a,b)|^{2}\)</span> を、横軸 <span class="arithmatex">\(b\)</span>・縦軸 <span class="arithmatex">\(a\)</span>（または対応する周波数）の濃淡図にしたものを <strong>スカログラム（scalogram）</strong> と呼ぶ。スペクトログラムのウェーブレット版である。エネルギー密度として扱う文献では <span class="arithmatex">\(|W|^{2}\)</span> を採る定義が多い。本ページの図は振幅 <span class="arithmatex">\(|W|\)</span> を最大値で規格化して <span class="arithmatex">\(20\log_{10}\)</span> で表示しており、これは <span class="arithmatex">\(|W|^{2}\)</span> を <span class="arithmatex">\(10\log_{10}\)</span> で表示するのと同じ値になる。</p>
-<p>連続時間で書いた <span class="arithmatex">\(\psi_{a,b}\)</span> では <span class="arithmatex">\(a\)</span> は <span class="arithmatex">\(t\)</span> と同じ時間の次元をもつが、<code>pywt</code> は標本番号を時間軸として扱うので、そこでの <span class="arithmatex">\(a\)</span> は <strong>何サンプル分に引き伸ばすか</strong> という無次元の数になる。この無次元スケールを周波数として読むには換算が要る。母ウェーブレットの中心周波数を <span class="arithmatex">\(f_c\)</span>（サンプルあたりの周期数）とすると、スケール <span class="arithmatex">\(a\)</span> が対応する周波数は</p>
+<p>連続時間で書いた <span class="arithmatex">\(\psi_{a,b}\)</span> では <span class="arithmatex">\(a\)</span> は <span class="arithmatex">\(t\)</span> と同じ時間の次元をもつが、<code>pywt</code> はサンプル番号を時間軸として扱うので、そこでの <span class="arithmatex">\(a\)</span> は <strong>何サンプル分に引き伸ばすか</strong> という無次元の数になる。この無次元スケールを周波数として読むには換算が要る。母ウェーブレットの中心周波数を <span class="arithmatex">\(f_c\)</span>（サンプルあたりの周期数）とすると、スケール <span class="arithmatex">\(a\)</span> が対応する周波数は</p>
 <div class="arithmatex">\[
 f=\frac{f_c\,f_s}{a}
 \qquad\Longleftrightarrow\qquad
@@ -3011,16 +2983,20 @@ a=\frac{f_c\,f_s}{f}
 <a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>          <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="p">(</span><span class="n">fp</span><span class="o">/</span><span class="p">(</span><span class="mi">10</span><span class="o">+</span><span class="mi">55</span><span class="o">*</span><span class="n">t0</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="si">:</span><span class="s2">+.1%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>中心周波数 f_c=1.0  scales-&gt;freqs 誤差=2.84e-14
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>t=0.5s: CWT ピーク  37.20 Hz / 真値  37.50 Hz  (-0.8%)
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>t=1.0s: CWT ピーク  64.86 Hz / 真値  65.00 Hz  (-0.2%)
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>t=1.5s: CWT ピーク  92.38 Hz / 真値  92.50 Hz  (-0.1%)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>t=0.5s: CWT ピーク  36.67 Hz / 真値  37.50 Hz  (-2.2%)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>t=1.0s: CWT ピーク  63.01 Hz / 真値  65.00 Hz  (-3.1%)
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>t=1.5s: CWT ピーク  91.05 Hz / 真値  92.50 Hz  (-1.6%)
 </code></pre></div>
-<p><code>pywt</code> が返す周波数 <code>f_cwt</code> は、こちらが指定した <code>freqs</code> と <span class="arithmatex">\(10^{-14}\)</span> の精度で一致しており、換算式 <span class="arithmatex">\(a=f_c f_s/f\)</span> が正しいことが確認できる。各時刻で <span class="arithmatex">\(|W|\)</span> が最大になる周波数を読むと、チャープの真の瞬時周波数 <span class="arithmatex">\(f(t)=10+55t\)</span> に対して誤差はいずれも 1 % 以内である。<strong>時刻ごとに周波数が読めている</strong> ── 信号全体を一つのスペクトルへ写すフーリエ変換の表現では、直接には読み取れなかったことである。</p>
+<p><code>pywt</code> が返す周波数 <code>f_cwt</code> は、こちらが指定した <code>freqs</code> と <span class="arithmatex">\(10^{-14}\)</span> の精度で一致しており、換算式 <span class="arithmatex">\(a=f_c f_s/f\)</span> が正しいことが確認できる。各時刻で <span class="arithmatex">\(|W|\)</span> が最大になる周波数を読むと、チャープの真の瞬時周波数 <span class="arithmatex">\(f(t)=10+55t\)</span> に対して誤差は 3 % 程度に収まっている。ピークがどれも真値より少し低いのは、<span class="arithmatex">\(\psi_{a,b}\)</span> の係数 <span class="arithmatex">\(1/\sqrt a\)</span> が大きいスケール（低い周波数）の側をわずかに持ち上げるためで、このウェーブレットでは一定周波数の正弦波に当てても 1.6 % ほど低く出る（残りの差は、山の頂上がなだらかなので、<code>pywt</code> の内部でウェーブレットを離散化するときのわずかな誤差でもピークの位置が <code>freqs</code> の目盛り 1〜2 個分（1 目盛りは約 0.7 %）動くことによる）。<strong>時刻ごとに周波数が読めている</strong> ── 信号全体を一つのスペクトルへ写すフーリエ変換の表現では、直接には読み取れなかったことである。</p>
+<div class="admonition note">
+<p class="admonition-title">PyWavelets の版による違い</p>
+<p>PyWavelets は 1.9 で <code>pywt.cwt</code> の内部の計算精度を上げた。それより前の版では、上のピークの周波数が少し違って出る。上の出力は Colab の <code>!pip install PyWavelets</code> で入る新しい版のものである。</p>
+</div>
 <p>同じ信号を STFT と CWT で見比べる。</p>
 <figure>
   <img alt="STFT とウェーブレット変換のスカログラムの比較" src="../img/cwt_scalogram.png" width="900" />
 <br />
-<figcaption>第9回と同じ信号（前半 30 Hz・後半 120 Hz、$t=0.5$ s に過渡パルス）を、左：STFT（$L=128$、折衷的な窓長）、右：Morlet ウェーブレットの CWT で表したもの。縦軸はどちらも **対数** 目盛なので、帯の見た目の太さは絶対幅 [Hz] ではなく相対幅を表す。STFT の周波数分解能は全域で一定の $\Delta f$ [Hz] なので、対数軸では低周波ほど帯が太く、高周波ほど細く見える（ピークから $-6$ dB までの帯幅は 30 Hz 側が 0.125 桁、120 Hz 側が 0.028 桁と 4 倍以上違う）。いっぽう CWT は定 Q で相対帯域幅が一定なので、両方の帯がほぼ同じ太さになる（同じ基準で 0.182 桁と 0.185 桁）。そのぶん高周波では時間方向に鋭くなり、$t=0.5$ s の過渡パルスと $t=1.0$ s の切り替わりが細い縦線として立つ。同じ不確定性の制約の下で、分解能の配分を周波数ごとに変えているのが見て取れる。</figcaption>
+<figcaption>第9回と同じ信号（前半 30 Hz・後半 120 Hz、$t=0.5$ s に過渡パルス）を、左：STFT（$L=128$、折衷的な窓長）、右：Morlet ウェーブレットの CWT で表したもの。縦軸はどちらも **対数** 目盛なので、帯の見た目の太さは絶対幅 [Hz] ではなく相対幅を表す。STFT の周波数分解能は全域で一定の $\Delta f$ [Hz] なので、対数軸では低周波ほど帯が太く、高周波ほど細く見える（ピークから $-6$ dB までの帯幅は 30 Hz 側が 0.125 桁、120 Hz 側が 0.028 桁と 4 倍以上違う）。いっぽう CWT は定 Q で相対帯域幅が一定なので、両方の帯がほぼ同じ太さになる（同じ基準でどちらも 0.182 桁）。そのぶん高周波では時間方向に鋭くなり、$t=0.5$ s の過渡パルスと $t=1.0$ s の切り替わりが細い縦線として立つ。同じ不確定性の制約の下で、分解能の配分を周波数ごとに変えているのが見て取れる。</figcaption>
 </figure>
 <h2 id="_4">離散ウェーブレット変換と多重解像度解析</h2>
 <p>CWT はスケール <span class="arithmatex">\(a\)</span> と位置 <span class="arithmatex">\(b\)</span> を連続に動かすので情報が大きく重複しており、係数の数は元の信号よりずっと多い（上の例では 512 スケール × 2000 点）。解析・可視化には向くが、圧縮や高速処理には冗長すぎる。そこで、スケールと位置を</p>
@@ -3151,7 +3127,7 @@ x \;\longrightarrow\; \{\,a_J,\ d_J,\ d_{J-1},\ \dots,\ d_1\,\}
 <h2 id="_7">まとめ</h2>
 <ul>
 <li>ウェーブレット変換は、母ウェーブレット <span class="arithmatex">\(\psi\)</span> を伸縮・平行移動した <span class="arithmatex">\(\psi_{a,b}(t)=\dfrac{1}{\sqrt a}\psi\!\left(\dfrac{t-b}{a}\right)\)</span> を信号に当てる。母ウェーブレットは許容条件 <span class="arithmatex">\(C_\psi=\int_0^\infty|\Psi(f)|^2/f\,df&lt;\infty\)</span> を満たす必要があり、その帰結として平均が（ほぼ）0 になる。</li>
-<li><strong>CWT</strong> <span class="arithmatex">\(W(a,b)=\int x\,\overline{\psi_{a,b}}\,dt\)</span> とその絶対値の図（スカログラム）で、時刻ごとの周波数が読める。スケールと周波数は <span class="arithmatex">\(f=f_c f_s/a\)</span> で対応し、チャープの瞬時周波数を誤差 1 % 以内で追えた。定 Q なので、対数周波数軸では帯の太さが周波数によらずほぼ一定になる（<span class="arithmatex">\(-6\)</span> dB 帯幅で 0.182 桁 / 0.185 桁）。</li>
+<li><strong>CWT</strong> <span class="arithmatex">\(W(a,b)=\int x\,\overline{\psi_{a,b}}\,dt\)</span> とその絶対値の図（スカログラム）で、時刻ごとの周波数が読める。スケールと周波数は <span class="arithmatex">\(f=f_c f_s/a\)</span> で対応し、チャープの瞬時周波数を誤差 3 % 程度で追えた。定 Q なので、対数周波数軸では帯の太さが周波数によらずほぼ一定になる（<span class="arithmatex">\(-6\)</span> dB 帯幅はどちらも 0.182 桁）。</li>
 <li><strong>DWT</strong> はスケールと位置を 2 のべきに離散化したもので、フィルタバンクによる <strong>多重解像度解析</strong> <span class="arithmatex">\(\{a_J,d_J,\dots,d_1\}\)</span> になる。スケーリング関数と組で正規直交（または双直交）系をなすよう設計された族に限り完全再構成でき、<code>wavedec</code>／<code>waverec</code> の再構成誤差は <span class="arithmatex">\(1.78\times10^{-15}\)</span> だった。</li>
 <li>局在した基底ゆえに係数が <strong>スパース</strong> になる。区分定数信号の <span class="arithmatex">\(K=64\)</span> 項近似で、相対誤差はフーリエ 0.1242 に対し Haar 0.0100（しかもフーリエ側は複素係数 64 個なので、条件はフーリエに有利）。</li>
 <li><strong>ウェーブレット縮退</strong>（<span class="arithmatex">\(\lambda=\hat\sigma\sqrt{2\log N}\)</span>、<span class="arithmatex">\(\hat\sigma\)</span> は <span class="arithmatex">\(d_1\)</span> の MAD 推定）は、詳細係数だけをしきい値処理して残った 49 係数で SNR を 10.98 → 18.83 dB に改善した。同数のフーリエ係数による近似（14.39 dB）を大きく上回る。</li>

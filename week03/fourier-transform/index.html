@@ -908,6 +908,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不確定性関係
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#python" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -924,7 +935,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -957,35 +968,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2939,6 +2922,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不確定性関係
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#python" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2955,7 +2949,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -2983,7 +2977,7 @@
 
 
 <h1 id="_1">フーリエ変換</h1>
-<p>第2回のフーリエ級数は <strong>周期</strong> 関数を対象としていた。本ページでは、周期 <span class="arithmatex">\(T\)</span> を無限大に飛ばすことで <strong>非周期</strong> 関数に拡張した <strong>フーリエ変換</strong> を導入し、その定義・規約・基本性質・代表的な変換対を整理する。</p>
+<p>第2回のフーリエ級数は <strong>周期</strong> 関数を対象としていた。本ページでは、周期 <span class="arithmatex">\(T\)</span> を無限大に飛ばすことで <strong>非周期</strong> 関数に拡張した <strong>フーリエ変換</strong> を導入し、その定義・規約・基本性質・代表的な変換対と不確定性関係を整理する。</p>
 <h2 id="_2">フーリエ級数からフーリエ変換へ</h2>
 <p>周期 <span class="arithmatex">\(T\)</span> の関数の複素フーリエ級数は、<span class="arithmatex">\(\omega_0=2\pi/T\)</span>、<span class="arithmatex">\(\omega_n=n\omega_0\)</span> として</p>
 <div class="arithmatex">\[
@@ -2995,23 +2989,14 @@ c_n=\frac{1}{T}\int_{-T/2}^{T/2} f(x)\, e^{-i\omega_n x}\,dx
 <div class="arithmatex">\[
 f(x)=\frac{1}{2\pi}\sum_{n=-\infty}^{\infty} F(\omega_n)\, e^{i\omega_n x}\,\underbrace{\omega_0}_{\Delta\omega}.
 \]</div>
-<p>周期を <span class="arithmatex">\(T\to\infty\)</span> にすると、周波数間隔 <span class="arithmatex">\(\Delta\omega=\omega_0=2\pi/T\to 0\)</span> となり、とびとびの <span class="arithmatex">\(\omega_n\)</span> は <strong>連続変数 <span class="arithmatex">\(\omega\)</span></strong> に、和は <strong>積分</strong> になる。こうして次の <strong>フーリエ変換対</strong> を得る。</p>
+<p>周期を <span class="arithmatex">\(T\to\infty\)</span> にすると、周波数間隔 <span class="arithmatex">\(\Delta\omega=\omega_0=2\pi/T\to 0\)</span> となり、とびとびの <span class="arithmatex">\(\omega_n\)</span> は <strong>連続変数 <span class="arithmatex">\(\omega\)</span></strong> に、和は <strong>積分</strong> になる。以下では、変数を <span class="arithmatex">\(x\)</span> から時間 <span class="arithmatex">\(t\)</span> に替えて書く。こうして次の <strong>フーリエ変換対</strong> を得る。</p>
 <div class="arithmatex">\[
 \boxed{\;F(\omega)=\int_{-\infty}^{\infty} f(t)\, e^{-i\omega t}\,dt\;}
 \qquad
 \boxed{\;f(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty} F(\omega)\, e^{i\omega t}\,d\omega\;}
 \]</div>
-<p>前者を <strong>フーリエ変換</strong>、後者を <strong>逆フーリエ変換</strong> と呼ぶ。<span class="arithmatex">\(F(\omega)\)</span> は各周波数 <span class="arithmatex">\(\omega\)</span> がどれだけ含まれるかを表す <strong>連続スペクトル</strong> であり、一般に複素数（振幅 <span class="arithmatex">\(|F(\omega)|\)</span> と位相 <span class="arithmatex">\(\arg F(\omega)\)</span>）である。</p>
-<div class="admonition warning">
-<p class="admonition-title">この導出が保証すること・しないこと</p>
-<p>上の <span class="arithmatex">\(T\to\infty\)</span> は <strong>形式的な導出</strong> であって、任意の非周期関数について積分が収束することや、逆変換で元に戻ることを示したものではない。厳密には <span class="arithmatex">\(f\)</span> の関数クラスごとに主張が変わる。</p>
-<ul>
-<li><span class="arithmatex">\(f\in L^1\)</span>（絶対可積分）なら <span class="arithmatex">\(F(\omega)\)</span> は通常の積分として定義でき、連続で <span class="arithmatex">\(\lvert\omega\rvert\to\infty\)</span> で <span class="arithmatex">\(0\)</span> に近づく（Riemann–Lebesgue）。ただし <span class="arithmatex">\(F\)</span> が <span class="arithmatex">\(L^1\)</span> とは限らないので、<strong>逆変換の積分は収束するとは限らない</strong>。<span class="arithmatex">\(F\in L^1\)</span> も仮定すれば、<span class="arithmatex">\(f\)</span> の連続点で逆変換が元に戻る。</li>
-<li><span class="arithmatex">\(f\in L^2\)</span>（二乗可積分）なら、<span class="arithmatex">\(L^2\)</span> の極限として変換が定義でき、後述の <strong>プランシュレルの定理</strong> が成り立つ。これが本講義でエネルギーを論じるときの土俵である。</li>
-<li>本ページの例（矩形パルス・ガウス・両側指数）はいずれも <span class="arithmatex">\(L^1\cap L^2\)</span> に入るので、上のどちらの意味でも問題なく扱える。一方、<span class="arithmatex">\(\sin\omega_0 t\)</span> や定数関数のようにどちらにも入らない信号は、超関数（デルタ関数）を使って初めて変換が書ける。</li>
-</ul>
-<p>以下では、こうした収束条件が満たされている場合を前提に話を進める。</p>
-</div>
+<p>前者を <strong>フーリエ変換</strong>、後者を <strong>逆フーリエ変換</strong> と呼ぶ。<span class="arithmatex">\(f(t)\)</span> をフーリエ変換した <span class="arithmatex">\(F(\omega)\)</span> を逆フーリエ変換すると、<strong>元の <span class="arithmatex">\(f(t)\)</span> に戻る</strong>。ただし、どんな <span class="arithmatex">\(f\)</span> でも各点で元に戻る、というわけではない（とくに <span class="arithmatex">\(f\)</span> が跳ぶ不連続点）。条件には本講義では立ち入らない。</p>
+<p>信号に含まれる各周波数の成分を、周波数の関数として表したものを <strong>スペクトル</strong> と呼ぶ。フーリエ級数の係数 <span class="arithmatex">\(c_n\)</span> はとびとびの周波数 <span class="arithmatex">\(\omega_n\)</span> にだけ値をもつ <strong>離散スペクトル</strong> であり、<span class="arithmatex">\(F(\omega)\)</span> は各周波数 <span class="arithmatex">\(\omega\)</span> がどれだけ含まれるかを表す <strong>連続スペクトル</strong> である。<span class="arithmatex">\(F(\omega)\)</span> は一般に複素数（振幅 <span class="arithmatex">\(|F(\omega)|\)</span> と位相 <span class="arithmatex">\(\arg F(\omega)\)</span>）であり、<span class="arithmatex">\(|F(\omega)|\)</span> を <strong>振幅スペクトル</strong> と呼ぶ。</p>
 <div class="admonition warning">
 <p class="admonition-title">規約に注意</p>
 <p>フーリエ変換の定義は分野により流儀が違う。主な違いは <strong><span class="arithmatex">\(2\pi\)</span> をどこに置くか</strong> と <strong>角周波数 <span class="arithmatex">\(\omega\)</span> か周波数 <span class="arithmatex">\(f\)</span> か</strong>。
@@ -3019,10 +3004,10 @@ f(x)=\frac{1}{2\pi}\sum_{n=-\infty}^{\infty} F(\omega_n)\, e^{i\omega_n x}\,\und
 <div class="arithmatex">\[
 F(f)=\int f(t)e^{-i 2\pi f t}dt,\qquad f(t)=\int F(f)e^{i 2\pi f t}df
 \]</div>
-<p>で、<span class="arithmatex">\(\omega=2\pi f\)</span> で対応し <span class="arithmatex">\(2\pi\)</span> が対称に消える。公式を引くときは必ず規約を確認すること。</p>
+<p>で、<span class="arithmatex">\(\omega=2\pi f\)</span> で対応し <span class="arithmatex">\(2\pi\)</span> が対称に消える。公式を引くときは必ず規約を確認すること。なお、周波数規約の <span class="arithmatex">\(F(f)\)</span> の <span class="arithmatex">\(f\)</span> は周波数［Hz］で、信号 <span class="arithmatex">\(f(t)\)</span> の <span class="arithmatex">\(f\)</span> とは別の量である。</p>
 </div>
 <h2 id="_3">基本性質</h2>
-<p><span class="arithmatex">\(f(t)\leftrightarrow F(\omega)\)</span>、<span class="arithmatex">\(g(t)\leftrightarrow G(\omega)\)</span> とする。これらは積分の計算から直接導ける。</p>
+<p><span class="arithmatex">\(f(t)\leftrightarrow F(\omega)\)</span>、<span class="arithmatex">\(g(t)\leftrightarrow G(\omega)\)</span> とする（<span class="arithmatex">\(f\leftrightarrow F\)</span> は「<span class="arithmatex">\(F\)</span> は <span class="arithmatex">\(f\)</span> のフーリエ変換」の意味）。これらは積分の計算から直接導ける。</p>
 <table>
 <thead>
 <tr>
@@ -3069,23 +3054,17 @@ F(f)=\int f(t)e^{-i 2\pi f t}dt,\qquad f(t)=\int F(f)e^{i 2\pi f t}df
 </tr>
 </tbody>
 </table>
-<p>各行にも成立条件がある。スケーリングは <span class="arithmatex">\(a\neq0\)</span>。微分則は <span class="arithmatex">\(f\)</span> が微分可能で <span class="arithmatex">\(f'\)</span> も変換でき、部分積分の境界項が消えること（<span class="arithmatex">\(\lvert t\rvert\to\infty\)</span> で <span class="arithmatex">\(f\to0\)</span>）が必要である。畳み込み則は例えば <span class="arithmatex">\(f,g\in L^1\)</span> なら成り立ち、積の則は <span class="arithmatex">\(F*G\)</span> の積分が存在することが要る。以下ではこれらが満たされている場合を扱う。</p>
-<p>とくに重要なのが <strong>畳み込み定理</strong>：時間領域の畳み込みは、周波数領域では <strong>単なる積</strong> になる。線形時不変システムの出力 <span class="arithmatex">\(y=x*h\)</span>（<span class="arithmatex">\(h\)</span> はインパルス応答）は、フーリエ変換すると <span class="arithmatex">\(Y(\omega)=X(\omega)H(\omega)\)</span> となり、システムは各周波数成分を <strong>周波数応答 <span class="arithmatex">\(H(\omega)\equiv\mathcal{F}[h]\)</span> 倍する</strong> 掛け算に化ける ── これが「周波数で見ると見通しがよい」ことの核心である（ラプラス変換・伝達関数へつながる）。</p>
-<div class="admonition note">
-<p class="admonition-title">スケーリングと不確定性関係</p>
-<p>スケーリング則は「時間方向に <strong>狭く</strong> すると周波数方向に <strong>広がる</strong>」（逆も同様）ことを表す。これを定量化したのが <strong>不確定性関係</strong> である。ここで時間幅・周波数幅とは、<span class="arithmatex">\(\lvert f\rvert^2\)</span> と <span class="arithmatex">\(\lvert F\rvert^2\)</span> をそれぞれ確率密度とみなしたときの <strong>標準偏差</strong></p>
+<p><span class="arithmatex">\(\alpha,\ \beta,\ t_0,\ \omega_0,\ a\)</span> は定数で、ここの <span class="arithmatex">\(\omega_0\)</span> は前節の基本角周波数とは別である。</p>
+<p>各行にも成立条件がある。スケーリングは <span class="arithmatex">\(a\neq0\)</span>。微分則は、<span class="arithmatex">\(f\)</span> が微分可能で <span class="arithmatex">\(f'\)</span> も変換でき、部分積分の境界項が消えること（<span class="arithmatex">\(\lvert t\rvert\to\infty\)</span> で <span class="arithmatex">\(f\to0\)</span>）が要る。その他の条件には立ち入らず、満たされている場合を扱う。</p>
+<p>とくに重要なのが <strong>畳み込み定理</strong> である。</p>
 <div class="arithmatex">\[
-(\Delta t)^2=\frac{\int (t-\bar t)^2\lvert f(t)\rvert^2dt}{\int \lvert f(t)\rvert^2dt},\qquad
-(\Delta\omega)^2=\frac{\int (\omega-\bar\omega)^2\lvert F(\omega)\rvert^2d\omega}{\int \lvert F(\omega)\rvert^2d\omega}
+(f*g)(t)=\int_{-\infty}^{\infty} f(\tau)\,g(t-\tau)\,d\tau
+\quad\longleftrightarrow\quad
+F(\omega)\,G(\omega)
 \]</div>
-<p>のことである（<span class="arithmatex">\(\bar t,\bar\omega\)</span> は同じ重みでの平均）。<span class="arithmatex">\(f\in L^2\)</span> でこれらの2次モーメントが有限なら、厳密に</p>
-<div class="arithmatex">\[
-\Delta t\,\Delta\omega\ \ge\ \frac12
-\]</div>
-<p>が成り立ち、<strong>等号は <span class="arithmatex">\(f\)</span> がガウス関数のときに限る</strong>。短いパルスほど広い帯域を占める、という信号処理の基本事実でもある。第9回の短時間フーリエ変換では、この下限が「時間分解能と周波数分解能は同時には上げられない」という形で効いてくる。</p>
-</div>
+<p>時間領域の畳み込みは、周波数領域では <strong>単なる積</strong> になる。</p>
 <h2 id="_4">パーセバル（プランシュレル）の定理</h2>
-<p>第2回のパーセバルの等式は、フーリエ変換では次の形になる（<span class="arithmatex">\(f\in L^2\)</span> での主張であり、<strong>プランシュレルの定理</strong> とも呼ばれる）。</p>
+<p>第2回のパーセバルの等式は、フーリエ変換では次の形になる（<strong>プランシュレルの定理</strong> とも呼ばれる。<span class="arithmatex">\(\lvert f\rvert^2\)</span> が積分できる場合の主張である）。</p>
 <div class="arithmatex">\[
 \int_{-\infty}^{\infty} \lvert f(t)\rvert^2\,dt
 = \frac{1}{2\pi}\int_{-\infty}^{\infty} \lvert F(\omega)\rvert^2\,d\omega
@@ -3102,14 +3081,14 @@ F(f)=\int f(t)e^{-i 2\pi f t}dt,\qquad f(t)=\int F(f)e^{i 2\pi f t}df
 </thead>
 <tbody>
 <tr>
-<td>矩形パルス <span class="arithmatex">\(\;1\,(\lvert t\rvert&lt;a),\;0\,(\text{otherwise})\)</span></td>
+<td>矩形パルス <span class="arithmatex">\(\;1\,(\lvert t\rvert&lt;a)\)</span>、<span class="arithmatex">\(0\)</span>（それ以外）</td>
 <td><span class="arithmatex">\(\dfrac{2\sin\omega a}{\omega}\)</span></td>
 <td>sinc 型。時間で有限 → 周波数で無限に広がる</td>
 </tr>
 <tr>
 <td>ガウス <span class="arithmatex">\(\;e^{-t^2/2\sigma^2}\)</span></td>
 <td><span class="arithmatex">\(\sigma\sqrt{2\pi}\,e^{-\sigma^2\omega^2/2}\)</span></td>
-<td>ガウスのまま。不確定性の下限</td>
+<td>ガウスのまま</td>
 </tr>
 <tr>
 <td>両側指数 <span class="arithmatex">\(\;e^{-a\lvert t\rvert}\;(a&gt;0)\)</span></td>
@@ -3118,18 +3097,45 @@ F(f)=\int f(t)e^{-i 2\pi f t}dt,\qquad f(t)=\int F(f)e^{i 2\pi f t}df
 </tr>
 </tbody>
 </table>
-<p>代表的な2つの変換対を、数値積分したフーリエ変換と解析解で確かめる。</p>
+<p>矩形パルスの幅は <span class="arithmatex">\(2a\)</span>、高さは <span class="arithmatex">\(1\)</span> である。両側指数の <span class="arithmatex">\(a\)</span> はこれとは別の正の定数で、<span class="arithmatex">\(\sigma\)</span> はガウスの幅を決める正の定数である。sinc 型は <span class="arithmatex">\(\sin x/x\)</span> の形を指す。</p>
+<figure>
+  <img alt="代表的な変換対のグラフ" src="../img/transform_examples.png" width="760" />
+<br />
+<figcaption>代表的な変換対。上段が $f(t)$、下段が $F(\omega)$（$a=\sigma=1$）。どれも $F(0)$ は $f$ のグラフの面積に等しい。</figcaption>
+</figure>
 <h3 id="_6">矩形パルスの変換（手計算）</h3>
-<p>幅 <span class="arithmatex">\(2a\)</span>・高さ <span class="arithmatex">\(1\)</span> の矩形パルスは、定義に代入して直接計算できる。</p>
+<p>幅 <span class="arithmatex">\(2a\)</span>・高さ <span class="arithmatex">\(1\)</span> の矩形パルスを定義に代入する。<span class="arithmatex">\(\lvert t\rvert&lt;a\)</span> でだけ <span class="arithmatex">\(f=1\)</span> なので</p>
 <div class="arithmatex">\[
 F(\omega)=\int_{-a}^{a} e^{-i\omega t}\,dt
 =\left[\frac{e^{-i\omega t}}{-i\omega}\right]_{-a}^{a}
+=\frac{e^{-i\omega a}-e^{i\omega a}}{-i\omega}
 =\frac{e^{i\omega a}-e^{-i\omega a}}{i\omega}
-=\frac{2\sin\omega a}{\omega}.
 \]</div>
-<p><span class="arithmatex">\(\omega\to 0\)</span> では <span class="arithmatex">\(F(0)=2a\)</span>（＝パルスの面積）。零点は <span class="arithmatex">\(\omega a=k\pi\)</span>、ただし <strong><span class="arithmatex">\(k\)</span> は <span class="arithmatex">\(0\)</span> を除く整数</strong> である（<span class="arithmatex">\(k=0\)</span> は <span class="arithmatex">\(\sin\)</span> と <span class="arithmatex">\(\omega\)</span> が同時に <span class="arithmatex">\(0\)</span> になる可除特異点で、そこでは <span class="arithmatex">\(F(0)=2a\neq0\)</span>）。したがって最初の零点は <span class="arithmatex">\(\omega=\pi/a\)</span> にあり、時間で局在した（<span class="arithmatex">\(a\)</span> が小さい）パルスほど周波数では広がる。</p>
+<p>となる。3 つ目の等号では上端 <span class="arithmatex">\(t=a\)</span> と下端 <span class="arithmatex">\(t=-a\)</span> を代入し、4 つ目の等号では分子と分母の符号を同時に反転した。さらに <span class="arithmatex">\(e^{i\theta}-e^{-i\theta}=2i\sin\theta\)</span> を <span class="arithmatex">\(\theta=\omega a\)</span> として使うと</p>
+<div class="arithmatex">\[
+F(\omega)=\frac{2i\sin\omega a}{i\omega}=\frac{2\sin\omega a}{\omega}.
+\]</div>
+<p><span class="arithmatex">\(\omega\to 0\)</span> では <span class="arithmatex">\(\frac{\sin\omega a}{\omega}\to a\)</span> なので、<span class="arithmatex">\(F(0)=2a\)</span>（＝パルスの面積）である。零点は <span class="arithmatex">\(\omega a=k\pi\)</span>、ただし <strong><span class="arithmatex">\(k\)</span> は <span class="arithmatex">\(0\)</span> を除く整数</strong> である（<span class="arithmatex">\(k=0\)</span> は <span class="arithmatex">\(\sin\)</span> と <span class="arithmatex">\(\omega\)</span> が同時に <span class="arithmatex">\(0\)</span> になる可除特異点で、そこでは <span class="arithmatex">\(F(0)=2a\neq0\)</span>）。したがって最初の零点は <span class="arithmatex">\(\omega=\pi/a\)</span> にあり、時間で局在した（<span class="arithmatex">\(a\)</span> が小さい）パルスほど周波数では広がる。</p>
+<h3 id="_7">不確定性関係</h3>
+<p>スケーリング則は「時間方向に <strong>狭く</strong> すると周波数方向に <strong>広がる</strong>」（逆も同様）ことを表す。矩形パルスでは、パルスの幅 <span class="arithmatex">\(2a\)</span> と、<span class="arithmatex">\(F\)</span> の最初の零点の間 <span class="arithmatex">\(2\pi/a\)</span> が反比例する。</p>
+<p><figure markdown="span">
+  <img alt="矩形パルスとその変換の幅" src="../img/width_rect_sinc.png" width="760" />
+<br />
+<figcaption>矩形パルス（$a=1$）とその変換。矢印は目安の幅（パルスの幅 $2a$、最初の零点の間 $2\pi/a$）。</figcaption></p>
+</figure>
+<p>これを定量化するため、<span class="arithmatex">\(\lvert f\rvert^2\)</span> と <span class="arithmatex">\(\lvert F\rvert^2\)</span> をそれぞれ確率密度とみなしたときの <strong>標準偏差</strong> を、時間幅・周波数幅とする。</p>
+<div class="arithmatex">\[
+(\Delta t)^2=\frac{\int (t-\bar t)^2\lvert f(t)\rvert^2dt}{\int \lvert f(t)\rvert^2dt},\qquad
+(\Delta\omega)^2=\frac{\int (\omega-\bar\omega)^2\lvert F(\omega)\rvert^2d\omega}{\int \lvert F(\omega)\rvert^2d\omega}
+\]</div>
+<p><span class="arithmatex">\(\bar t,\ \bar\omega\)</span> は同じ重みでの平均である。標準偏差で測ると、矩形パルスの <span class="arithmatex">\(\Delta\omega\)</span> は無限大になる（<span class="arithmatex">\(\lvert F\rvert^2\)</span> が <span class="arithmatex">\(1/\omega^2\)</span> でしか減らないため）。ここの <span class="arithmatex">\(\Delta t,\ \Delta\omega\)</span> は幅を表し、フーリエ級数からの導出で使った周波数間隔 <span class="arithmatex">\(\Delta\omega\)</span> や、<a href="../dft-fft/">サンプリングと FFT</a> のサンプリング間隔 <span class="arithmatex">\(\Delta t\)</span> とは別の量である。</p>
+<p><span class="arithmatex">\(\lvert f\rvert^2\)</span> が積分でき、これらの 2 次モーメントが有限なら、厳密に</p>
+<div class="arithmatex">\[
+\Delta t\,\Delta\omega\ \ge\ \frac12
+\]</div>
+<p>が成り立ち、<strong>等号は <span class="arithmatex">\(f\)</span> がガウス関数のときに限る</strong>。短いパルスほど広い帯域を占める、という信号処理の基本事実でもある。第9回の短時間フーリエ変換では、この下限が「時間分解能と周波数分解能は同時には上げられない」という形で効いてくる。</p>
 <h3 id="python">Python で数値的に確かめる</h3>
-<p>連続フーリエ変換 <span class="arithmatex">\(F(\omega)=\int f(t)e^{-i\omega t}dt\)</span> を、細かい時間格子上の <strong>台形則</strong> で近似する。</p>
+<p>代表的な 2 つの変換対（矩形パルスとガウス）を、数値積分したフーリエ変換と解析解で確かめる。連続フーリエ変換 <span class="arithmatex">\(F(\omega)=\int f(t)e^{-i\omega t}dt\)</span> を、細かい時間格子上の <strong>台形則</strong> で近似する。台形則の考え方と式、<code>np.trapezoid(y, x)</code> の使い方は、第2回の <a href="../../week02/fourier-series/">フーリエ級数展開</a> の囲み「台形則：数値積分の基本」で説明した。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">numerical_ft</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">omega</span><span class="p">):</span>
@@ -3149,20 +3155,20 @@ F(\omega)=\int_{-a}^{a} e^{-i\omega t}\,dt
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ω=1.000: 数値 +1.68291  解析 +1.68294
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>ω=3.142: 数値 +0.00005  解析 +0.00000
 </code></pre></div>
-<p>数値積分の結果が解析解 <span class="arithmatex">\(2\sin\omega/\omega\)</span> と一致する（<span class="arithmatex">\(F(0)=2\)</span>、<span class="arithmatex">\(F(\pi)\approx 0\)</span> も零点と整合）。ガウス <span class="arithmatex">\(e^{-t^2/2}\)</span> についても同様に <span class="arithmatex">\(F(\omega)=\sqrt{2\pi}\,e^{-\omega^2/2}\)</span> が再現される（<span class="arithmatex">\(F(0)=\sqrt{2\pi}\approx 2.5066\)</span>）。</p>
+<p>数値積分の結果が解析解 <span class="arithmatex">\(2\sin\omega/\omega\)</span> と一致する（<span class="arithmatex">\(F(0)=2\)</span>、<span class="arithmatex">\(F(\pi)\approx 0\)</span> も零点と整合）。ガウス <span class="arithmatex">\(e^{-t^2/2}\)</span>（<span class="arithmatex">\(\sigma=1\)</span>）についても同様に <span class="arithmatex">\(F(\omega)=\sqrt{2\pi}\,e^{-\omega^2/2}\)</span> が再現される（<span class="arithmatex">\(F(0)=\sqrt{2\pi}\approx 2.5066\)</span>）。</p>
 <figure>
   <img alt="代表的なフーリエ変換対" src="../img/transform_pairs.png" width="760" />
 <br />
-<figcaption>上：矩形パルス（時間で有限）→ sinc 型（周波数で無限に広がり、零点をもつ）。下：ガウス → ガウス（形が保たれる）。青＝数値 FT、赤破線＝解析解で、両者は完全に重なる。</figcaption>
+<figcaption>上：矩形パルス（$a=1$、時間で有限）→ sinc 型（周波数で無限に広がり、零点をもつ）。下：ガウス（$\sigma=1$）→ ガウス（形が保たれる）。青＝数値 FT、赤破線＝解析解で、両者は完全に重なる。</figcaption>
 </figure>
-<h2 id="_7">まとめ</h2>
+<h2 id="_8">まとめ</h2>
 <ul>
 <li>周期 <span class="arithmatex">\(T\to\infty\)</span> の極限で、フーリエ級数（離散スペクトル）は <strong>フーリエ変換</strong>（連続スペクトル <span class="arithmatex">\(F(\omega)\)</span>）になる。</li>
 <li>変換・逆変換は <span class="arithmatex">\(F(\omega)=\int f e^{-i\omega t}dt\)</span>、<span class="arithmatex">\(f(t)=\frac{1}{2\pi}\int F e^{i\omega t}d\omega\)</span>。<strong>規約（<span class="arithmatex">\(2\pi\)</span> の位置・<span class="arithmatex">\(\omega\)</span> か <span class="arithmatex">\(f\)</span> か）</strong> に注意。</li>
-<li>基本性質のうち <strong>畳み込み定理</strong>（時間の畳み込み＝周波数の積）が最重要。<strong>パーセバル</strong> はエネルギー保存を表す。</li>
+<li>基本性質のうち <strong>畳み込み定理</strong>（時間の畳み込み＝周波数の積）が最重要。<strong>プランシュレルの定理</strong> はエネルギー保存を表す。</li>
 <li>矩形パルス↔sinc、ガウス↔ガウス。時間で局在 → 周波数で広がる（<strong>不確定性関係</strong>）。</li>
 </ul>
-<p>次は、これを計算機で扱うための <a href="../dft-fft/">標本化と FFT</a> に進む。</p>
+<p>次は、これを計算機で扱うための <a href="../dft-fft/">サンプリングと FFT</a> に進む。</p>
 
 
 

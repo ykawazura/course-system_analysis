@@ -962,35 +962,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -3128,10 +3100,38 @@ S_N(x) = \frac{4}{\pi}\sum_{\substack{n=1 \\ n\ \text{odd}}}^{N}\frac{\sin nx}{n
 <br />
 <figcaption>矩形波（灰破線）を部分和 $S_N$ で近似した様子。次数 $N$ を上げるほど矩形波に近づくが、不連続点（$x=0,\pm\pi$）の近くには小さな突起が残り続ける（Gibbs 現象）。</figcaption>
 </figure>
-<p>数値的に係数を確かめることもできる。台形則で <span class="arithmatex">\(b_n=\frac{1}{\pi}\int_{-\pi}^{\pi} f\sin nx\,dx\)</span> を積分すると、<span class="arithmatex">\(b_1=4/\pi\approx 1.273\)</span>、<span class="arithmatex">\(b_3=4/(3\pi)\approx 0.424\)</span>、<span class="arithmatex">\(b_5=4/(5\pi)\approx 0.255\)</span>、偶数次は <span class="arithmatex">\(0\)</span> となり、理論値と一致する。</p>
+<p>数値的に係数を確かめることもできる。<strong>台形則</strong>（下の囲みで説明する）で <span class="arithmatex">\(b_n=\frac{1}{\pi}\int_{-\pi}^{\pi} f\sin nx\,dx\)</span> を積分すると、<span class="arithmatex">\(b_1=4/\pi\approx 1.273\)</span>、<span class="arithmatex">\(b_3=4/(3\pi)\approx 0.424\)</span>、<span class="arithmatex">\(b_5=4/(5\pi)\approx 0.255\)</span>、偶数次は <span class="arithmatex">\(0\)</span> となり、理論値と一致する。</p>
+<div class="admonition note">
+<p class="admonition-title">台形則：数値積分の基本</p>
+<p>積分 <span class="arithmatex">\(\int_a^b g(x)\,dx\)</span> を数値で求める最も素朴な方法が <strong>台形則（trapezoidal rule）</strong> である。区間 <span class="arithmatex">\([a,b]\)</span> を幅 <span class="arithmatex">\(h=(b-a)/N\)</span> の <span class="arithmatex">\(N\)</span> 個の小区間に分け、各小区間で曲線を直線で置き換えて、できた <strong>台形の面積</strong> を足し合わせる。</p>
+<p><figure markdown="span">
+  <img alt="台形則" src="../img/trapezoid.png" width="640" />
+  <figcaption>台形則（<span class="arithmatex">\(N=4\)</span>）。青の曲線 <span class="arithmatex">\(g(x)\)</span> を、節点 <span class="arithmatex">\(x_k=a+kh\)</span>（赤点）を結ぶ折れ線で置き換え、赤い台形の面積の和で積分を近似する。<span class="arithmatex">\(h\)</span> は小区間の幅。</figcaption>
+</figure></p>
+<p>節点での値を <span class="arithmatex">\(g_k=g(x_k)\)</span> と書く。<span class="arithmatex">\(k\)</span> 番目の台形は、平行な 2 辺の長さが <span class="arithmatex">\(g_k\)</span> と <span class="arithmatex">\(g_{k+1}\)</span>、幅が <span class="arithmatex">\(h\)</span> なので、面積は <span class="arithmatex">\(\frac{h}{2}(g_k+g_{k+1})\)</span> である。これを <span class="arithmatex">\(k=0,\dots,N-1\)</span> について足すと</p>
+<div class="arithmatex">\[
+\int_a^b g(x)\,dx \approx \frac{h}{2}\sum_{k=0}^{N-1}\bigl(g_k+g_{k+1}\bigr) = h\Bigl(\frac{g_0}{2}+g_1+\cdots+g_{N-1}+\frac{g_N}{2}\Bigr)
+\]</div>
+<p>となる。内側の点 <span class="arithmatex">\(g_1,\dots,g_{N-1}\)</span> は隣り合う 2 つの台形に共有されるので重み <span class="arithmatex">\(1\)</span>、両端の点 <span class="arithmatex">\(g_0,\ g_N\)</span> は 1 つの台形にしか属さないので重み <span class="arithmatex">\(\frac12\)</span> になる。<span class="arithmatex">\(g\)</span> が滑らかなら、誤差はおよそ <span class="arithmatex">\(h^2\)</span> に比例する（<span class="arithmatex">\(N\)</span> を 2 倍にすると、誤差は約 <span class="arithmatex">\(\frac14\)</span> になる）。</p>
+<p>NumPy では、格子点の配列 <code>x</code> とその上の値の配列 <code>y</code> を渡して <code>np.trapezoid(y, x)</code> と書けば、この和を計算できる。上の <span class="arithmatex">\(b_n\)</span> は次のように確かめられる。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2001</span><span class="p">)</span>   <span class="c1"># 2000 等分（h = 2π/2000）</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>                 <span class="c1"># 矩形波</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">bn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">th</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="mf">0.0</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;b_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">: 数値 </span><span class="si">{</span><span class="n">bn</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">  理論 </span><span class="si">{</span><span class="n">th</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>b_1: 数値 +1.2732  理論 +1.2732
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>b_2: 数値 +0.0000  理論 +0.0000
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>b_3: 数値 +0.4244  理論 +0.4244
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>b_4: 数値 +0.0000  理論 +0.0000
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>b_5: 数値 +0.2546  理論 +0.2546
+</code></pre></div>
+<p>なお、NumPy 1.x では同じ関数が <code>np.trapz</code> という名前だった。新しい NumPy では <code>np.trapz</code> は使えないので、古い資料や生成 AI のコードで見かけたら <code>np.trapezoid</code> に読み替える。</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">確認問題（手を動かす）</p>
-<p>上のコードで、比較対象の <code>square</code> を <strong>のこぎり波</strong> <code>x/np.pi</code>（<span class="arithmatex">\(-\pi&lt;x&lt;\pi\)</span> を直線で結んだ周期関数）に変えてみよ。</p>
+<p>部分和を描く上のコードで、比較対象の <code>square</code> を <strong>のこぎり波</strong> <code>x/np.pi</code>（<span class="arithmatex">\(-\pi&lt;x&lt;\pi\)</span> を直線で結んだ周期関数）に変えてみよ。</p>
 <p><figure markdown="span">
   <img alt="のこぎり波" src="../img/sawtooth_unit.png" width="760" />
   <figcaption>のこぎり波 <span class="arithmatex">\(x/\pi\)</span>（<span class="arithmatex">\(-\pi&lt;x&lt;\pi\)</span>）を周期 <span class="arithmatex">\(2\pi\)</span> で延長したもの。<span class="arithmatex">\(x=\pm\pi,\pm3\pi,\dots\)</span> で <span class="arithmatex">\(+1\)</span> から <span class="arithmatex">\(-1\)</span> へ跳ぶ（点線）。</figcaption>
@@ -3141,11 +3141,11 @@ S_N(x) = \frac{4}{\pi}\sum_{\substack{n=1 \\ n\ \text{odd}}}^{N}\frac{\sin nx}{n
 a_n = 0, \qquad b_n = \frac{2(-1)^{n+1}}{n\pi}
 \]</div>
 <p>となる（手計算で確かめよ。<span class="arithmatex">\(b_1 = 2/\pi \approx 0.6366\)</span>）。ただし <code>square</code> を差し替えるだけでは <code>partial_sum</code> が矩形波の級数のままなので図は一致しない。<strong>部分和の中身も</strong> 上の <span class="arithmatex">\(b_n\)</span> に合わせて
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">partial_sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>          <span class="c1"># 偶数次も残る</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="n">s</span> <span class="o">+=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">s</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">partial_sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>          <span class="c1"># 偶数次も残る</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="n">s</span> <span class="o">+=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">s</span>
 </code></pre></div>
 と書き換える必要がある。矩形波と違って偶数次が消えないこと、周期延長には <code>np.mod(x + np.pi, 2*np.pi) - np.pi</code> が要ることに注意せよ。<span class="arithmatex">\(\pi\)</span> 倍しただけの <span class="arithmatex">\(f(x)=x\)</span> については<a href="../exercises/">演習1</a>で詳しく扱う。</p>
 </div>

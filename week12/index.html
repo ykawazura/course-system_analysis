@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -2942,7 +2914,7 @@
 <p>では、直交系は三角関数だけだろうか。答えは否である。区間と重みを決めれば、そこに合った直交系が必ず作れる。今回扱う <strong>直交多項式</strong> はその代表で、区間 <span class="arithmatex">\([-1,1]\)</span> で重み <span class="arithmatex">\(w=1\)</span> なら Legendre 多項式、<span class="arithmatex">\(w=1/\sqrt{1-x^2}\)</span> なら Chebyshev 多項式が現れる。第11回までは「システムを解析する」道具として変換を使ってきたが、今回は「関数を精度よく表す・微分する・積分する」ための道具として直交系を使う。</p>
 <h2 id="_2">なぜ多項式の直交系か</h2>
 <p>多項式は微分も積分も代入も安直にでき、コンピュータで扱いやすい。しかし <strong>点の取り方を間違えると高次の多項式補間は破綻する</strong>。<span class="arithmatex">\(1/(1+25x^2)\)</span> を等間隔 <span class="arithmatex">\(21\)</span> 点（<span class="arithmatex">\(20\)</span> 次）で補間すると、区間の端で誤差が <span class="arithmatex">\(59.8\)</span> にもなる（元の関数は高々 <span class="arithmatex">\(1\)</span> である）。これが <strong>Runge 現象</strong> で、「次数を上げれば精度が上がる」という素朴な期待を裏切る。</p>
-<p>直交多項式はこの問題に二重の答えを与える。第一に、直交系で <strong>展開</strong> すれば係数は直交射影となり、切り詰めが <span class="arithmatex">\(L^2\)</span> の意味で最良近似になる。第二に、直交多項式が定める節点 ── 数値積分なら <span class="arithmatex">\(P_n\)</span> の零点（Gauss 点）、補間や微分なら <span class="arithmatex">\(T_N\)</span> の極値点（Chebyshev–Gauss–Lobatto 点）── を標本点に選べば、補間も数値積分も劇的に安定・高精度になる。この考え方を微分方程式に持ち込んだものが <strong>スペクトル法</strong> で、滑らかな解なら未知数 <span class="arithmatex">\(17\)</span> 個で <span class="arithmatex">\(10^{-15}\)</span> の精度に達する ── 同じ精度を <span class="arithmatex">\(2\)</span> 次精度の有限差分で得ようとすると、未知数は天文学的な数になる。</p>
+<p>直交多項式はこの問題に二重の答えを与える。第一に、直交系で <strong>展開</strong> すれば係数は直交射影となり、切り詰めが <span class="arithmatex">\(L^2\)</span> の意味で最良近似になる。第二に、直交多項式が定める節点 ── 数値積分なら <span class="arithmatex">\(P_n\)</span> の零点（Gauss 点）、補間や微分なら <span class="arithmatex">\(T_N\)</span> の極値点（Chebyshev–Gauss–Lobatto 点）── をサンプル点に選べば、補間も数値積分も劇的に安定・高精度になる。この考え方を微分方程式に持ち込んだものが <strong>スペクトル法</strong> で、滑らかな解なら未知数 <span class="arithmatex">\(17\)</span> 個で <span class="arithmatex">\(10^{-15}\)</span> の精度に達する ── 同じ精度を <span class="arithmatex">\(2\)</span> 次精度の有限差分で得ようとすると、未知数は天文学的な数になる。</p>
 <div class="admonition info">
 <p class="admonition-title">今回の題材</p>
 <p>前半は <span class="arithmatex">\([-1,1]\)</span> 上の Legendre・Chebyshev 多項式を題材に、<strong>直交性</strong>（グラム行列の非対角が <span class="arithmatex">\(10^{-16}\)</span>）、<strong>三項漸化式</strong>、<span class="arithmatex">\(e^x\)</span> の展開が同じ次数の Taylor 展開より <span class="arithmatex">\(L^2\)</span> 誤差で小さいこと（<span class="arithmatex">\(5\)</span> 次で <span class="arithmatex">\(14.3\)</span> 倍）、そして <strong>Runge 関数の補間</strong>（<span class="arithmatex">\(n=20\)</span> で等間隔 <span class="arithmatex">\(59.8\)</span> 対 Chebyshev <span class="arithmatex">\(0.018\)</span>）を確かめる。後半は <strong>Gauss–Legendre 求積</strong>（<span class="arithmatex">\(5\)</span> 点で <span class="arithmatex">\(9\)</span> 次まで誤差 <span class="arithmatex">\(10^{-16}\)</span>、<span class="arithmatex">\(10\)</span> 次で <span class="arithmatex">\(2.9\times10^{-3}\)</span>）、<strong>Chebyshev 微分行列</strong>、そして境界値問題 <span class="arithmatex">\(u''-u=f,\ u(\pm1)=0\)</span> を <strong>スペクトル法</strong>（未知数 <span class="arithmatex">\(17\)</span> 個で誤差 <span class="arithmatex">\(4.0\times10^{-15}\)</span>）と <strong>有限差分</strong>（未知数 <span class="arithmatex">\(257\)</span> 個で <span class="arithmatex">\(2.7\times10^{-5}\)</span>）で解き比べる。</p>

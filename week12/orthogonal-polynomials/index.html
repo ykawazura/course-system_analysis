@@ -825,35 +825,7 @@
   <span class="md-ellipsis">
     
   
-    標本化とFFT
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../week03/convolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    高速畳み込みと相互相関
+    サンプリングとFFT
   
 
     
@@ -3116,7 +3088,7 @@ f(x)-p_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}\,\omega(x),
 <p>ただし等間隔点でも <span class="arithmatex">\(\lVert\omega\rVert_\infty\)</span> 自体は次数とともに <strong>減っていく</strong>（<span class="arithmatex">\(n=5\)</span> で <span class="arithmatex">\(6.9\times10^{-2}\)</span>、<span class="arithmatex">\(n=30\)</span> で <span class="arithmatex">\(8.1\times10^{-6}\)</span>）。Runge 現象が起きるのは <span class="arithmatex">\(\omega\)</span> が大きいからだけではない。Runge 関数は <span class="arithmatex">\(x=\pm i/5\)</span> に極をもつので <span class="arithmatex">\(f^{(n+1)}(\xi)/(n+1)!\)</span> が <span class="arithmatex">\(\lVert\omega\rVert_\infty\)</span> の減少を上回る速さで増大し、しかも等間隔点では <span class="arithmatex">\(|\omega|\)</span> の大きさが端の区間に強く偏っている ── この二つが重なって、端での誤差だけが発散する。</p>
 <div class="admonition warning">
 <p class="admonition-title">等間隔点で高次補間をしてはいけない</p>
-<p>「データ点を増やして次数を上げれば精度が上がる」は、等間隔点では <strong>偽</strong> である。測定データが等間隔にしか手に入らない場合は、高次の多項式で一気に通そうとせず、<strong>低次の区分多項式（スプライン）</strong> を使うか、<strong>最小二乗で低次多項式に当てはめる</strong> のが正しい。全体を高次多項式で表したいときは、最初から Chebyshev 点で標本化する（実験計画の段階で決められるなら、この選択は大きな利益になる）。</p>
+<p>「データ点を増やして次数を上げれば精度が上がる」は、等間隔点では <strong>偽</strong> である。測定データが等間隔にしか手に入らない場合は、高次の多項式で一気に通そうとせず、<strong>低次の区分多項式（スプライン）</strong> を使うか、<strong>最小二乗で低次多項式に当てはめる</strong> のが正しい。全体を高次多項式で表したいときは、最初から Chebyshev 点でサンプリングする（実験計画の段階で決められるなら、この選択は大きな利益になる）。</p>
 </div>
 <h2 id="_4">まとめ</h2>
 <ul>

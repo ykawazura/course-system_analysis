@@ -2920,7 +2920,7 @@ Y(s)=H(s)\,X(s),\qquad H(s)=\mathcal{L}[h(t)]
 \]</div>
 <p>という <strong>ただの掛け算</strong> になる。この <span class="arithmatex">\(H(s)\)</span> が <strong>伝達関数</strong>であり、システムそのものを s 領域で表す。</p>
 <h2 id="_2">なぜ伝達関数か</h2>
-<p>第4回ではフーリエ領域でフィルタ <span class="arithmatex">\(H(\omega)\)</span> を「周波数ごとの掛け算」として見た。伝達関数 <span class="arithmatex">\(H(s)\)</span> はその <strong>一般化</strong>である。<span class="arithmatex">\(s=\sigma+j\omega\)</span> と複素平面に広がることで、定常応答だけでなく <strong>過渡応答・安定性</strong> まで一つの <span class="arithmatex">\(H(s)\)</span> から読み取れる（<span class="arithmatex">\(H(s)=Y/X\)</span> は<strong>零初期条件</strong>での入出力関係であり、初期条件そのものはラプラス変換全体の枠組みで扱う）。とくに、</p>
+<p>第4回ではフーリエ領域でフィルタ <span class="arithmatex">\(H(\omega)\)</span> を「周波数ごとの掛け算」として見た。伝達関数 <span class="arithmatex">\(H(s)\)</span> はその <strong>一般化</strong>である。<span class="arithmatex">\(s=\sigma+i\omega\)</span> と複素平面に広がることで、定常応答だけでなく <strong>過渡応答・安定性</strong> まで一つの <span class="arithmatex">\(H(s)\)</span> から読み取れる（<span class="arithmatex">\(H(s)=Y/X\)</span> は<strong>零初期条件</strong>での入出力関係であり、初期条件そのものはラプラス変換全体の枠組みで扱う）。とくに、</p>
 <ul>
 <li><span class="arithmatex">\(H(s)\)</span> の <strong>極</strong> が応答の減衰・振動を決める（第6回の続き）</li>
 <li><span class="arithmatex">\(H(0)\)</span>（<span class="arithmatex">\(s\to0\)</span>）が <strong>DC 利得</strong> を与える（系が安定で、ステップ入力に対する出力が定常値をもつときに限り、その定常値が <span class="arithmatex">\(H(0)\)</span> になる）</li>

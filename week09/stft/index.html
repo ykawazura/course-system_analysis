@@ -2903,9 +2903,9 @@
 <h2 id="_2">定常性の仮定が破れるとき</h2>
 <p>フーリエ変換</p>
 <div class="arithmatex">\[
-X(f)=\int_{-\infty}^{\infty}x(t)\,e^{-j2\pi ft}\,dt
+X(f)=\int_{-\infty}^{\infty}x(t)\,e^{-i2\pi ft}\,dt
 \]</div>
-<p>は、全時刻にわたる積分である（この積分がそのまま収束するのは <span class="arithmatex">\(x\in L^1\)</span> のときで、<span class="arithmatex">\(L^2\)</span> の信号に対しては Plancherel の定理を通じて <span class="arithmatex">\(L^2\)</span> の意味で定義する。以下ではこの区別は本質ではないので触れない）。時刻ごとの寄与は積分の中で足し合わされてしまうので、<strong>どの周波数が含まれるか</strong> は分かっても、<strong>いつ含まれていたか</strong> は振幅スペクトルからは読めない。</p>
+<p>は、全時刻にわたる積分である（この積分がそのまま収束するのは <span class="arithmatex">\(x\in L^1\)</span> のときで、<span class="arithmatex">\(L^2\)</span> の信号に対してはパーセバルの定理を通じて <span class="arithmatex">\(L^2\)</span> の意味で定義する。以下ではこの区別は本質ではないので触れない）。時刻ごとの寄与は積分の中で足し合わされてしまうので、<strong>どの周波数が含まれるか</strong> は分かっても、<strong>いつ含まれていたか</strong> は振幅スペクトルからは読めない。</p>
 <p>このことは、信号を時間反転してみればはっきりする。<span class="arithmatex">\(x(-t)\)</span> のフーリエ変換は <span class="arithmatex">\(X(-f)\)</span> で、実信号なら <span class="arithmatex">\(|X(-f)|=|X(f)|\)</span> だから、<strong>時間を逆向きに再生しても振幅スペクトルは変わらない</strong>。前半 30 Hz・後半 120 Hz の信号と、前半 120 Hz・後半 30 Hz の信号を、フーリエ変換は区別できない。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ss</span>
@@ -2935,7 +2935,7 @@ X(f)=\int_{-\infty}^{\infty}x(t)\,e^{-j2\pi ft}\,dt
 <h2 id="_3">短時間フーリエ変換とスペクトログラム</h2>
 <p>最も素直な発想は、<strong>信号を短く区切って、その区間だけフーリエ変換する</strong> ことである。区間を時間軸上でずらしていけば、各時刻でのスペクトルが並ぶ。これが短時間フーリエ変換で、<strong>窓関数</strong> <span class="arithmatex">\(w(t)\)</span>（第4回で導入した、区間の端をなめらかに落とす関数）を使って</p>
 <div class="arithmatex">\[
-\boxed{\ X(\tau,f)=\int_{-\infty}^{\infty}x(t)\,w(t-\tau)\,e^{-j2\pi ft}\,dt\ }
+\boxed{\ X(\tau,f)=\int_{-\infty}^{\infty}x(t)\,w(t-\tau)\,e^{-i2\pi ft}\,dt\ }
 \]</div>
 <p>と書ける。<span class="arithmatex">\(\tau\)</span> が「いつ」、<span class="arithmatex">\(f\)</span> が「どの周波数」を指す 2 変数の関数である（本ページで扱う窓 <span class="arithmatex">\(w\)</span> はすべて実数値なので上の形でよい。一般の複素窓を許すなら <span class="arithmatex">\(\overline{w(t-\tau)}\)</span> と共役をとる）。その大きさの 2 乗</p>
 <div class="arithmatex">\[
@@ -2954,17 +2954,17 @@ S(\tau,f)=|X(\tau,f)|^{2}
 \Delta t\cdot\Delta f=\frac{L}{f_s}\cdot\frac{f_s}{L}=1
 \]</div>
 <p>となる。<strong>積が一定</strong> ── つまり片方をよくすれば、必ずもう片方が同じ比率で悪くなる。窓長を選ぶとは、この一定の面積をどう縦横に配分するかを選ぶことにほかならない。</p>
-<p>ただし、<span class="arithmatex">\(\Delta f\)</span> を「周波数分解能」と呼ぶときには注意が要る。<span class="arithmatex">\(\Delta t\)</span> が窓の物理的な時間幅そのものであるのに対し、<span class="arithmatex">\(\Delta f=f_s/L\)</span> は <strong><code>nfft</code> を窓長 <span class="arithmatex">\(L\)</span> に等しく取ったときの DFT 格子の間隔</strong> にすぎない。ゼロ埋め（<code>nfft &gt; nperseg</code>）をすれば格子はいくらでも細かくできるが、それはスペクトルの点を密に打ち直しただけで、<strong>近接した 2 つの正弦波を分離する能力は上がらない</strong>。実際に分離できるかどうかを決めるのは窓のスペクトルの <strong>主ローブ幅</strong> で、Hann 窓なら零点間で <span class="arithmatex">\(4f_s/L\)</span> である（第4回の <a href="../../week04/power-spectrum/">パワースペクトルと窓関数</a>）。</p>
+<p>ただし、<span class="arithmatex">\(\Delta f\)</span> を「周波数分解能」と呼ぶときには注意が要る。<span class="arithmatex">\(\Delta t\)</span> が窓の物理的な時間幅そのものであるのに対し、<span class="arithmatex">\(\Delta f=f_s/L\)</span> は <strong><code>nfft</code> を窓長 <span class="arithmatex">\(L\)</span> に等しく取ったときの DFT 格子の間隔</strong> にすぎない。ゼロ埋め（<code>nfft &gt; nperseg</code>）をすれば格子はいくらでも細かくできるが、それはスペクトルの点を密に打ち直しただけで、<strong>近接した 2 つの正弦波を分離する能力は上がらない</strong>。実際に分離できるかどうかを決めるのは窓のスペクトルの <strong>メインローブ幅</strong> で、Hann 窓なら零点間で <span class="arithmatex">\(4f_s/L\)</span> である（第4回の <a href="../../week04/welch/">ピリオドグラムとウェルチ法</a>）。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">for</span> <span class="n">nfft</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">512</span><span class="p">):</span>                            <span class="c1"># 窓長は 128 のまま</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">ff</span><span class="p">,</span> <span class="n">tt</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">spectrogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s2">&quot;hann&quot;</span><span class="p">,</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                               <span class="n">nperseg</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">nfft</span><span class="o">=</span><span class="n">nfft</span><span class="p">)</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;nperseg=128, nfft=</span><span class="si">{</span><span class="n">nfft</span><span class="si">:</span><span class="s2">4d</span><span class="si">}</span><span class="s2">: 周波数格子=</span><span class="si">{</span><span class="n">ff</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">ff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> Hz  &quot;</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>          <span class="sa">f</span><span class="s2">&quot;Hann 主ローブ幅=</span><span class="si">{</span><span class="mi">4</span><span class="o">*</span><span class="n">fs</span><span class="o">/</span><span class="mi">128</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> Hz&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>          <span class="sa">f</span><span class="s2">&quot;Hann メインローブ幅=</span><span class="si">{</span><span class="mi">4</span><span class="o">*</span><span class="n">fs</span><span class="o">/</span><span class="mi">128</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> Hz&quot;</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>nperseg=128, nfft= 128: 周波数格子=7.812500 Hz  Hann 主ローブ幅=31.2500 Hz
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>nperseg=128, nfft= 512: 周波数格子=1.953125 Hz  Hann 主ローブ幅=31.2500 Hz
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>nperseg=128, nfft= 128: 周波数格子=7.812500 Hz  Hann メインローブ幅=31.2500 Hz
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>nperseg=128, nfft= 512: 周波数格子=1.953125 Hz  Hann メインローブ幅=31.2500 Hz
 </code></pre></div>
-<p>格子は <span class="arithmatex">\(7.8125\to1.953125\)</span> Hz と 4 分の 1 になったのに、実際に分けられる限界を与える主ローブ幅は <span class="arithmatex">\(31.25\)</span> Hz のまま動いていない。</p>
+<p>格子は <span class="arithmatex">\(7.8125\to1.953125\)</span> Hz と 4 分の 1 になったのに、実際に分けられる限界を与えるメインローブ幅は <span class="arithmatex">\(31.25\)</span> Hz のまま動いていない。</p>
 <div class="admonition warning">
 <p class="admonition-title"><span class="arithmatex">\(\Delta t\,\Delta f=1\)</span> は不確定性原理そのものではない</p>
 <p>上の <span class="arithmatex">\(\Delta t\,\Delta f=1\)</span> は、<strong>「窓長 <span class="arithmatex">\(L\)</span> を決めると窓の時間幅と DFT 格子の間隔が反比例で決まる」という帳簿上の関係</strong> である。<span class="arithmatex">\(\Delta f\)</span> の側はゼロ埋めで動かせてしまうのだから、この等式自体が破れない下限を述べているわけではない。</p>
@@ -3033,8 +3033,8 @@ S(\tau,f)=|X(\tau,f)|^{2}
 <h2 id="_6">まとめ</h2>
 <ul>
 <li>フーリエ変換は全時刻の積分なので <strong>時刻の情報を振幅スペクトルに残さない</strong>（位相には残るが読みにくい）。時間反転しても <span class="arithmatex">\(|X(f)|\)</span> は変わらない（数値でも差は <span class="arithmatex">\(10^{-13}\)</span>）。</li>
-<li><strong>短時間フーリエ変換</strong> <span class="arithmatex">\(X(\tau,f)=\int x(t)w(t-\tau)e^{-j2\pi ft}dt\)</span> は、窓 <span class="arithmatex">\(w\)</span> で区切った局所スペクトルを時刻 <span class="arithmatex">\(\tau\)</span> ごとに並べる。その大きさの 2 乗が <strong>スペクトログラム</strong>。</li>
-<li>窓長 <span class="arithmatex">\(L\)</span> を決めると 窓の時間幅 <span class="arithmatex">\(\Delta t=L/f_s\)</span> と DFT の格子間隔 <span class="arithmatex">\(\Delta f=f_s/L\)</span> が同時に決まり、<strong>積は <span class="arithmatex">\(\Delta t\,\Delta f=1\)</span> で一定</strong>。ただし <span class="arithmatex">\(\Delta f\)</span> はゼロ埋めで細かくできるので、これは設計上の目安であって原理的な下限ではない（分離能力を決めるのは主ローブ幅 <span class="arithmatex">\(4f_s/L\)</span>）。</li>
+<li><strong>短時間フーリエ変換</strong> <span class="arithmatex">\(X(\tau,f)=\int x(t)w(t-\tau)e^{-i2\pi ft}dt\)</span> は、窓 <span class="arithmatex">\(w\)</span> で区切った局所スペクトルを時刻 <span class="arithmatex">\(\tau\)</span> ごとに並べる。その大きさの 2 乗が <strong>スペクトログラム</strong>。</li>
+<li>窓長 <span class="arithmatex">\(L\)</span> を決めると 窓の時間幅 <span class="arithmatex">\(\Delta t=L/f_s\)</span> と DFT の格子間隔 <span class="arithmatex">\(\Delta f=f_s/L\)</span> が同時に決まり、<strong>積は <span class="arithmatex">\(\Delta t\,\Delta f=1\)</span> で一定</strong>。ただし <span class="arithmatex">\(\Delta f\)</span> はゼロ埋めで細かくできるので、これは設計上の目安であって原理的な下限ではない（分離能力を決めるのはメインローブ幅 <span class="arithmatex">\(4f_s/L\)</span>）。</li>
 <li>原理的な限界は <strong>不確定性原理</strong> <span class="arithmatex">\(\sigma_t\sigma_f\ge\dfrac{1}{4\pi}\)</span> が与える。等号はガウス窓のときに成立する（数値でも <span class="arithmatex">\(0.07958=1/4\pi\)</span> に一致）。</li>
 <li>時間周波数平面をタイルで敷き詰めると、STFT は <strong>一様なタイル</strong>。タイルの面積には下限があって縮められないが、<strong>縦横比は周波数ごとに変えてよい</strong> ── そこにウェーブレット変換の余地がある。</li>
 </ul>

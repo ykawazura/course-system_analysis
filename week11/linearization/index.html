@@ -3030,18 +3030,18 @@ J(\mathbf x)=\frac{\partial\mathbf f}{\partial\mathbf x}
 <p><span class="arithmatex">\(\mathbf f\)</span> が <span class="arithmatex">\(\mathbf x^{*}\)</span> の近傍で <span class="arithmatex">\(C^1\)</span> 級（解の存在と一意性が保証される）であり、平衡点 <span class="arithmatex">\(\mathbf x^{*}\)</span> でヤコビ行列 <span class="arithmatex">\(J(\mathbf x^{*})\)</span> の固有値がすべて <span class="arithmatex">\(\mathrm{Re}\,\lambda\neq0\)</span> を満たすとする（このような平衡点を <strong>双曲型（hyperbolic）</strong> という）。このとき <span class="arithmatex">\(\mathbf x^{*}\)</span> のある近傍で、非線形系 <span class="arithmatex">\(\dot{\mathbf x}=\mathbf f(\mathbf x)\)</span> の軌道と線形化系 <span class="arithmatex">\(\frac{d}{dt}\delta\mathbf x=J\delta\mathbf x\)</span> の軌道は、連続な 1 対 1 写像（同相写像）で互いに移り合う。</p>
 </div>
 <p>つまり <strong>双曲型でありさえすれば、平衡点の近くの相図は線形化のそれと定性的に同じ</strong> である。安定焦点は安定焦点、鞍点は鞍点であり、非線形項が結論を覆すことはない。振り子の <span class="arithmatex">\((0,0)\)</span>（<span class="arithmatex">\(\mathrm{Re}\,\lambda=-0.15\)</span>）も <span class="arithmatex">\((\pi,0)\)</span>（<span class="arithmatex">\(\lambda=+0.86,-1.16\)</span>）も双曲型なので、前節の判定は保証つきである。</p>
-<p>裏を返せば、<strong><span class="arithmatex">\(\mathrm{Re}\,\lambda=0\)</span> の固有値が一つでもあると定理は何も言わない</strong>。前ページで「渦心は面積ゼロの境界の上にしかない」と述べた話が、ここで効いてくる。線形化が渦心（<span class="arithmatex">\(\lambda=\pm j\omega\)</span>）を出したとき、非線形項がわずかでもあれば結末は内向きにも外向きにも転びうるのである。</p>
+<p>裏を返せば、<strong><span class="arithmatex">\(\mathrm{Re}\,\lambda=0\)</span> の固有値が一つでもあると定理は何も言わない</strong>。前ページで「渦心は面積ゼロの境界の上にしかない」と述べた話が、ここで効いてくる。線形化が渦心（<span class="arithmatex">\(\lambda=\pm i\omega\)</span>）を出したとき、非線形項がわずかでもあれば結末は内向きにも外向きにも転びうるのである。</p>
 <p>具体例で確かめる。まず <strong>捕食者–被食者系（ロトカ–ヴォルテラ系）</strong></p>
 <div class="arithmatex">\[
 \dot x=x\left(1-\tfrac12 y\right),\qquad
 \dot y=y\left(\tfrac12 x-1\right)
 \]</div>
-<p>の平衡点 <span class="arithmatex">\((2,2)\)</span> では <span class="arithmatex">\(J=\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}\)</span>、<span class="arithmatex">\(\lambda=\pm j\)</span> の渦心である。次に、線形部分がまったく同じで 3 次の項だけが違う系</p>
+<p>の平衡点 <span class="arithmatex">\((2,2)\)</span> では <span class="arithmatex">\(J=\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}\)</span>、<span class="arithmatex">\(\lambda=\pm i\)</span> の渦心である。次に、線形部分がまったく同じで 3 次の項だけが違う系</p>
 <div class="arithmatex">\[
 \dot x=-y+a\,x(x^2+y^2),\qquad
 \dot y=\ \ x+a\,y(x^2+y^2)
 \]</div>
-<p>を考える。原点でのヤコビ行列は <span class="arithmatex">\(a\)</span> に依らず <span class="arithmatex">\(\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}\)</span> で、やはり <span class="arithmatex">\(\lambda=\pm j\)</span> である。ところが極座標 <span class="arithmatex">\(x=r\cos\theta,\ y=r\sin\theta\)</span> に移すと</p>
+<p>を考える。原点でのヤコビ行列は <span class="arithmatex">\(a\)</span> に依らず <span class="arithmatex">\(\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}\)</span> で、やはり <span class="arithmatex">\(\lambda=\pm i\)</span> である。ところが極座標 <span class="arithmatex">\(x=r\cos\theta,\ y=r\sin\theta\)</span> に移すと</p>
 <div class="arithmatex">\[
 \dot r=a\,r^3,\qquad \dot\theta=1
 \qquad\Longrightarrow\qquad
@@ -3088,7 +3088,7 @@ r(t)=\frac{1}{\sqrt{r_0^{-2}-2at}}
 <figure>
   <img alt="Hartman–Grobman の定理の限界" src="../img/hartman_grobman.png" width="900" />
 <br />
-<figcaption>3 つとも平衡点での線形化は $\lambda=\pm j$ の渦心で同一だが、結末は違う。3 枚とも横軸・縦軸は平衡点からのずれで、左は平衡点 $(2,2)$ を原点に移した偏差座標 $(x-2,\,y-2)$、中央・右はもともと平衡点が原点なのでそのままである。左：捕食者–被食者系は 3 つの初期値のいずれからも閉軌道を描き続ける（30 単位時間、真の渦心）。中央：3 次項 $a=-0.1$ を加えると内側へ巻き込む安定焦点になる。右：$a=+0.1$ では外へ広がる不安定焦点になる。中央・右の中抜きの丸が出発点、矢印が 35 単位時間後（約 5.6 周）の到達点である。$\mathrm{Re}\,\lambda=0$ のとき、線形化は結末について何も語らない。</figcaption>
+<figcaption>3 つとも平衡点での線形化は $\lambda=\pm i$ の渦心で同一だが、結末は違う。3 枚とも横軸・縦軸は平衡点からのずれで、左は平衡点 $(2,2)$ を原点に移した偏差座標 $(x-2,\,y-2)$、中央・右はもともと平衡点が原点なのでそのままである。左：捕食者–被食者系は 3 つの初期値のいずれからも閉軌道を描き続ける（30 単位時間、真の渦心）。中央：3 次項 $a=-0.1$ を加えると内側へ巻き込む安定焦点になる。右：$a=+0.1$ では外へ広がる不安定焦点になる。中央・右の中抜きの丸が出発点、矢印が 35 単位時間後（約 5.6 周）の到達点である。$\mathrm{Re}\,\lambda=0$ のとき、線形化は結末について何も語らない。</figcaption>
 </figure>
 <div class="admonition warning">
 <p class="admonition-title"><span class="arithmatex">\(\mathrm{Re}\,\lambda=0\)</span> が出たら止まる</p>
@@ -3098,10 +3098,10 @@ r(t)=\frac{1}{\sqrt{r_0^{-2}-2at}}
 <h2 id="_5">まとめ</h2>
 <ul>
 <li>非線形系 <span class="arithmatex">\(\dot{\mathbf x}=\mathbf f(\mathbf x)\)</span> の平衡点は <span class="arithmatex">\(\mathbf f(\mathbf x^{*})=\mathbf 0\)</span> の解で、線形系と違って <strong>複数（振り子では無限個）</strong> ありうる。</li>
-<li>平衡点のまわりで <strong>ヤコビ行列</strong> <span class="arithmatex">\(J=\partial\mathbf f/\partial\mathbf x\)</span> による線形化 <span class="arithmatex">\(\frac{d}{dt}\delta\mathbf x\approx J(\mathbf x^{*})\delta\mathbf x\)</span> を作れば、前ページの固有値による分類がそのまま使える。減衰振り子では <span class="arithmatex">\((0,0)\)</span> が安定焦点（<span class="arithmatex">\(\lambda=-0.15\pm0.9887j\)</span>）、<span class="arithmatex">\((\pi,0)\)</span> が鞍点（<span class="arithmatex">\(\lambda=+0.8612,\,-1.1612\)</span>）と判定される。</li>
+<li>平衡点のまわりで <strong>ヤコビ行列</strong> <span class="arithmatex">\(J=\partial\mathbf f/\partial\mathbf x\)</span> による線形化 <span class="arithmatex">\(\frac{d}{dt}\delta\mathbf x\approx J(\mathbf x^{*})\delta\mathbf x\)</span> を作れば、前ページの固有値による分類がそのまま使える。減衰振り子では <span class="arithmatex">\((0,0)\)</span> が安定焦点（<span class="arithmatex">\(\lambda=-0.15\pm0.9887i\)</span>）、<span class="arithmatex">\((\pi,0)\)</span> が鞍点（<span class="arithmatex">\(\lambda=+0.8612,\,-1.1612\)</span>）と判定される。</li>
 <li>線形化は <strong>局所的な</strong> 近似である。振り子では <span class="arithmatex">\(\theta_0=0.2\)</span> で誤差 <span class="arithmatex">\(0.37\)</span>%、<span class="arithmatex">\(\theta_0=2.5\)</span> では <span class="arithmatex">\(73.5\)</span>% と崩れ、周期も <span class="arithmatex">\(41\)</span>% ずれる。吸引域の広さや分離線の位置は線形化からは分からない。</li>
 <li><strong>Hartman–Grobman の定理</strong>：固有値がすべて <span class="arithmatex">\(\mathrm{Re}\,\lambda\neq0\)</span>（双曲型）なら、平衡点近傍の相図は線形化のそれと定性的に一致する。</li>
-<li><strong><span class="arithmatex">\(\mathrm{Re}\,\lambda=0\)</span> では定理が使えない</strong>。線形化が同じ <span class="arithmatex">\(\lambda=\pm j\)</span> でも、捕食者–被食者系は閉軌道、<span class="arithmatex">\(a=\mp0.1\)</span> の 3 次項を加えた系は安定焦点／不安定焦点と、結末は分かれる。この境界こそが分岐の起こる場所である。</li>
+<li><strong><span class="arithmatex">\(\mathrm{Re}\,\lambda=0\)</span> では定理が使えない</strong>。線形化が同じ <span class="arithmatex">\(\lambda=\pm i\)</span> でも、捕食者–被食者系は閉軌道、<span class="arithmatex">\(a=\mp0.1\)</span> の 3 次項を加えた系は安定焦点／不安定焦点と、結末は分かれる。この境界こそが分岐の起こる場所である。</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">本講義との接続</p>

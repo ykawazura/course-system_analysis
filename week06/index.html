@@ -2904,21 +2904,25 @@
 </blockquote>
 <h2 id="_1">今回の目標</h2>
 <ul>
-<li>フーリエ変換を <strong>複素平面 <span class="arithmatex">\(s=\sigma+j\omega\)</span></strong> へ拡張した <strong>ラプラス変換</strong> の定義と、<strong>収束領域（ROC）</strong> を理解する</li>
+<li>フーリエ変換を <strong>複素平面 <span class="arithmatex">\(s=\sigma+i\omega\)</span></strong> へ拡張した <strong>ラプラス変換</strong> の定義と、<strong>収束領域（ROC）</strong> を理解する</li>
 <li>基本的な変換対と性質（とくに <strong>微分の公式</strong> <span class="arithmatex">\(\mathcal{L}[f']=sF(s)-f(0)\)</span>）を使えるようになる</li>
 <li><strong>逆ラプラス変換</strong>（部分分数分解）と <strong>s 平面の極</strong> から時間応答を読み取り、<strong>微分方程式をラプラス変換で解く</strong> 流れを Python（<code>sympy</code>, <code>scipy</code>）で実行できるようになる</li>
 </ul>
 <h2 id="_2">フーリエ変換からの接続</h2>
-<p>第2〜4回で学び、第5回の発表会①で応用したフーリエ変換は、信号を <strong>純虚数の周波数</strong> <span class="arithmatex">\(j\omega\)</span> で分解する道具だった。これは「定常的に振動し続ける成分」を見るには最適だが、弱点がある。</p>
+<p>第2〜4回で学び、第5回の発表会①で応用したフーリエ変換は、信号を <strong>純虚数の周波数</strong> <span class="arithmatex">\(i\omega\)</span> で分解する道具だった。これは「定常的に振動し続ける成分」を見るには最適だが、弱点がある。</p>
 <ul>
 <li><strong>発散する信号</strong>（<span class="arithmatex">\(e^{0.5t}\)</span> のように増大するもの）や、<strong>ステップ <span class="arithmatex">\(u(t)\)</span></strong> のように減衰しない信号は絶対可積分でなく、<strong>通常のフーリエ積分が収束しない</strong>（絶対可積分性は十分条件であって必要条件ではないので、「可積分でない <span class="arithmatex">\(\Rightarrow\)</span> フーリエ変換が存在しない」とまでは言えない。実際 <span class="arithmatex">\(u(t)\)</span> は超関数の意味ではフーリエ変換をもつ）。</li>
 <li><strong>初期条件</strong>（<span class="arithmatex">\(t=0\)</span> での値や速度）を自然に扱えない。</li>
 </ul>
-<p>ラプラス変換は、フーリエ変換の積分核 <span class="arithmatex">\(e^{-j\omega t}\)</span> を <strong>複素指数 <span class="arithmatex">\(e^{-st}\)</span>（<span class="arithmatex">\(s=\sigma+j\omega\)</span>）</strong> に置き換えることでこれを解決する。実部 <span class="arithmatex">\(\sigma\)</span> がもつ <strong>減衰因子 <span class="arithmatex">\(e^{-\sigma t}\)</span></strong> が発散信号を抑え込み、より広い信号を扱えるようにする。</p>
+<p>ラプラス変換は、フーリエ変換の積分核 <span class="arithmatex">\(e^{-i\omega t}\)</span> を <strong>複素指数 <span class="arithmatex">\(e^{-st}\)</span>（<span class="arithmatex">\(s=\sigma+i\omega\)</span>）</strong> に置き換えることでこれを解決する。実部 <span class="arithmatex">\(\sigma\)</span> がもつ <strong>減衰因子 <span class="arithmatex">\(e^{-\sigma t}\)</span></strong> が発散信号を抑え込み、より広い信号を扱えるようにする。</p>
 <div class="arithmatex">\[
-F(s)=\int_0^{\infty} f(t)\,e^{-st}\,dt,\qquad s=\sigma+j\omega
+F(s)=\int_0^{\infty} f(t)\,e^{-st}\,dt,\qquad s=\sigma+i\omega
 \]</div>
-<p><span class="arithmatex">\(\sigma=0\)</span> とおけば（片側の）フーリエ変換に戻る。つまり <strong>収束領域が虚軸を含む因果信号については、フーリエ変換はラプラス変換の虚軸 <span class="arithmatex">\(s=j\omega\)</span> 上での値</strong> にほかならない（虚軸で積分が収束しない <span class="arithmatex">\(e^{0.5t}u(t)\)</span> のような信号では、この代入自体ができない）。周波数軸（1 次元）が <strong>複素平面（2 次元）</strong> に広がることで、過渡応答・初期値問題・安定性までを一望できるようになる。</p>
+<p><span class="arithmatex">\(\sigma=0\)</span> とおけば（片側の）フーリエ変換に戻る。つまり <strong>収束領域が虚軸を含む因果信号については、フーリエ変換はラプラス変換の虚軸 <span class="arithmatex">\(s=i\omega\)</span> 上での値</strong> にほかならない（虚軸で積分が収束しない <span class="arithmatex">\(e^{0.5t}u(t)\)</span> のような信号では、この代入自体ができない）。周波数軸（1 次元）が <strong>複素平面（2 次元）</strong> に広がることで、過渡応答・初期値問題・安定性までを一望できるようになる。</p>
+<div class="admonition note">
+<p class="admonition-title">虚数単位の記号</p>
+<p>虚数単位は第3回までと同じ <span class="arithmatex">\(i\)</span>（<span class="arithmatex">\(i^2=-1\)</span>）と書く。制御や回路の教科書では <span class="arithmatex">\(j\)</span> と書くことが多く、Python も虚数単位を <code>1j</code> と書く。</p>
+</div>
 <h2 id="_3">なぜラプラス変換か</h2>
 <p>最大の御利益は、<strong>微分が掛け算（<span class="arithmatex">\(s\)</span> 倍）になる</strong> ことである。微分の公式</p>
 <div class="arithmatex">\[

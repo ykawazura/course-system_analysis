@@ -1058,10 +1058,38 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="ピリオドグラム">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        白色雑音
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ばらつきを変動係数で測る
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         ウェルチ法
@@ -1069,32 +1097,49 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+    <nav class="md-nav" aria-label="ウェルチ法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        電力収支（パーセバルの定理）
+        雑音フロアから SNR を読む
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#scipysignalwelch" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        scipy.signal.welch の使い方
+        分解能と分散のトレードオフ
       
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トレンド除去
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -2835,10 +2880,38 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="ピリオドグラム">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        白色雑音
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ばらつきを変動係数で測る
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         ウェルチ法
@@ -2846,32 +2919,49 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+    <nav class="md-nav" aria-label="ウェルチ法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        電力収支（パーセバルの定理）
+        雑音フロアから SNR を読む
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#scipysignalwelch" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        scipy.signal.welch の使い方
+        分解能と分散のトレードオフ
       
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トレンド除去
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -2901,136 +2991,206 @@
 <h1 id="_1">ピリオドグラムとウェルチ法</h1>
 <p>前ページでは決定的な（雑音のない）信号の漏れを扱った。本ページでは <strong>雑音を含む</strong> 信号のスペクトルをどう見積もるかを考える。素朴な方法（ピリオドグラム）の弱点を確かめ、それを克服する <strong>ウェルチ法</strong> を導入する。</p>
 <h2 id="_2">ピリオドグラム</h2>
-<p>長さ <span class="arithmatex">\(N\)</span> の信号の FFT からパワースペクトル密度を直接作ったものを <strong>ピリオドグラム（periodogram）</strong> と呼ぶ。</p>
+<p>長さ <span class="arithmatex">\(N\)</span> の信号の FFT から直接作った PSD の推定値 <span class="arithmatex">\(\hat S_{xx}(f_k)\)</span>（<a href="../power-spectrum/#psd">前ページの式</a>）を <strong>ピリオドグラム（periodogram）</strong> と呼ぶ。</p>
+<p>最も素朴な PSD 推定だが、<strong>雑音に対してばらつき（分散）が大きく、<span class="arithmatex">\(N\)</span> を増やしても減らない</strong>。<span class="arithmatex">\(N\)</span> を増やすと周波数の刻みは細かくなるが、各点のばらつきは大きいまま ── スペクトルはいつまでもギザギザのままである。</p>
+<h3 id="_3">白色雑音</h3>
+<p>すべての周波数に一様に広がる雑音を <strong>白色雑音</strong> という。平均 <span class="arithmatex">\(0\)</span> の乱数を各サンプルで独立に引いた列は白色雑音になる。<code>sigma * rng.standard_normal(N)</code> は標準偏差 <span class="arithmatex">\(\sigma\)</span> の白色雑音である。</p>
+<p>白色雑音の平均電力 <span class="arithmatex">\(\sigma^2\)</span> は <span class="arithmatex">\(0\)</span>〜<span class="arithmatex">\(f_s/2\)</span> に一様に広がる。PSD に <span class="arithmatex">\(\Delta f\)</span> を掛けて全周波数で足すと平均電力 <span class="arithmatex">\(\overline{x^2}=\sigma^2\)</span> になる（<a href="../power-spectrum/#psd">前ページの式</a>）ので、片側 PSD の高さは</p>
 <div class="arithmatex">\[
-\hat S_{xx}(f_k)=\frac{\lvert X_k\rvert^2}{f_s N}\times
-\begin{cases}1 &amp; (k=0,\ \text{および $N$ が偶数のときの } k=N/2)\\ 2 &amp; (\text{その他})\end{cases}
+\frac{\sigma^2}{f_s/2}
 \]</div>
-<p>ここで <span class="arithmatex">\(\times 2\)</span> は、前ページの片側 PSD 定義と同じく <span class="arithmatex">\(\pm f\)</span> の 2 成分を片側にまとめるための補正である。<span class="arithmatex">\(k=0\)</span>（直流）と、<span class="arithmatex">\(N\)</span> が偶数のときの <span class="arithmatex">\(k=N/2\)</span>（ナイキスト）だけは対になる負の周波数をもたないので <span class="arithmatex">\(2\)</span> 倍しない。<span class="arithmatex">\(N\)</span> が奇数ならナイキストのビンは存在せず、<code>rfft</code> の最終ビンも <span class="arithmatex">\(2\)</span> 倍する。これは最も素朴な PSD 推定だが、重大な弱点がある。<strong>雑音に対して分散が大きく、信号長 <span class="arithmatex">\(N\)</span> を増やしても減らない</strong>（統計学でいう不一致推定量）。点数を増やすと周波数の刻みは細かくなるが、各点のばらつきは大きいまま ── スペクトルは <strong>いつまでもギザギザ</strong> のままなのである。</p>
-<p>雑音 <span class="arithmatex">\(\sigma=2\)</span> に埋もれた振幅 <span class="arithmatex">\(1\)</span>・<span class="arithmatex">\(80\)</span> Hz の正弦波で確かめる。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">fs</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="mf">8.0</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fs</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">80</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>   <span class="c1"># SNR は低い</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">X</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">fr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">P</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">fs</span> <span class="o">*</span> <span class="n">N</span><span class="p">)</span>                <span class="c1"># ピリオドグラム（両側）</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span>                                <span class="c1"># 片側 PSD へ補正（DC・ナイキストを除き2倍）</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># 雑音帯（80Hz 近傍を除く 50–110Hz）のばらつきを変動係数で測る</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">band</span> <span class="o">=</span> <span class="p">(</span><span class="n">fr</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">fr</span> <span class="o">&lt;</span> <span class="mi">110</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fr</span> <span class="o">-</span> <span class="mi">80</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;雑音帯の変動係数 CV = </span><span class="si">{</span><span class="n">P</span><span class="p">[</span><span class="n">band</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">/</span><span class="n">P</span><span class="p">[</span><span class="n">band</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<p>である。雑音だけの帯域での PSD の高さを <strong>雑音フロア</strong> と呼ぶ。<span class="arithmatex">\(\sigma=2\)</span>、<span class="arithmatex">\(f_s=1000\)</span> Hz なら <span class="arithmatex">\(4/500=0.008\ \text{V}^2/\text{Hz}\)</span>（<span class="arithmatex">\(-21.0\)</span> dB）になる。</p>
+<figure>
+  <img alt="白色雑音の時間波形とピリオドグラム" src="../img/white_noise.png" width="820" />
+<br />
+<figcaption>標準偏差 $\sigma=2$ の白色雑音（$f_s=1000$ Hz、$8$ s。下のコードの $x$ に入る雑音と同じ乱数）。左：最初の $0.1$ s。破線は $\pm\sigma$。右：ピリオドグラム（灰色）と $50$ Hz ごとの平均（青）。灰色は理論値 $\sigma^2/(f_s/2)=0.008$（赤の破線）のまわりで大きく上下するが、$50$ Hz ごとに平均すると平らになる。</figcaption>
+</figure>
+<h3 id="_4">ばらつきを変動係数で測る</h3>
+<p>値のばらつきを、平均に対する比で表したものを <strong>変動係数</strong>（Coefficient of variation; CV）という。</p>
+<div class="arithmatex">\[
+\text{CV}=\frac{\text{標準偏差}}{\text{平均}}
+\]</div>
+<p>CV が <span class="arithmatex">\(1\)</span> なら、値が平均と同じ程度に上下している。NumPy では <code>P.std() / P.mean()</code> と書ける。</p>
+<p>振幅 <span class="arithmatex">\(1\)</span>、周波数 <span class="arithmatex">\(80\)</span> Hz の正弦波に上の白色雑音（<span class="arithmatex">\(\sigma=2\)</span>）を足し、雑音フロアの CV を測る。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">fs</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="mf">8.0</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fs</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.0</span>                        <span class="c1"># 白色雑音の標準偏差</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">80</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">X</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">P</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">fs</span> <span class="o">*</span> <span class="n">N</span><span class="p">)</span>     <span class="c1"># ピリオドグラム（両側）</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span>                       <span class="c1"># DC・ナイキスト以外を 2 倍</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">band</span> <span class="o">=</span> <span class="p">(</span><span class="n">freq</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">freq</span> <span class="o">&lt;</span> <span class="mi">110</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">freq</span> <span class="o">-</span> <span class="mi">80</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;雑音帯の変動係数 CV = </span><span class="si">{</span><span class="n">P</span><span class="p">[</span><span class="n">band</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">/</span><span class="n">P</span><span class="p">[</span><span class="n">band</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
+<p><code>band</code> は、<span class="arithmatex">\(80\)</span> Hz の近傍を除いた <span class="arithmatex">\(50\)</span>〜<span class="arithmatex">\(110\)</span> Hz の雑音帯である。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>雑音帯の変動係数 CV = 1.037
 </code></pre></div>
-<p>変動係数（標準偏差/平均）が約 <span class="arithmatex">\(1\)</span> ── つまり雑音フロアの推定値が平均と同じ程度に <strong>暴れている</strong>。この中から <span class="arithmatex">\(80\)</span> Hz のピークを自信をもって読み取るのは難しい。</p>
-<h2 id="_3">ウェルチ法</h2>
-<p>解決策は素直で、<strong>たくさん測って平均する</strong> ことである。信号を複数の区間に分け、各区間にスペクトルを求めて <strong>平均</strong> すれば、雑音のばらつきがならされる。これを実用的な手順にまとめたのが <strong>ウェルチ法（Welch's method）</strong> である。</p>
+<figure>
+  <img alt="雑音を含む信号 x と rfft の絶対値" src="../img/periodogram_xX.png" width="480" />
+<br />
+<figcaption>上のコードの $x$ と $X$。上：$x$ の最初の $0.1$ s（灰色）と、足す前の $80$ Hz の正弦波（青）。波形では正弦波が雑音に埋もれている。下：$\lvert X_k\rvert$（$0$〜$500$ Hz）。$80$ Hz にだけ高い線が立ち、高さは約 $N/2=4000$（振幅 $1$ の正弦波がビン中心にあるときの値。振幅 $=2\lvert X_k\rvert/N$）。そのほかの周波数には雑音による細かな凹凸が一面に広がる。</figcaption>
+</figure>
+<ul>
+<li>変動係数が約 <span class="arithmatex">\(1\)</span> ── 雑音フロアの推定値が、平均と同じ程度に暴れている</li>
+<li><span class="arithmatex">\(80\)</span> Hz のピークは雑音より十分強いので、このままでも見える</li>
+<li>しかし雑音フロアの高さ（雑音の強さ）は、値が定まらず読み取れない</li>
+</ul>
+<h2 id="_5">ウェルチ法</h2>
+<p><strong>ウェルチ法</strong>（Welch's method）は、1 本の記録から次の手順で PSD を推定する。</p>
 <ol>
-<li>信号を長さ <span class="arithmatex">\(L\)</span> の区間に分ける（ふつう <strong>50% 重ねて</strong> 区間数を稼ぐ）</li>
-<li>各区間に <strong>窓関数</strong>（Hann 窓など）をかけてピリオドグラムを計算する</li>
-<li>全区間のピリオドグラムを <strong>平均</strong> する</li>
+<li>信号を長さ <span class="arithmatex">\(L\)</span> の区間に分ける（ふつう半分ずつ重ねて区間数を稼ぐ）</li>
+<li>区間ごとに窓関数（Hann 窓など）をかけ、ピリオドグラムを計算する</li>
+<li>全区間のピリオドグラムを平均する</li>
 </ol>
-<p><span class="arithmatex">\(K\)</span> 個の独立な区間を平均すると、推定の分散は約 <span class="arithmatex">\(1/K\)</span> に下がる（ばらつきは <span class="arithmatex">\(1/\sqrt{K}\)</span>）。<code>scipy.signal.welch</code> がこの手順を実装している。</p>
+<figure>
+  <img alt="ウェルチ法の手順" src="../img/welch_steps.png" width="900" />
+<br />
+<figcaption>ウェルチ法の手順。①：上のピリオドグラムと同じ $x$（$8$ s、$N=8000$）を長さ $L=1024$（$1.024$ s）の区間に分け、半分ずつ重ねて $K=14$ 区間をとる。山は各区間にかける Hann 窓で、区間 1〜3 に色を付けた。②：区間 1〜3 のピリオドグラム（dB）。どれも破線のまわりで大きく上下する。③：14 区間の平均。上下が打ち消し合い、破線に沿う。この平均は <code>ss.welch</code> の結果と一致する。破線は理論の雑音フロア $\sigma^2/(f_s/2)$（約 $-21$ dB。上の「白色雑音」で導いた）。</figcaption>
+</figure>
+<p>② の上下は、向きが区間ごとにばらばらなので、平均すると打ち消し合う（③）。<span class="arithmatex">\(K\)</span> 個の独立な値を平均すると、分散は <span class="arithmatex">\(1/K\)</span> 倍、標準偏差は <span class="arithmatex">\(1/\sqrt K\)</span> 倍になる。ピリオドグラム 1 枚の CV は約 <span class="arithmatex">\(1\)</span> なので、<span class="arithmatex">\(K\)</span> 区間の平均の CV は約 <span class="arithmatex">\(1/\sqrt K\)</span> である。</p>
+<figure>
+  <img alt="平均した区間の数と CV" src="../img/welch_cv.png" width="560" />
+<br />
+<figcaption>上の 14 区間のうち最初の $K$ 区間を平均し、雑音帯（$50$〜$110$ Hz、$80$ Hz の近傍を除く）の CV を測った。破線は予想 $1/\sqrt K$。1 本の記録から測った値なので予想のまわりで上下する。50% 重ねた区間は同じサンプルを共有して独立ではないので、$1/\sqrt K$ は目安である。</figcaption>
+</figure>
+<p><code>import scipy.signal as ss</code> とすると、<code>ss.welch</code> がこの手順を実装している。<code>nperseg</code> は 1 区間の長さ <span class="arithmatex">\(L\)</span> で、重なりは既定で 50% である。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ss</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">fr_w</span><span class="p">,</span> <span class="n">P_w</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">welch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s1">&#39;hann&#39;</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>   <span class="c1"># 50%重複が既定</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">band_w</span> <span class="o">=</span> <span class="p">(</span><span class="n">fr_w</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">fr_w</span> <span class="o">&lt;</span> <span class="mi">110</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fr_w</span> <span class="o">-</span> <span class="mi">80</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Welch の変動係数 CV = </span><span class="si">{</span><span class="n">P_w</span><span class="p">[</span><span class="n">band_w</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">/</span><span class="n">P_w</span><span class="p">[</span><span class="n">band_w</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ピーク周波数 = </span><span class="si">{</span><span class="n">fr_w</span><span class="p">[</span><span class="n">P_w</span><span class="o">.</span><span class="n">argmax</span><span class="p">()]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> Hz   (真値 80Hz)&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">f_w</span><span class="p">,</span> <span class="n">P_w</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">welch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s1">&#39;hann&#39;</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">band_w</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_w</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">f_w</span> <span class="o">&lt;</span> <span class="mi">110</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f_w</span> <span class="o">-</span> <span class="mi">80</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">Pb</span> <span class="o">=</span> <span class="n">P_w</span><span class="p">[</span><span class="n">band_w</span><span class="p">]</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Welch の変動係数 CV = </span><span class="si">{</span><span class="n">Pb</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">/</span><span class="n">Pb</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ピーク周波数 = </span><span class="si">{</span><span class="n">f_w</span><span class="p">[</span><span class="n">P_w</span><span class="o">.</span><span class="n">argmax</span><span class="p">()]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> Hz   (真値 80Hz)&quot;</span><span class="p">)</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Welch の変動係数 CV = 0.268
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ピーク周波数 = 80.1 Hz   (真値 80Hz)
 </code></pre></div>
-<p>変動係数が <span class="arithmatex">\(1.04\to 0.27\)</span> へ下がった（分散にして約 <span class="arithmatex">\(15\)</span> 倍の低減）。<span class="arithmatex">\(8\)</span> s の信号を <span class="arithmatex">\(\text{nperseg}=1024\)</span>（<span class="arithmatex">\(1.024\)</span> s）で <span class="arithmatex">\(50\)</span>% 重ねると <span class="arithmatex">\(K=14\)</span> 区間とれるので、ばらつきは <span class="arithmatex">\(1/\sqrt{K}\approx 1/\sqrt{14}\approx 0.27\)</span> とよく合う。雑音フロアが平らになり、<span class="arithmatex">\(80\)</span> Hz のピークがはっきり立ち上がる。</p>
-<div class="admonition note">
-<p class="admonition-title">重複した区間は独立ではない</p>
-<p><span class="arithmatex">\(1/K\)</span>・<span class="arithmatex">\(1/\sqrt K\)</span> は本来 <strong>独立な</strong> <span class="arithmatex">\(K\)</span> 区間を平均したときの値である。<span class="arithmatex">\(50\)</span>% 重ねた区間は同じサンプルを共有しているので独立ではなく、隣り合う区間のピリオドグラムには相関が残る。Hann 窓・<span class="arithmatex">\(50\)</span>% 重複の場合、この相関係数は <span class="arithmatex">\(\rho=1/6\)</span>（<span class="arithmatex">\(\rho^2\approx1/36\)</span>）で、有効な平均数は</p>
-<div class="arithmatex">\[
-K_{\text{eff}}=\frac{K}{1+2\rho^2\frac{K-1}{K}}\approx\frac{14}{1.052}\approx 13.3
-\]</div>
-<p>となり、予測される変動係数は <span class="arithmatex">\(1/\sqrt{13.3}\approx 0.274\)</span> である。上の実測 <span class="arithmatex">\(0.268\)</span> はこちらとよく合う。相関が小さいので <span class="arithmatex">\(1/\sqrt K\)</span> でもよい近似だが、「重ねれば重ねるほど際限なく分散が下がる」わけではないことは押さえておきたい（<span class="arithmatex">\(50\)</span>% 重複が定石なのは、独立性の損失に対して区間数の増加が最も割に合うからである）。</p>
-<p>なお、ここで測っている「周波数方向のばらつき」は、本来知りたい「同じ実験を何度も繰り返したときの推定量のばらつき」の <strong>代理指標</strong> である。雑音フロアが周波数によらず平坦だからこそ、周波数方向の散らばりで代用できている。</p>
-</div>
+<ul>
+<li>変動係数が <span class="arithmatex">\(1.04\to0.27\)</span> へ下がった（分散にして約 <span class="arithmatex">\(15\)</span> 倍の低減）</li>
+<li><span class="arithmatex">\(8\)</span> s の信号を <code>nperseg=1024</code>（<span class="arithmatex">\(1.024\)</span> s）で 50% 重ねると、<span class="arithmatex">\(K=14\)</span> 区間とれる</li>
+<li>ばらつきの予想 <span class="arithmatex">\(1/\sqrt{K}=1/\sqrt{14}\approx0.27\)</span> とよく合う</li>
+<li>雑音フロアが平らになり、その高さが読み取れるようになる。ピークも <span class="arithmatex">\(80.1\)</span> Hz と正しく読める</li>
+</ul>
+<p>区間に分けずに、全長 <span class="arithmatex">\(8\)</span> s に Hann 窓を 1 枚かけてもばらつきは減らない。同じ <span class="arithmatex">\(x\)</span> で比べると次のようになる。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>周波数の刻み <span class="arithmatex">\(\Delta f\)</span></th>
+<th>雑音帯の CV</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全長、矩形窓（上のピリオドグラム）</td>
+<td><span class="arithmatex">\(0.125\)</span> Hz</td>
+<td><span class="arithmatex">\(1.04\)</span></td>
+</tr>
+<tr>
+<td>全長、Hann 窓 1 枚</td>
+<td><span class="arithmatex">\(0.125\)</span> Hz</td>
+<td><span class="arithmatex">\(0.94\)</span></td>
+</tr>
+<tr>
+<td>ウェルチ法（<code>nperseg=1024</code>、14 区間）</td>
+<td><span class="arithmatex">\(0.98\)</span> Hz</td>
+<td><span class="arithmatex">\(0.27\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>窓は漏れを抑えるが、ピリオドグラム 1 枚の各ビンが乱数のように上下することは変わらない。ばらつきを下げるのは平均であり、その代わりに刻みが粗くなる。下の図の灰色が全長に Hann 窓 1 枚の場合である。</p>
 <figure>
-  <img alt="ピリオドグラム vs ウェルチ法" src="../img/welch.png" width="820" />
+  <img alt="全長に窓 1 枚 vs ウェルチ法" src="../img/welch.png" width="820" />
 <br />
-<figcaption>雑音 σ=2 に埋もれた 80Hz 正弦波の PSD（dB）。灰色＝単一ピリオドグラム（全長 FFT）はギザギザで雑音フロアが激しく暴れる。青＝ウェルチ法（14 区間平均）は平滑で、80Hz のピークが雑音から明瞭に立つ。平均化が分散を下げている。</figcaption>
+<figcaption>雑音（$\sigma=2$）を含む $80$ Hz 正弦波の PSD（dB）。灰色＝全長 $8$ s に Hann 窓を 1 枚かけたピリオドグラム、青＝ウェルチ法（14 区間平均）。$80$ Hz のピークはどちらでも見える。平均化が下げているのは雑音フロアのばらつきで、青では高さ（約 $-21$ dB）が読める。ピークの高さが違うのは、PSD が電力を周波数の幅で割った量で、ウェルチ法では周波数の刻みが粗い（1 区間が短い）ためである。</figcaption>
 </figure>
-<div class="admonition warning">
-<p class="admonition-title">分解能とのトレードオフ</p>
-<p>ウェルチ法でばらつきを下げるには区間を多く（＝1区間を短く）したいが、区間が短いほど周波数の刻み <span class="arithmatex">\(\Delta f=f_s/L\)</span> は <strong>粗くなる</strong>。<code>nperseg</code> を大きくすると刻みは細かくなるが平均する区間数が減って <strong>ばらつきが増える</strong>。<strong>分解能 vs 分散</strong> のトレードオフであり、近接した2周波数を分けたいか・雑音フロアを平らにしたいかで選ぶ。</p>
-<p>厳密には <span class="arithmatex">\(\Delta f=f_s/L\)</span> は FFT の <strong>ビン間隔</strong> であって、2 つの周波数を分離できる限界そのものではない。実際に分離できるかは窓の <strong>主ローブ幅</strong> で決まり、Hann 窓なら主ローブの零点間幅は <span class="arithmatex">\(4\)</span> ビン、等価雑音帯域幅（ENBW）は <span class="arithmatex">\(1.5\)</span> ビンある。つまり Hann 窓では、<span class="arithmatex">\(2\)</span> 本のピークを分けるのに <span class="arithmatex">\(\Delta f\)</span> の数倍の間隔が要る。矩形窓は主ローブが狭い（<span class="arithmatex">\(2\)</span> ビン）代わりに漏れが大きい ── ここでも前ページの「分解能 vs 漏れ」のトレードオフが効いている。</p>
-</div>
-<h2 id="_4">電力収支（パーセバルの定理）</h2>
-<p>PSD には「周波数について足し上げると平均電力になる」という重要な性質がある（第3回のパーセバルの離散版）。</p>
+<h3 id="snr">雑音フロアから SNR を読む</h3>
+<p>信号の平均電力と雑音の平均電力の比を <strong>信号対雑音比</strong>（Signal-to-noise ratio; SNR）という。振幅 <span class="arithmatex">\(A=1\)</span> の正弦波と <span class="arithmatex">\(\sigma=2\)</span> の白色雑音なら</p>
 <div class="arithmatex">\[
-\sum_{k} S_{xx}(f_k)\,\Delta f \;=\; \overline{x^2}\;=\;\frac{1}{N}\sum_{n} x_n^2
+\text{SNR}=\frac{A^2/2}{\sigma^2}=\frac{0.5}{4}=0.125\quad(=-9.0\ \text{dB})
 \]</div>
-<p>ただしこの等号が <strong>厳密に</strong> 成り立つのは、信号の全長を1区間として <strong>矩形窓</strong>（窓なし）で、<strong>トレンド除去もせず</strong> に作ったピリオドグラムを、上のように <strong>ビンごとの和</strong> で積分したときである。振幅 <span class="arithmatex">\(A\)</span> の正弦波と分散 <span class="arithmatex">\(\sigma^2\)</span> の白色雑音なら、平均電力は理論的に <span class="arithmatex">\(A^2/2+\sigma^2\)</span> になる。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">fs</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="mf">20.0</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fs</span> <span class="o">*</span> <span class="n">T</span><span class="p">);</span> <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">A</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">0.5</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">x</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">f0</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span><span class="o">*</span><span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># 厳密：全長・矩形窓・トレンド除去なしのピリオドグラムをビン和で積分</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">fr_p</span><span class="p">,</span> <span class="n">P_p</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">periodogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s1">&#39;boxcar&#39;</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ピリオドグラムのビン和 = </span><span class="si">{</span><span class="n">P_p</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">fr_p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">fr_p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;平均電力 mean(x^2)     = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="c1"># Welch（窓＋区間平均）は同じ量の推定値。厳密には一致しない</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">fr</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">welch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s1">&#39;hann&#39;</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Welch のビン和         = </span><span class="si">{</span><span class="n">P</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">fr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">fr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;理論 A^2/2+σ^2         = </span><span class="si">{</span><span class="n">A</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<p>である。ウェルチ法の PSD からも、PSD に <span class="arithmatex">\(\Delta f\)</span> を掛けて足すと平均電力になることを使って読める。雑音の平均電力は、雑音フロアに帯域の幅 <span class="arithmatex">\(f_s/2\)</span> を掛けた値である。信号の平均電力は、<span class="arithmatex">\(80\pm3\)</span> Hz のピークを足し、フロアの分を引いた値である。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">dB</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;パワー（または比）をデシベル 10 log10 で表す&quot;&quot;&quot;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="k">return</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">floor</span> <span class="o">=</span> <span class="n">Pb</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                        <span class="c1"># 雑音フロア（雑音帯の平均）</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">df</span> <span class="o">=</span> <span class="n">f_w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">f_w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f_w</span> <span class="o">-</span> <span class="mi">80</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">sig_pow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">P_w</span><span class="p">[</span><span class="n">peak</span><span class="p">]</span> <span class="o">-</span> <span class="n">floor</span><span class="p">)</span> <span class="o">*</span> <span class="n">df</span>     <span class="c1"># ピークを足し、フロアの分を引く</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">noise_pow</span> <span class="o">=</span> <span class="n">floor</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">/</span> <span class="mi">2</span>                   <span class="c1"># フロア × 帯域の幅 fs/2</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">snr</span> <span class="o">=</span> <span class="n">sig_pow</span> <span class="o">/</span> <span class="n">noise_pow</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;雑音フロア = </span><span class="si">{</span><span class="n">floor</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">dB</span><span class="p">(</span><span class="n">floor</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> dB  (理論 0.008)&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;信号の平均電力 = </span><span class="si">{</span><span class="n">sig_pow</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">  (理論 0.5)&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;雑音の平均電力 = </span><span class="si">{</span><span class="n">noise_pow</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">  (理論 4)&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SNR = </span><span class="si">{</span><span class="n">snr</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">dB</span><span class="p">(</span><span class="n">snr</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> dB  (理論 -9.0 dB)&quot;</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ピリオドグラムのビン和 = 0.752125
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>平均電力 mean(x^2)     = 0.752125
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Welch のビン和         = 0.746517
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>理論 A^2/2+σ^2         = 0.750000
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>雑音フロア = 0.008227 = -20.85 dB  (理論 0.008)
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>信号の平均電力 = 0.48  (理論 0.5)
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>雑音の平均電力 = 4.11  (理論 4)
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>SNR = 0.118 = -9.3 dB  (理論 -9.0 dB)
 </code></pre></div>
-<p>ピリオドグラムのビン和は標本平均電力と <strong>12 桁一致</strong> する。一方 Welch は同じ量の <strong>推定値</strong> なので、理論値 <span class="arithmatex">\(0.75\)</span> のまわりで小数第3位程度ずれる。</p>
-<div class="admonition warning">
-<p class="admonition-title">Welch の積分値をそのまま電力と読まない</p>
-<p><code>ss.welch</code> は「窓をかけた短い区間のピリオドグラムを平均する」推定量なので、上の等式が厳密に成り立つとは限らない。とくに次の 2 点に注意する。</p>
 <ul>
-<li><strong>既定でトレンド除去が入る</strong>（<code>detrend='constant'</code>：各区間の平均を引く）。したがって <strong>直流成分は消える</strong>。実際 <code>x = np.ones(8192)</code> に対して既定の <code>welch</code> を積分すると <span class="arithmatex">\(0\)</span> になり、<code>mean(x**2) = 1</code> と全く合わない。直流も勘定に入れたいなら <code>detrend=False</code> を明示する。</li>
-<li><strong>積分は台形則ではなくビン和で行う</strong>。台形則は両端のビンを半分しか数えないので過小評価になる。上の <code>x = np.ones(8192)</code>（<code>detrend=False</code>）では、ビン和が <span class="arithmatex">\(1.0000\)</span> と正しいのに対し、台形則は <span class="arithmatex">\(0.6667\)</span> になる。</li>
+<li>読んだ比は <span class="arithmatex">\(0.118\)</span>（<span class="arithmatex">\(-9.3\)</span> dB）で、理論の <span class="arithmatex">\(-9.0\)</span> dB とよく合う</li>
+<li>SNR は <span class="arithmatex">\(1\)</span> より小さく、波形では正弦波が雑音に埋もれている（上の <span class="arithmatex">\(x\)</span> と <span class="arithmatex">\(X\)</span> の図）。それでもピークがフロアより <span class="arithmatex">\(16\)</span> dB 高く立つのは、雑音の電力は <span class="arithmatex">\(0\)</span>〜<span class="arithmatex">\(500\)</span> Hz に散り、信号の電力は <span class="arithmatex">\(80\)</span> Hz の近くに集まるからである</li>
 </ul>
-<p>厳密な電力収支を確認したいときは、上のコードのように <strong>全長・矩形窓・<code>detrend=False</code> のピリオドグラムをビン和</strong> で評価すること。Welch はあくまで雑音フロアの形を安定して見るための推定量である。</p>
-</div>
-<p>信号と雑音を分けて見積もることもできる。白色雑音は全帯域に一様に広がるので、片側 PSD の <strong>雑音フロア</strong> は <span class="arithmatex">\(\sigma^2/(f_s/2)=0.25/500=5\times10^{-4}\ \text{V}^2/\text{Hz}\)</span>。ピーク近傍を積分すれば信号電力 <span class="arithmatex">\(A^2/2=0.5\)</span> が得られ、両者の比から <strong>SNR</strong></p>
-<div class="arithmatex">\[
-\text{SNR}=\frac{A^2/2}{\sigma^2}=\frac{0.5}{0.25}=2.0\;(=3.0\ \text{dB})
-\]</div>
-<p>が読める。スペクトル解析は、こうして「どの周波数にどれだけの電力があるか」「信号は雑音に対してどれだけ強いか」を定量化する道具である。</p>
-<h2 id="scipysignalwelch"><code>scipy.signal.welch</code> の使い方</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">f</span><span class="p">,</span> <span class="n">Pxx</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">welch</span><span class="p">(</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">x</span><span class="p">,</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">fs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>            <span class="c1"># サンプリング周波数 [Hz]</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">window</span><span class="o">=</span><span class="s1">&#39;hann&#39;</span><span class="p">,</span>      <span class="c1"># 窓関数（既定 &#39;hann&#39;）</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">nperseg</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>       <span class="c1"># 1区間の長さ（分解能 Δf = fs/nperseg）</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">noverlap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>      <span class="c1"># 重複（既定 nperseg//2 = 50%）</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">scaling</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span>  <span class="c1"># &#39;density&#39;:PSD[V^2/Hz] / &#39;spectrum&#39;:パワー[V^2]</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">)</span>
+<h3 id="_6">分解能と分散のトレードオフ</h3>
+<p>ばらつきを下げるには、区間を多く（＝1 区間を短く）したい。しかし区間が短いほど、周波数の刻み <span class="arithmatex">\(\Delta f=f_s/L\)</span> は粗くなる。<code>nperseg</code> を大きくすると刻みは細かくなるが、平均する区間数が減ってばらつきが増える。近い 2 本の正弦波で <code>nperseg</code> を変えると、このトレードオフが見える。</p>
+<figure>
+  <img alt="nperseg を変えたウェルチ法の PSD" src="../img/welch_tradeoff.png" width="900" />
+<br />
+<figcaption>$80$ Hz と $83$ Hz の正弦波（振幅 $1$）に $\sigma=2$ の白色雑音を足した $8$ s の記録（$f_s=1000$ Hz）を、<code>ss.welch</code>（Hann 窓、50% 重なり）で <code>nperseg</code> を変えて計算した。赤の ▼ は本来の周波数、破線は理論の雑音フロア。CV は雑音だけの $150$〜$450$ Hz で測った。</figcaption>
+</figure>
+<ul>
+<li><code>nperseg=256</code>：<span class="arithmatex">\(K=61\)</span> 区間を平均するので CV は <span class="arithmatex">\(0.13\)</span> と小さいが、<span class="arithmatex">\(\Delta f=3.9\)</span> Hz が 2 本の間隔 <span class="arithmatex">\(3\)</span> Hz より粗く、2 本が 1 つの山になる</li>
+<li><code>nperseg=1024</code>：<span class="arithmatex">\(\Delta f=0.98\)</span> Hz で 2 本の間に谷ができ、<span class="arithmatex">\(K=14\)</span> で CV も <span class="arithmatex">\(0.28\)</span> にとどまる</li>
+<li><code>nperseg=8000</code>（全長 1 区間）：<span class="arithmatex">\(\Delta f=0.125\)</span> Hz で 2 本は鋭いが、平均しないので CV は <span class="arithmatex">\(0.99\)</span> になり、雑音フロアが暴れる</li>
+</ul>
+<p>近い 2 つの周波数を分けたいか、雑音フロアを平らにしたいかで <code>nperseg</code> を選ぶ。</p>
+<p>実際に 2 本のピークを分けられるかは、窓のメインローブの幅で決まる。Hann 窓のメインローブは零点の間で <span class="arithmatex">\(4\)</span> ビンあるので、<span class="arithmatex">\(\Delta f\)</span> の数倍の間隔が要る。上の <code>nperseg=1024</code> では、間隔 <span class="arithmatex">\(3\)</span> Hz が <span class="arithmatex">\(\Delta f\)</span> の約 <span class="arithmatex">\(3\)</span> 倍にあたる。</p>
+<h3 id="_7">トレンド除去</h3>
+<p>測定値には、ゆっくりしたずれや傾き（<strong>トレンド</strong>）が乗ることが多い。PSD を求める前にこれを引く処理を <strong>トレンド除去</strong> という。</p>
+<figure>
+  <img alt="トレンド除去の前後と PSD" src="../img/detrend.png" width="900" />
+<br />
+<figcaption>振幅 $0.5$ の $1$ Hz の正弦波に、直線のトレンドと小さな白色雑音を足した（$f_s=100$ Hz、$20$ s）。左：除去前と最小二乗の直線（緑の破線）。中：直線を引いた後。右：<code>ss.welch</code>（Hann 窓、<code>nperseg=512</code>）の PSD。灰色は何も引かずに、青は区間ごとに直線を引いてから求めた。$0.8$ Hz より上では 2 本が重なる。</figcaption>
+</figure>
+<ul>
+<li>トレンドが残ると、<span class="arithmatex">\(0\)</span> Hz の近くに大きな山が立ち、低い周波数の成分を覆い隠す</li>
+<li>この例では、<span class="arithmatex">\(0\)</span> Hz の山が <span class="arithmatex">\(1\)</span> Hz のピークより約 <span class="arithmatex">\(17\)</span> dB 高い</li>
+</ul>
+<p>図の例のデータは次のように作る。前の <span class="arithmatex">\(80\)</span> Hz の例とは別の記録なので、<code>fs</code> などを作り直す。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">fs</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">20.0</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fs</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.15</span>                           <span class="c1"># 白色雑音の標準偏差</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">trend</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="n">t</span>                 <span class="c1"># 直線のトレンド</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">x</span> <span class="o">=</span> <span class="n">trend</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">1</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma</span><span class="o">*</span><span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+</code></pre></div>
+<p><code>ss.welch</code> は、区間ごとにトレンドを引いてから窓をかける。引き方は <code>detrend</code> で選ぶ。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 既定は detrend=&#39;constant&#39;（区間の平均を引く）</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">f_w</span><span class="p">,</span> <span class="n">P_c</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">welch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># 区間の最小二乗の直線を引く</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">f_w</span><span class="p">,</span> <span class="n">P_l</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">welch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># 何も引かない</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">f_w</span><span class="p">,</span> <span class="n">P_n</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">welch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
 <ul>
-<li>振幅スペクトル（正弦波のピーク振幅）を読みたいときは <code>scaling='spectrum'</code> にして <span class="arithmatex">\(\sqrt{2\,P_{\text{peak}}}\)</span>。</li>
-<li>雑音フロアや電力の積分を見たいときは <code>scaling='density'</code>（既定）。</li>
+<li>既定は <code>detrend='constant'</code>（平均を引く）なので、<strong>直流成分は消える</strong>。直流も見たいときは <code>detrend=False</code></li>
+<li>傾きもあるときは <code>detrend='linear'</code> を使う。上の図の右の青はこれである</li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title"><span class="arithmatex">\(\sqrt{2P_{\text{peak}}}\)</span> が振幅になる条件</p>
-<p>係数 <span class="arithmatex">\(2\)</span> は「実正弦波の電力が <span class="arithmatex">\(\pm f\)</span> に半分ずつ分かれる」ことの補正なので、対になる負周波数をもたない <strong>直流とナイキストでは <span class="arithmatex">\(2\)</span> を掛けない</strong>（そこでは <span class="arithmatex">\(\sqrt{P_{\text{peak}}}\)</span>）。さらに、前ページのスキャロッピング損失は <code>scaling='spectrum'</code> でも同じように効くため、<strong>正弦波の周波数がビン中心に乗っている</strong>ことが要る。<span class="arithmatex">\(f_s=1000\)</span> Hz・<code>nperseg=1000</code>（<span class="arithmatex">\(\Delta f=1\)</span> Hz）・Hann 窓で試すと、<span class="arithmatex">\(10.0\)</span> Hz では <span class="arithmatex">\(\sqrt{2P_{\text{peak}}}=1.0000\)</span> と真値を当てるが、半ビンずれた <span class="arithmatex">\(10.5\)</span> Hz では <span class="arithmatex">\(0.8488\)</span> にとどまる。</p>
-</div>
-<h2 id="_5">まとめ</h2>
+<p>上の例で既定の <code>'constant'</code> を使うと、区間の中の傾きが残り、<span class="arithmatex">\(0.2\)</span> Hz のビンに <span class="arithmatex">\(-12\)</span> dB の山が残る。</p>
+<h2 id="_8">まとめ</h2>
 <ul>
-<li><strong>ピリオドグラム</strong> <span class="arithmatex">\(\lvert X\rvert^2/(f_s N)\)</span> は素朴な PSD 推定だが、雑音に対し <strong>分散が <span class="arithmatex">\(N\)</span> で減らない</strong>（CV≈1 のギザギザ）。</li>
+<li><strong>ピリオドグラム</strong> は素朴な PSD 推定だが、雑音に対し <strong>ばらつき（分散）が <span class="arithmatex">\(N\)</span> で減らない</strong>（CV≈1 のギザギザ）。</li>
 <li><strong>ウェルチ法</strong>：区間分割＋窓＋平均で分散を約 <span class="arithmatex">\(1/K\)</span> に下げる（14 区間で CV <span class="arithmatex">\(1.04\to0.27\)</span>）。代償は分解能 <span class="arithmatex">\(\Delta f=f_s/L\)</span> の低下 ── <strong>分解能 vs 分散</strong> のトレードオフ。</li>
-<li>PSD は積分すると <strong>平均電力</strong> に等しい（パーセバル）。信号電力 <span class="arithmatex">\(A^2/2\)</span>・雑音フロア <span class="arithmatex">\(\sigma^2/(f_s/2)\)</span> から <strong>SNR</strong> が見積もれる。</li>
-<li>実装は <code>scipy.signal.welch</code>。<code>scaling</code> と <code>nperseg</code> を目的に応じて選ぶ。</li>
+<li>PSD に <span class="arithmatex">\(\Delta f\)</span> を掛けた和は <strong>平均電力</strong>（パーセバル）。信号の平均電力 <span class="arithmatex">\(A^2/2\)</span> と、<strong>白色雑音</strong> の雑音フロア <span class="arithmatex">\(\sigma^2/(f_s/2)\)</span> から <strong>SNR</strong> が読める。</li>
+<li>実装は <code>scipy.signal.welch</code>。<code>nperseg</code> で分解能とばらつきを選ぶ。既定で区間ごとに平均を引く（<strong>トレンド除去</strong>）ので、直流成分は消える。</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">本講義との接続</p>

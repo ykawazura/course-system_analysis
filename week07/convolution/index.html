@@ -2934,7 +2934,7 @@ y(t)=(x*h)(t)=\int_0^{t} x(\tau)\,h(t-\tau)\,d\tau
 <div class="arithmatex">\[
 Y(s)=H(s)\,X(s),\qquad H(s)=\mathcal{L}[h(t)]
 \]</div>
-<p>を得る。この <span class="arithmatex">\(H(s)=Y(s)/X(s)\)</span> が <strong>伝達関数（transfer function）</strong> であり、システムそのものを s 領域で表す。第4回でフーリエ領域のフィルタ <span class="arithmatex">\(H(\omega)\)</span> を「周波数ごとの掛け算」として見たが、伝達関数 <span class="arithmatex">\(H(s)\)</span> はその一般化で、<span class="arithmatex">\(s=\sigma+j\omega\)</span> と複素平面に広がることで過渡応答・安定性まで扱える（<span class="arithmatex">\(H(s)=Y/X\)</span> は <strong>零初期条件</strong> での入出力関係であり、初期条件そのものはラプラス変換全体の枠組みで扱う）。</p>
+<p>を得る。この <span class="arithmatex">\(H(s)=Y(s)/X(s)\)</span> が <strong>伝達関数（transfer function）</strong> であり、システムそのものを s 領域で表す。第4回でフーリエ領域のフィルタ <span class="arithmatex">\(H(\omega)\)</span> を「周波数ごとの掛け算」として見たが、伝達関数 <span class="arithmatex">\(H(s)\)</span> はその一般化で、<span class="arithmatex">\(s=\sigma+i\omega\)</span> と複素平面に広がることで過渡応答・安定性まで扱える（<span class="arithmatex">\(H(s)=Y/X\)</span> は <strong>零初期条件</strong> での入出力関係であり、初期条件そのものはラプラス変換全体の枠組みで扱う）。</p>
 <h3 id="2">例：2 つの指数信号の畳み込み</h3>
 <p><span class="arithmatex">\(f(t)=e^{-t}\)</span>、<span class="arithmatex">\(g(t)=e^{-2t}\)</span> の畳み込みを、定義どおりの積分と畳み込み定理の両方で求めて一致を確かめる。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
@@ -2980,7 +2980,7 @@ s=-\zeta\omega_n\pm\omega_n\sqrt{\zeta^2-1}
 \]</div>
 <p>で与えられ、<span class="arithmatex">\(\zeta\)</span> の値によって応答が 3 つに分類される。</p>
 <ul>
-<li><span class="arithmatex">\(0&lt;\zeta&lt;1\)</span> … <strong>不足制動</strong>：極は複素共役対 <span class="arithmatex">\(-\zeta\omega_n\pm j\omega_n\sqrt{1-\zeta^2}\)</span>。減衰しながら<strong>振動</strong>し、ステップ応答は最終値を <strong>行き過ぎる（オーバーシュート）</strong>。</li>
+<li><span class="arithmatex">\(0&lt;\zeta&lt;1\)</span> … <strong>不足制動</strong>：極は複素共役対 <span class="arithmatex">\(-\zeta\omega_n\pm i\omega_n\sqrt{1-\zeta^2}\)</span>。減衰しながら<strong>振動</strong>し、ステップ応答は最終値を <strong>行き過ぎる（オーバーシュート）</strong>。</li>
 <li><span class="arithmatex">\(\zeta=1\)</span> … <strong>臨界制動</strong>：極は実重根 <span class="arithmatex">\(-\omega_n\)</span>。振動せず最も速く収束する境目。</li>
 <li><span class="arithmatex">\(\zeta&gt;1\)</span> … <strong>過制動</strong>：極は 2 つの実極。振動なくゆっくり収束する。</li>
 </ul>
@@ -3010,7 +3010,7 @@ s=-\zeta\omega_n\pm\omega_n\sqrt{\zeta^2-1}
 </figure>
 <div class="admonition note">
 <p class="admonition-title">減衰比 <span class="arithmatex">\(\zeta\)</span> と極の位置</p>
-<p>複素極 <span class="arithmatex">\(-\zeta\omega_n\pm j\omega_n\sqrt{1-\zeta^2}\)</span> は、原点から見た角度が <span class="arithmatex">\(\zeta\)</span> で決まる（<span class="arithmatex">\(\cos\theta=\zeta\)</span>、<span class="arithmatex">\(\theta\)</span> は負の実軸からの角）。<span class="arithmatex">\(\zeta\)</span> が小さいほど極は虚軸に近づき、振動が目立つ。<span class="arithmatex">\(\zeta\to1\)</span> で極は実軸（負の実軸上の重根）に集まり、振動が消える。減衰比は「極が虚軸からどれだけ離れて寝ているか」を表す量である。</p>
+<p>複素極 <span class="arithmatex">\(-\zeta\omega_n\pm i\omega_n\sqrt{1-\zeta^2}\)</span> は、原点から見た角度が <span class="arithmatex">\(\zeta\)</span> で決まる（<span class="arithmatex">\(\cos\theta=\zeta\)</span>、<span class="arithmatex">\(\theta\)</span> は負の実軸からの角）。<span class="arithmatex">\(\zeta\)</span> が小さいほど極は虚軸に近づき、振動が目立つ。<span class="arithmatex">\(\zeta\to1\)</span> で極は実軸（負の実軸上の重根）に集まり、振動が消える。減衰比は「極が虚軸からどれだけ離れて寝ているか」を表す量である。</p>
 </div>
 <h2 id="_3">まとめ</h2>
 <ul>

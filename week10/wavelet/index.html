@@ -2936,7 +2936,7 @@ C_\psi=\int_{0}^{\infty}\frac{|\Psi(f)|^{2}}{f}\,df&lt;\infty
 \]</div>
 <p>を満たす必要がある。<span class="arithmatex">\(\psi\)</span> が可積分なら <span class="arithmatex">\(\Psi\)</span> は連続なので、<span class="arithmatex">\(f\to0\)</span> で被積分関数が発散しないためには <span class="arithmatex">\(\Psi(0)=\int\psi\,dt=0\)</span>、すなわち <strong>平均が 0</strong> でなければならない。正負に振動して減衰する、文字どおり「小さな波」である必要があるということで、実用上はこの「平均 0」を目安と考えてよい。本ページでは、ガウス窓つきの複素正弦波である <strong>Morlet ウェーブレット</strong></p>
 <div class="arithmatex">\[
-\psi(t)=\frac{1}{\sqrt{\pi B}}\,e^{j2\pi f_c t}\,e^{-t^{2}/B}
+\psi(t)=\frac{1}{\sqrt{\pi B}}\,e^{i2\pi f_c t}\,e^{-t^{2}/B}
 \]</div>
 <p>を使う（<code>pywt</code> では <code>"cmorB-C"</code> の形で帯域幅 <span class="arithmatex">\(B\)</span> と中心周波数 <span class="arithmatex">\(f_c\)</span> を指定する）。複素なので、その絶対値をとれば <strong>包絡（どれだけ強いか）</strong> が位相の振動に邪魔されずに読める。</p>
 <div class="admonition note">

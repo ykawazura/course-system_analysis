@@ -2904,42 +2904,41 @@
 </blockquote>
 <h2 id="_1">今回の目標</h2>
 <ul>
-<li>振幅スペクトルから <strong>パワースペクトルとパワースペクトル密度（PSD）</strong> へ進み、信号の「電力が周波数にどう分布するか」を読めるようになる</li>
-<li>有限長の観測で生じる <strong>スペクトル漏れ（リーケージ）</strong> の正体を理解し、<strong>窓関数</strong>（Hann 窓など）で緩和できるようになる</li>
-<li>雑音に埋もれた信号に対し、<strong>ピリオドグラム</strong> の弱点（分散が減らない）と、それを克服する <strong>ウェルチ法</strong> を理解し、<code>scipy.signal.welch</code> で安定なスペクトルを推定できるようになる</li>
-<li>畳み込み定理を応用した <strong>周波数領域フィルタリング</strong> を <code>rfft</code>/<code>irfft</code> で実装し、雑音や不要な帯域を除去できるようになる</li>
+<li>電力に着目した <strong>パワースペクトル密度（PSD）</strong> を理解し、<strong>スペクトル漏れ</strong> を <strong>窓関数</strong> で抑えられるようになる</li>
+<li>雑音を含む信号の PSD を <strong>ピリオドグラム</strong> と <strong>ウェルチ法</strong> で求め、電力と SNR を読めるようになる</li>
+<li><code>rfft</code> → 周波数マスク → <code>irfft</code> で <strong>周波数領域フィルタリング</strong> ができるようになる</li>
 </ul>
 <h2 id="3">第3回からの接続</h2>
-<p>第3回では、理想的な合成正弦波を <code>numpy.fft.rfft</code> にかけ、きれいなピークとして周波数・振幅を読み取った。だが現実の信号は <strong>有限の時間しか観測できず</strong>、しかも <strong>雑音</strong> を含む。このとき素朴な FFT には2つの落とし穴がある。</p>
+<p>第3回では、理想的な合成正弦波を <code>numpy.fft.rfft</code> にかけ、きれいなピークとして周波数・振幅を読み取った。だが現実の信号は <strong>有限の時間しか観測できず</strong>、しかも <strong>雑音</strong> を含む。このとき素朴な FFT には2 つの落とし穴がある。</p>
 <ul>
-<li><strong>スペクトル漏れ</strong>：信号の周期が観測区間に整数回入らないと、第3回の最後に触れたとおりピークが周囲ににじみ、振幅さえ正しく読めない。</li>
-<li><strong>推定のばらつき</strong>：雑音を含む信号の FFT は、点数 <span class="arithmatex">\(N\)</span> をいくら増やしても <strong>ギザギザのまま</strong> で、真のスペクトルに収束しない。</li>
+<li><strong>スペクトル漏れ</strong>：信号の周期が観測区間に整数回入らないと、<a href="../week03/dft-fft/">第3回の最後</a>に触れたとおりピークが周囲ににじみ、振幅さえ正しく読めない。</li>
+<li><strong>推定のばらつき</strong>：雑音を含む信号の FFT は、点数 <span class="arithmatex">\(N\)</span> をいくら増やしても <strong>ギザギザのまま</strong> で、ばらつきが減らない。</li>
 </ul>
-<p>これらに対処して「信号のスペクトルを正しく見積もる」技術が <strong>スペクトル解析（spectral analysis）</strong> である。鍵になるのが <strong>窓関数</strong> と <strong>平均化（ウェルチ法）</strong> の2つで、いずれも分解能や振幅との <strong>トレードオフ</strong> を伴う。</p>
+<p>これらに対処して「信号のスペクトルを正しく見積もる」技術が <strong>スペクトル解析（spectral analysis）</strong> である。鍵になるのが <strong>窓関数</strong> と <strong>平均化（ウェルチ法）</strong> の 2 つで、いずれも分解能との <strong>トレードオフ</strong> を伴う。</p>
 <h2 id="_2">なぜ窓関数と平均化が要るのか</h2>
-<p>FFT は観測区間を「いきなり切り取り」、それを <strong>周期的に繰り返す</strong> とみなすため、記録の端で波形が滑らかにつながらない（一般には値や傾きが不連続になる）と、そのつながりの悪さが偽の高周波成分（漏れ）を生む。<strong>窓関数</strong> は区間の端に向かって信号を小さくする（テーパする）ことでこの漏れを抑える ── Hann 窓は端点で <span class="arithmatex">\(0\)</span>、Hamming 窓は <span class="arithmatex">\(0.08\)</span> まで小さくする。代わりに主ローブが広がり分解能は少し犠牲になる。</p>
+<p>DFT は観測区間を「いきなり切り取り」、それを <strong>周期的に繰り返す</strong> とみなすため、記録の端で波形がなめらかにつながらない（一般には値や傾きが不連続になる）と、そのつながりの悪さが偽の周波数成分（漏れ）を生む。<strong>窓関数</strong> は区間の端に向かって信号を小さくする（テーパする）ことでこの漏れを抑える ── Hann 窓は端点で <span class="arithmatex">\(0\)</span>、Hamming 窓は <span class="arithmatex">\(0.08\)</span> まで小さくする。代わりにメインローブが広がり分解能は少し犠牲になる。</p>
 <p>また、雑音を含む信号の単発の FFT（<strong>ピリオドグラム</strong>）は分散の大きい推定量で、信号長を伸ばしても精度が上がらない。そこで信号を区間に分け、各区間のスペクトルを <strong>平均</strong> して分散を下げるのが <strong>ウェルチ法</strong> である ── 代わりに各区間が短くなり分解能は粗くなる。本回ではこのトレードオフを Python で実際に確かめる。</p>
 <div class="admonition info">
 <p class="admonition-title">今回の題材</p>
-<p>窓関数では <strong>矩形・Hann・Hamming</strong> の3つを比較し、整数回入らない <strong>10.5Hz の正弦波</strong> で漏れを観察する。スペクトル推定では <strong>雑音に埋もれた 80Hz の正弦波</strong> を、単一ピリオドグラムとウェルチ法で取り出す。フィルタリングでは <strong>5Hz の信号に 80Hz の妨害と白色雑音を混ぜたもの</strong> を 20Hz ローパスで復元する。<code>scipy.signal</code> を使う。</p>
+<p>窓関数では <strong>矩形・Hann・Hamming</strong> の 3 つを比較し、整数回入らない <strong><span class="arithmatex">\(10.5\)</span> Hz の正弦波</strong> で漏れを観察する。スペクトル推定では <strong>雑音を含む <span class="arithmatex">\(80\)</span> Hz の正弦波</strong> の PSD を、単一ピリオドグラムとウェルチ法で求めて比べる。フィルタリングでは <strong><span class="arithmatex">\(5\)</span> Hz の信号に <span class="arithmatex">\(80\)</span> Hz の妨害と白色雑音を混ぜたもの</strong> を <span class="arithmatex">\(20\)</span> Hz ローパスで復元する。<code>scipy.signal</code> を使う。</p>
 </div>
 <h2 id="_3">このページの構成</h2>
 <ul>
-<li><a href="power-spectrum/">パワースペクトルと窓</a> — パワースペクトル密度、スペクトル漏れ、窓関数（Hann/Hamming）、振幅補正</li>
-<li><a href="welch/">ピリオドグラムとウェルチ法</a> — ピリオドグラムの分散問題、ウェルチ法による平均化、電力収支（パーセバル）、<code>scipy.signal.welch</code></li>
-<li><a href="filtering/">周波数領域フィルタリング</a> — 畳み込み定理とフィルタ、<code>rfft</code>/<code>irfft</code> による帯域除去、理想フィルタのリンギング</li>
+<li><a href="power-spectrum/">パワースペクトルと窓関数</a> — 電力とパワースペクトル密度（PSD）、スペクトル漏れ、窓関数（Hann/Hamming）と周波数応答・dB、振幅補正</li>
+<li><a href="welch/">ピリオドグラムとウェルチ法</a> — ピリオドグラムと白色雑音、変動係数で測るばらつき、ウェルチ法による平均化と <code>scipy.signal.welch</code>、雑音フロアと SNR、分解能と分散のトレードオフ、トレンド除去</li>
+<li><a href="filtering/">周波数領域フィルタリング</a> — 周波数応答 <span class="arithmatex">\(H\)</span> と畳み込み定理、<code>rfft</code> → マスク → <code>irfft</code> によるローパス、フィルタの種類、理想フィルタのリンギング</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">授業の進め方</p>
-<p>授業内では <strong>スペクトル漏れ・窓関数・ウェルチ法</strong>（<a href="power-spectrum/">パワースペクトルと窓</a>・<a href="welch/">ピリオドグラムとウェルチ法</a>）を中心に扱う。<strong>周波数領域フィルタリング</strong>（<a href="filtering/">filtering.md</a>）は畳み込み定理の応用として位置づけた <strong>発展パート</strong> で、主に第5回の発表会①の準備や自習で活用してほしい。演習も、演習4（周波数領域フィルタリング）は <strong>発展扱い</strong> である。</p>
+<p>授業内では <strong>スペクトル漏れ・窓関数・ウェルチ法</strong>（<a href="power-spectrum/">パワースペクトルと窓関数</a>・<a href="welch/">ピリオドグラムとウェルチ法</a>）を中心に扱う。最後に、畳み込み定理の応用として <strong>周波数領域フィルタリング</strong>（<a href="filtering/">周波数領域フィルタリング</a>）を扱う。演習では、ウェルチ法で見つけた不要な成分をフィルタリングで除く。</p>
 </div>
 <h2 id="_4">演習</h2>
 <ul>
-<li><a href="exercises/">演習問題</a> — 窓によるリーケージ低減、ウェルチ法による分散低減、電力収支と SNR の見積もり、周波数領域フィルタの実装</li>
+<li><a href="exercises/">演習問題</a> — ウェルチ法で電源ハムを見つけ、<code>rfft</code> と <code>irfft</code> で除く</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">前提</p>
-<p>第3回の DFT/FFT・<code>numpy.fft</code>・畳み込み定理、複素指数 <span class="arithmatex">\(e^{i\theta}\)</span>、Python の基本（<code>numpy</code>, <code>matplotlib</code>, <code>scipy</code>）を使う。環境がまだの場合は第1回の <a href="../week01/setup-colab/">Google Colab</a> を参照のこと。</p>
+<p>第3回の DFT/FFT・<code>numpy.fft</code>・畳み込み定理・パーセバルの定理、複素指数 <span class="arithmatex">\(e^{i\theta}\)</span>、Python の基本（<code>numpy</code>, <code>matplotlib</code>, <code>scipy</code>）を使う。環境がまだの場合は第1回の <a href="../week01/setup-colab/">Google Colab</a> を参照のこと。</p>
 </div>
 
 

@@ -2956,7 +2956,7 @@ e^{At}=V\,e^{\Lambda t}\,V^{-1}
 <div class="arithmatex">\[
 \text{漸近安定}\iff \mathrm{Re}\,\lambda_i&lt;0\ \ (\forall i)
 \]</div>
-<p>が成り立つ。固有値が複素数 <span class="arithmatex">\(\lambda=\sigma\pm j\omega\)</span> のときは、<span class="arithmatex">\(e^{\sigma t}(\cos\omega t\pm j\sin\omega t)\)</span> となり、<strong>実部 <span class="arithmatex">\(\sigma\)</span> が減衰・増大を、虚部 <span class="arithmatex">\(\omega\)</span> が振動を</strong> 担う。第8回の s 平面での議論とまったく同じ図式である。</p>
+<p>が成り立つ。固有値が複素数 <span class="arithmatex">\(\lambda=\sigma\pm i\omega\)</span> のときは、<span class="arithmatex">\(e^{\sigma t}(\cos\omega t\pm i\sin\omega t)\)</span> となり、<strong>実部 <span class="arithmatex">\(\sigma\)</span> が減衰・増大を、虚部 <span class="arithmatex">\(\omega\)</span> が振動を</strong> 担う。第8回の s 平面での議論とまったく同じ図式である。</p>
 <p>減衰振動子 <span class="arithmatex">\(\ddot y+2\zeta\omega_n\dot y+\omega_n^2y=u\)</span> を状態空間で書くと <span class="arithmatex">\(\mathbf x=(y,\dot y)^{\top}\)</span>、</p>
 <div class="arithmatex">\[
 A=\begin{pmatrix}0&amp;1\\-\omega_n^2&amp;-2\zeta\omega_n\end{pmatrix}
@@ -2982,7 +2982,7 @@ A=\begin{pmatrix}0&amp;1\\-\omega_n^2&amp;-2\zeta\omega_n\end{pmatrix}
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>t=1.0: expm=-0.018631  固有値展開=-0.018631  誤差=6.66e-16
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>t=2.0: expm=-0.294431  固有値展開=-0.294431  誤差=1.17e-15
 </code></pre></div>
-<p>両者は機械精度で一致する。固有値は <span class="arithmatex">\(\lambda=-0.6\pm1.9079j\)</span> で、実部 <span class="arithmatex">\(-0.6=-\zeta\omega_n\)</span> が減衰の速さ、虚部 <span class="arithmatex">\(1.9079=\omega_n\sqrt{1-\zeta^2}\)</span> が減衰振動の角周波数にあたる。第7回で 2 次系の過渡応答として求めた量が、そのまま固有値の実部・虚部として現れている。</p>
+<p>両者は機械精度で一致する。固有値は <span class="arithmatex">\(\lambda=-0.6\pm1.9079i\)</span> で、実部 <span class="arithmatex">\(-0.6=-\zeta\omega_n\)</span> が減衰の速さ、虚部 <span class="arithmatex">\(1.9079=\omega_n\sqrt{1-\zeta^2}\)</span> が減衰振動の角周波数にあたる。第7回で 2 次系の過渡応答として求めた量が、そのまま固有値の実部・虚部として現れている。</p>
 <div class="admonition note">
 <p class="admonition-title">対角化できないとき</p>
 <p>固有値に重複があり固有ベクトルが足りない場合（例：<span class="arithmatex">\(A=\begin{pmatrix}\lambda&amp;1\\0&amp;\lambda\end{pmatrix}\)</span>）は対角化できず、解に <span class="arithmatex">\(t\,e^{\lambda t}\)</span> のような項（ジョルダン標準形に由来する）が現れる。ただし <strong><span class="arithmatex">\(t^k e^{\lambda t}\)</span> も <span class="arithmatex">\(\mathrm{Re}\,\lambda&lt;0\)</span> なら <span class="arithmatex">\(0\)</span> に収束する</strong> ので、「実部がすべて負なら漸近安定」という結論は変わらない。</p>
@@ -3015,12 +3015,12 @@ A=\begin{pmatrix}0&amp;1\\-\omega_n^2&amp;-2\zeta\omega_n\end{pmatrix}
 <td>一方向からは入り、別方向へ出ていく（常に不安定）</td>
 </tr>
 <tr>
-<td><span class="arithmatex">\(\lambda=\pm j\omega\)</span>（純虚）</td>
+<td><span class="arithmatex">\(\lambda=\pm i\omega\)</span>（純虚）</td>
 <td><strong>渦心（center）</strong></td>
 <td>原点のまわりを回り続ける（周期解）</td>
 </tr>
 <tr>
-<td><span class="arithmatex">\(\lambda=\sigma\pm j\omega,\ \sigma\neq0\)</span></td>
+<td><span class="arithmatex">\(\lambda=\sigma\pm i\omega,\ \sigma\neq0\)</span></td>
 <td><strong>焦点（spiral / focus）</strong></td>
 <td>回りながら <span class="arithmatex">\(\sigma&lt;0\)</span> なら収束、<span class="arithmatex">\(\sigma&gt;0\)</span> なら発散</td>
 </tr>

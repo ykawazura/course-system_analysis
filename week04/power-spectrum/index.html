@@ -3168,6 +3168,12 @@ X_k=\sum_{n=0}^{N-1} x_n\, e^{-i 2\pi k n/N}
 <li><span class="arithmatex">\(N\)</span> が奇数ならナイキストのビンは存在しない</li>
 <li>片側振幅 <span class="arithmatex">\(2\lvert X_k\rvert/N\)</span> の 2 倍と同じ理由である（直流とナイキストの片側振幅は <span class="arithmatex">\(\lvert X_k\rvert/N\)</span>）</li>
 </ul>
+<p>負の添字 <span class="arithmatex">\(-k\)</span> は、<a href="../../week03/dft-fft/">第3回</a> の <span class="arithmatex">\(N-k\)</span> と同じビンである。実信号では <span class="arithmatex">\(X_{N-k}=\overline{X_k}\)</span> なので、<span class="arithmatex">\(\pm k\)</span> の <span class="arithmatex">\(\lvert X_k\rvert^2\)</span> は等しい。<span class="arithmatex">\(k=0\)</span> と <span class="arithmatex">\(k=N/2\)</span> では <span class="arithmatex">\(N-k\)</span> が自分自身になる（<span class="arithmatex">\(N\)</span> は <span class="arithmatex">\(0\)</span> と同じビン）ので、対をもたない。両側のビンを <span class="arithmatex">\(k=-N/2+1,\dots,N/2\)</span> に並べたのが次の図である。</p>
+<figure>
+  <img alt="両側の |X_k|² と片側にまとめた値" src="../img/one_sided_fold.png" width="560" />
+<br />
+<figcaption>$N=16$ の白色雑音の $\lvert X_k\rvert^2$。上：両側。対をもつ $\pm k$（青）は同じ高さで、直流とナイキスト（赤）は 1 本ずつである。下：片側にまとめたもの。青は $-k$ の分（薄い青）を足して 2 倍になり、赤はそのまま残る。</figcaption>
+</figure>
 <h2 id="_4">スペクトル漏れ（リーケージ）</h2>
 <p><a href="../../week03/dft-fft/">第3回の最後</a>に触れたとおり、信号の周期が観測区間に整数回入らないと、ピークが周囲ににじむ <strong>スペクトル漏れ（リーケージ）</strong> が起きる。DFT は有限区間を切り取り、それを <strong>周期的に繰り返す</strong> とみなす。周期が整数回入らないと、記録の端で波形がなめらかにつながらない（一般には値や傾きが不連続になる）。このつながりの悪さが、偽の周波数成分を生む。</p>
 <figure>

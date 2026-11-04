@@ -2904,21 +2904,21 @@
 </blockquote>
 <h2 id="_1">今回の目標</h2>
 <ul>
-<li>フーリエ変換を <strong>複素平面 <span class="arithmatex">\(s=\sigma+i\omega\)</span></strong> へ拡張した <strong>ラプラス変換</strong> の定義と、<strong>収束領域（ROC）</strong> を理解する</li>
-<li>基本的な変換対と性質（とくに <strong>微分の公式</strong> <span class="arithmatex">\(\mathcal{L}[f']=sF(s)-f(0)\)</span>）を使えるようになる</li>
-<li><strong>逆ラプラス変換</strong>（部分分数分解）と <strong>s 平面の極</strong> から時間応答を読み取り、<strong>微分方程式をラプラス変換で解く</strong> 流れを Python（<code>sympy</code>, <code>scipy</code>）で実行できるようになる</li>
+<li>フーリエ変換を複素数 <span class="arithmatex">\(s=\sigma+i\omega\)</span> へ広げた <strong>ラプラス変換</strong> を定義し、<strong>収束領域（ROC）</strong> を理解する</li>
+<li>変換対の表と性質（とくに <strong>微分の公式</strong> <span class="arithmatex">\(\mathcal{L}[f']=sF(s)-f(0)\)</span>）を使い、<strong>部分分数分解</strong> で逆変換できるようになる</li>
+<li><strong>極</strong> の位置から時間応答を読み、<strong>微分方程式をラプラス変換で解く</strong> 流れを Python（<code>sympy</code>, <code>scipy</code>）で実行できるようになる</li>
 </ul>
 <h2 id="_2">フーリエ変換からの接続</h2>
-<p>第2〜4回で学び、第5回の発表会①で応用したフーリエ変換は、信号を <strong>純虚数の周波数</strong> <span class="arithmatex">\(i\omega\)</span> で分解する道具だった。これは「定常的に振動し続ける成分」を見るには最適だが、弱点がある。</p>
+<p>第2〜4回で学び、第5回の発表会①で応用したフーリエ変換は、信号 <span class="arithmatex">\(f(t)\)</span> を、角周波数 <span class="arithmatex">\(\omega\)</span> の複素正弦波 <span class="arithmatex">\(e^{i\omega t}\)</span> の重ね合わせとして表す道具だった。これは「定常的に振動し続ける成分」を見るには最適だが、弱点がある。</p>
 <ul>
-<li><strong>発散する信号</strong>（<span class="arithmatex">\(e^{0.5t}\)</span> のように増大するもの）や、<strong>ステップ <span class="arithmatex">\(u(t)\)</span></strong> のように減衰しない信号は絶対可積分でなく、<strong>通常のフーリエ積分が収束しない</strong>（絶対可積分性は十分条件であって必要条件ではないので、「可積分でない <span class="arithmatex">\(\Rightarrow\)</span> フーリエ変換が存在しない」とまでは言えない。実際 <span class="arithmatex">\(u(t)\)</span> は超関数の意味ではフーリエ変換をもつ）。</li>
-<li><strong>初期条件</strong>（<span class="arithmatex">\(t=0\)</span> での値や速度）を自然に扱えない。</li>
+<li><span class="arithmatex">\(t\ge0\)</span> で増え続ける <strong>増大する信号</strong>（<span class="arithmatex">\(e^{0.5t}\)</span> など）や、減衰しない <strong>単位ステップ <span class="arithmatex">\(u(t)\)</span></strong> は絶対可積分でなく、<strong>フーリエ積分が収束しない</strong>。</li>
+<li><strong>初期条件</strong>（<span class="arithmatex">\(t=0\)</span> での値や速度）も自然には扱えない。</li>
 </ul>
-<p>ラプラス変換は、フーリエ変換の積分核 <span class="arithmatex">\(e^{-i\omega t}\)</span> を <strong>複素指数 <span class="arithmatex">\(e^{-st}\)</span>（<span class="arithmatex">\(s=\sigma+i\omega\)</span>）</strong> に置き換えることでこれを解決する。実部 <span class="arithmatex">\(\sigma\)</span> がもつ <strong>減衰因子 <span class="arithmatex">\(e^{-\sigma t}\)</span></strong> が発散信号を抑え込み、より広い信号を扱えるようにする。</p>
+<p>ラプラス変換は、フーリエ変換の積分核 <span class="arithmatex">\(e^{-i\omega t}\)</span> を <strong>複素指数 <span class="arithmatex">\(e^{-st}\)</span>（<span class="arithmatex">\(s=\sigma+i\omega\)</span>）</strong> に置き換えることでこれを解決する。実部 <span class="arithmatex">\(\sigma\)</span> がもつ <strong>減衰因子 <span class="arithmatex">\(e^{-\sigma t}\)</span></strong> が増大する信号を抑え込み、より広い信号を扱えるようにする。</p>
 <div class="arithmatex">\[
 F(s)=\int_0^{\infty} f(t)\,e^{-st}\,dt,\qquad s=\sigma+i\omega
 \]</div>
-<p><span class="arithmatex">\(\sigma=0\)</span> とおけば（片側の）フーリエ変換に戻る。つまり <strong>収束領域が虚軸を含む因果信号については、フーリエ変換はラプラス変換の虚軸 <span class="arithmatex">\(s=i\omega\)</span> 上での値</strong> にほかならない（虚軸で積分が収束しない <span class="arithmatex">\(e^{0.5t}u(t)\)</span> のような信号では、この代入自体ができない）。周波数軸（1 次元）が <strong>複素平面（2 次元）</strong> に広がることで、過渡応答・初期値問題・安定性までを一望できるようになる。</p>
+<p><span class="arithmatex">\(\sigma=0\)</span> とおけば、<span class="arithmatex">\(t\ge0\)</span> の部分だけのフーリエ変換に戻る。つまり <strong>収束領域が虚軸を含む <span class="arithmatex">\(t\ge0\)</span> の信号については、フーリエ変換はラプラス変換の虚軸 <span class="arithmatex">\(s=i\omega\)</span> 上での値</strong> にほかならない（虚軸で積分が収束しない <span class="arithmatex">\(e^{0.5t}u(t)\)</span> のような信号では、この代入自体ができない）。周波数軸（1 次元）が <strong>複素平面（2 次元）</strong> に広がることで、過渡応答・初期値問題・安定性までを一望できるようになる。</p>
 <div class="admonition note">
 <p class="admonition-title">虚数単位の記号</p>
 <p>虚数単位は第3回までと同じ <span class="arithmatex">\(i\)</span>（<span class="arithmatex">\(i^2=-1\)</span>）と書く。制御や回路の教科書では <span class="arithmatex">\(j\)</span> と書くことが多く、Python も虚数単位を <code>1j</code> と書く。</p>
@@ -2931,7 +2931,7 @@ F(s)=\int_0^{\infty} f(t)\,e^{-st}\,dt,\qquad s=\sigma+i\omega
 <p>を使うと、時間領域の <strong>微分方程式</strong> が <span class="arithmatex">\(s\)</span> の <strong>代数方程式</strong> に化ける。代数方程式を解いて <span class="arithmatex">\(Y(s)\)</span> を求め、<strong>逆ラプラス変換</strong>（部分分数分解）で時間領域に戻せば、初期条件込みの解が一気に得られる。フーリエ変換が「信号を見る」道具だったのに対し、ラプラス変換は <strong>システムを解く</strong> 道具になる。</p>
 <div class="admonition info">
 <p class="admonition-title">今回の題材</p>
-<p>収束では <strong>発散信号 <span class="arithmatex">\(e^{0.5t}\)</span> が減衰因子で可積分になる</strong> 様子を、極では <strong><span class="arithmatex">\(s\)</span> 平面の極の位置（左半面・右半面・虚軸）がインパルス応答を決める</strong> 様子を可視化する。仕上げに <strong><span class="arithmatex">\(y''+3y'+2y=0\)</span> をラプラス変換で解き</strong>、数値積分（<code>scipy.integrate.solve_ivp</code>）と一致することを確かめる。記号計算には <code>sympy</code>、数値計算には <code>scipy</code> を使う。</p>
+<p>収束では <strong>増大する信号 <span class="arithmatex">\(e^{0.5t}\)</span> が減衰因子で可積分になる</strong> 様子を、極では <strong><span class="arithmatex">\(s\)</span> 平面の極の位置（左半面・右半面・虚軸）がインパルス応答を決める</strong> 様子を可視化する。仕上げに <strong><span class="arithmatex">\(y''+3y'+2y=0\)</span> をラプラス変換で解き</strong>、数値積分（<code>scipy.integrate.solve_ivp</code>）と一致することを確かめる。記号計算には <code>sympy</code>、数値計算には <code>scipy</code> を使う。</p>
 </div>
 <h2 id="_4">このページの構成</h2>
 <ul>
@@ -2944,7 +2944,7 @@ F(s)=\int_0^{\infty} f(t)\,e^{-st}\,dt,\qquad s=\sigma+i\omega
 </ul>
 <div class="admonition note">
 <p class="admonition-title">前提</p>
-<p>第2〜4回のフーリエ変換、微分積分（指数・三角関数、部分分数）、Python の基本（<code>numpy</code>, <code>scipy</code>, <code>sympy</code>）を使う。環境がまだの場合は第1回の <a href="../week01/setup-colab/">Google Colab</a> を参照のこと。<code>sympy</code> は Colab に標準で入っている。</p>
+<p>第2〜4回のフーリエ変換、微分積分（指数・三角関数、部分分数）、Python の基本（<code>numpy</code>, <code>scipy</code>）を使う。環境がまだの場合は第1回の <a href="../week01/setup-colab/">Google Colab</a> を参照のこと。記号計算の <code>sympy</code> はこの回で使い方から説明する（Colab に最初から入っている）。</p>
 </div>
 
 

@@ -2904,23 +2904,23 @@
 </blockquote>
 <h2 id="_1">今回の目標</h2>
 <ul>
-<li><strong>畳み込み定理</strong> <span class="arithmatex">\(\mathcal{L}[(f*g)(t)]=F(s)G(s)\)</span> を理解し、時間領域の畳み込みが s 領域では <strong>積</strong> になることを使えるようになる</li>
-<li>入力 <span class="arithmatex">\(X(s)\)</span> と出力 <span class="arithmatex">\(Y(s)\)</span> を結ぶ <strong>伝達関数 <span class="arithmatex">\(H(s)=Y(s)/X(s)=\mathcal{L}[h(t)]\)</span></strong> を導入し、<strong>2 次系</strong>のステップ応答（不足制動・臨界制動・過制動）を極の位置と結びつける</li>
-<li>ラプラス変換の <strong>公式（定理）</strong> を整理し、逆変換せずに波形の始端・終端を読む <strong>初期値定理・最終値定理</strong> を Python（<code>sympy</code>, <code>scipy</code>）で実行できるようになる</li>
+<li>入力のあるシステムの出力を <strong>畳み込み積分</strong> で表し、<strong>畳み込み定理</strong> から <strong>伝達関数</strong> を導く</li>
+<li><strong>2 次系</strong> の極から、ステップ応答（不足制動・臨界制動・過制動）を読む</li>
+<li>ラプラス変換の <strong>公式</strong> と <strong>初期値定理・最終値定理</strong> を導いて使い、Python（<code>sympy</code>, <code>scipy</code>）で確かめる</li>
 </ul>
 <h2 id="6">第6回からの接続</h2>
-<p>第6回では、ラプラス変換の定義・逆変換・<strong>s 平面の極</strong>を扱い、極の位置（左半面・右半面・虚軸）が時間応答を決めることを見た。ただし扱ったのは入力のないシステム（自由応答）だった。今回は <strong>入力のあるシステム</strong> に踏み込む。</p>
-<p><strong>因果的</strong> な線形時不変（LTI）システムでは、<span class="arithmatex">\(t&lt;0\)</span> で入力が <span class="arithmatex">\(0\)</span>、かつ <strong>初期状態が静止</strong>（零状態）なら、入力 <span class="arithmatex">\(x(t)\)</span> と出力 <span class="arithmatex">\(y(t)\)</span> が <strong>畳み込み</strong></p>
+<p>第6回では、ラプラス変換の定義・逆変換・<strong>s 平面の極</strong>を扱い、極の位置（左半面・右半面・虚軸）が時間応答を決めることを見た。ただし扱ったのは、入力のない微分方程式を初期値から解く場合（零入力応答）だった。今回は <strong>入力のあるシステム</strong> に進む。</p>
+<p>線形時不変（LTI）システムでは、<span class="arithmatex">\(t&lt;0\)</span> で入力が <span class="arithmatex">\(0\)</span>、かつ初期値がすべて <span class="arithmatex">\(0\)</span>（<strong>零状態</strong>）なら、入力 <span class="arithmatex">\(x(t)\)</span> と出力 <span class="arithmatex">\(y(t)\)</span> が <strong>畳み込み積分</strong></p>
 <div class="arithmatex">\[
 y(t)=(x*h)(t)=\int_0^{t} x(\tau)\,h(t-\tau)\,d\tau
 \]</div>
-<p>で結ばれる。ここで <span class="arithmatex">\(h(t)\)</span> は <strong>インパルス応答</strong>である。第3回でも畳み込みを扱ったが、時間領域の畳み込みは積分が重い。そこでラプラス変換すると、<strong>畳み込み定理</strong>によって</p>
+<p>で結ばれる。ここで <span class="arithmatex">\(h(t)\)</span> は <strong>インパルス応答</strong>である。第3回でも畳み込みを扱ったが、時間領域の畳み込みには積分の計算が要る。そこでラプラス変換すると、<strong>畳み込み定理</strong>によって</p>
 <div class="arithmatex">\[
 Y(s)=H(s)\,X(s),\qquad H(s)=\mathcal{L}[h(t)]
 \]</div>
 <p>という <strong>ただの掛け算</strong> になる。この <span class="arithmatex">\(H(s)\)</span> が <strong>伝達関数</strong>であり、システムそのものを s 領域で表す。</p>
 <h2 id="_2">なぜ伝達関数か</h2>
-<p>第4回ではフーリエ領域でフィルタ <span class="arithmatex">\(H(\omega)\)</span> を「周波数ごとの掛け算」として見た。伝達関数 <span class="arithmatex">\(H(s)\)</span> はその <strong>一般化</strong>である。<span class="arithmatex">\(s=\sigma+i\omega\)</span> と複素平面に広がることで、定常応答だけでなく <strong>過渡応答・安定性</strong> まで一つの <span class="arithmatex">\(H(s)\)</span> から読み取れる（<span class="arithmatex">\(H(s)=Y/X\)</span> は<strong>零初期条件</strong>での入出力関係であり、初期条件そのものはラプラス変換全体の枠組みで扱う）。とくに、</p>
+<p>第4回ではフーリエ領域でフィルタ <span class="arithmatex">\(H(\omega)\)</span> を「周波数ごとの掛け算」として見た。伝達関数 <span class="arithmatex">\(H(s)\)</span> はその <strong>一般化</strong>である。<span class="arithmatex">\(s=\sigma+i\omega\)</span> と複素平面に広がることで、定常応答だけでなく <strong>過渡応答・安定性</strong> まで一つの <span class="arithmatex">\(H(s)\)</span> から読み取れる（<span class="arithmatex">\(H(s)=Y/X\)</span> は <strong>零状態</strong> での入出力の比である）。とくに、</p>
 <ul>
 <li><span class="arithmatex">\(H(s)\)</span> の <strong>極</strong> が応答の減衰・振動を決める（第6回の続き）</li>
 <li><span class="arithmatex">\(H(0)\)</span>（<span class="arithmatex">\(s\to0\)</span>）が <strong>DC 利得</strong> を与える（系が安定で、ステップ入力に対する出力が定常値をもつときに限り、その定常値が <span class="arithmatex">\(H(0)\)</span> になる）</li>
@@ -2929,20 +2929,20 @@ Y(s)=H(s)\,X(s),\qquad H(s)=\mathcal{L}[h(t)]
 <p>といった見通しが立つ。</p>
 <div class="admonition info">
 <p class="admonition-title">今回の題材</p>
-<p>畳み込みでは <strong>時間領域の畳み込み <span class="arithmatex">\((f*g)(t)\)</span> が s 領域では積 <span class="arithmatex">\(F(s)G(s)\)</span></strong> になることを、数値畳み込みと解析解の一致で確かめる。伝達関数では <strong>2 次系 <span class="arithmatex">\(H(s)=\omega_n^2/(s^2+2\zeta\omega_n s+\omega_n^2)\)</span></strong> のステップ応答（減衰比 <span class="arithmatex">\(\zeta\)</span> で不足制動・臨界制動・過制動）を極配置と並べて可視化する。公式では <strong>最終値定理</strong>で強制応答 <span class="arithmatex">\(y''+3y'+2y=x(t)\)</span> の定常値 <span class="arithmatex">\(H(0)=\tfrac12\)</span> を逆変換せずに求め、数値積分（<code>scipy.integrate.solve_ivp</code>）と一致することを確かめる。記号計算には <code>sympy</code>、数値計算には <code>scipy</code> を使う。</p>
+<p>畳み込みでは <strong>時間領域の畳み込み <span class="arithmatex">\((f*g)(t)\)</span> が s 領域では積 <span class="arithmatex">\(F(s)G(s)\)</span></strong> になることを、数値畳み込みと解析解の一致で確かめる。伝達関数では <strong>2 次系 <span class="arithmatex">\(H(s)=\omega_n^2/(s^2+2\zeta\omega_n s+\omega_n^2)\)</span></strong> のステップ応答（減衰比 <span class="arithmatex">\(\zeta\)</span> で不足制動・臨界制動・過制動）を極配置と並べて可視化する。公式では <strong>最終値定理</strong> でステップ応答 <span class="arithmatex">\(y''+3y'+2y=u(t)\)</span> の定常値 <span class="arithmatex">\(H(0)=\tfrac12\)</span> を逆変換せずに求め、数値積分（<code>scipy.integrate.solve_ivp</code>）と一致することを確かめる。記号計算には <code>sympy</code>、数値計算には <code>scipy</code> を使う。</p>
 </div>
 <h2 id="_3">このページの構成</h2>
 <ul>
-<li><a href="convolution/">畳み込み積分と伝達関数</a> — LTI システムの畳み込み、畳み込み定理 <span class="arithmatex">\(\mathcal{L}[f*g]=F(s)G(s)\)</span>、伝達関数 <span class="arithmatex">\(H(s)\)</span>、2 次系のステップ応答と極配置</li>
-<li><a href="theorems/">ラプラス変換の公式</a> — 公式（定理）の総まとめ、初期値定理・最終値定理、強制応答と定常値</li>
+<li><a href="convolution/">畳み込み積分と伝達関数</a> — パルスの和から畳み込み積分を導く、畳み込み定理 <span class="arithmatex">\(\mathcal{L}[f*g]=F(s)G(s)\)</span> の導出、伝達関数 <span class="arithmatex">\(H(s)\)</span>、2 次系のステップ応答と極配置</li>
+<li><a href="theorems/">ラプラス変換の公式</a> — 公式の表と導出、初期値定理・最終値定理の導出と条件、ステップ応答の定常値</li>
 </ul>
 <h2 id="_4">演習</h2>
 <ul>
-<li><a href="exercises/">演習問題</a> — 畳み込み定理の確認、初期値・最終値定理、伝達関数による強制応答</li>
+<li><a href="exercises/">演習問題</a> — 畳み込み定理の確認、初期値・最終値定理、伝達関数によるステップ応答</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">前提</p>
-<p>第6回のラプラス変換（定義・逆変換・極）、第3回の畳み込み、微分積分（指数・三角関数、部分分数）、Python の基本（<code>numpy</code>, <code>scipy</code>, <code>sympy</code>）を使う。環境がまだの場合は第1回の <a href="../week01/setup-colab/">Google Colab</a> を参照のこと。<code>sympy</code> は Colab に標準で入っている。</p>
+<p>第6回のラプラス変換（定義・逆変換・極）、第3回の畳み込み、微分積分（指数・三角関数、部分分数）、Python の基本（<code>numpy</code>, <code>scipy</code>, <code>sympy</code>）を使う。環境がまだの場合は第1回の <a href="../week01/setup-colab/">Google Colab</a> を参照のこと。<code>sympy</code> は Colab に最初から入っている。</p>
 </div>
 
 

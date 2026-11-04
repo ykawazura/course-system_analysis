@@ -1442,6 +1442,28 @@
   <a href="#sympy" class="md-nav__link">
     <span class="md-ellipsis">
       
+        sympy とは
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sympy_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sympy の使い方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sympy_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         sympy で表を確かめる
       
     </span>
@@ -1463,10 +1485,60 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="性質（公式）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        s 推移の例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        微分の公式を導く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 階微分の公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sympy_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sympy で微分の公式を確かめる
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -3079,6 +3151,28 @@
   <a href="#sympy" class="md-nav__link">
     <span class="md-ellipsis">
       
+        sympy とは
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sympy_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sympy の使い方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sympy_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         sympy で表を確かめる
       
     </span>
@@ -3100,10 +3194,60 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="性質（公式）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        s 推移の例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        微分の公式を導く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 階微分の公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sympy_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sympy で微分の公式を確かめる
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -3133,52 +3277,63 @@
 <h1 id="_1">ラプラス変換の定義と収束</h1>
 <p>フーリエ変換は「定常的に振動する成分」を見る道具だったが、増大する信号や減衰しない信号を扱えなかった。本ページでは、フーリエ変換に <strong>減衰因子</strong> を組み込んで一般化した <strong>ラプラス変換</strong> を定義し、その <strong>収束領域</strong> と基本的な変換対・性質を整理する。</p>
 <h2 id="_2">フーリエからラプラスへ</h2>
-<p>フーリエ変換 <span class="arithmatex">\(F(\omega)=\int_{-\infty}^{\infty} f(t)e^{-i\omega t}dt\)</span> は、信号が <strong>絶対可積分</strong>（<span class="arithmatex">\(\int|f|dt&lt;\infty\)</span>）であれば確実に存在する。ところが</p>
+<p>フーリエ変換 <span class="arithmatex">\(F(\omega)=\int_{-\infty}^{\infty} f(t)e^{-i\omega t}dt\)</span> は、信号が <strong>絶対可積分</strong>（<span class="arithmatex">\(\int_{-\infty}^{\infty}\lvert f(t)\rvert\,dt&lt;\infty\)</span>）であれば必ず存在する。ところが</p>
 <ul>
-<li><span class="arithmatex">\(f(t)=e^{0.5t}\)</span> のように <strong>増大する信号</strong></li>
-<li>ステップ関数 <span class="arithmatex">\(u(t)\)</span> のように <strong>減衰しない信号</strong></li>
+<li><span class="arithmatex">\(f(t)=e^{0.5t}\)</span> のように <span class="arithmatex">\(t\ge0\)</span> で増え続ける <strong>増大する信号</strong></li>
+<li><strong>単位ステップ</strong> <span class="arithmatex">\(u(t)\)</span> のように <strong>減衰しない信号</strong></li>
 </ul>
-<p>はこの十分条件を満たさず、<strong>通常の関数の範囲では</strong> フーリエ変換が扱いにくい。そこで、積分する前に <strong>減衰因子 <span class="arithmatex">\(e^{-\sigma t}\)</span></strong>（<span class="arithmatex">\(\sigma&gt;0\)</span>）を掛けて無理やり可積分にする、というのがラプラス変換の発想である。</p>
-<div class="admonition note">
-<p class="admonition-title">厳密には十分条件</p>
-<p>絶対可積分性はフーリエ変換が存在する <strong>十分条件</strong> であって必要条件ではない。ステップ関数 <span class="arithmatex">\(u(t)\)</span> や <span class="arithmatex">\(\sin\omega t\)</span> も、<span class="arithmatex">\(\delta\)</span> 関数を許す <strong>超関数（distribution）</strong> の意味ではフーリエ変換をもつ。ここでは「減衰因子を入れれば無理なく扱える」という発想を導くため、通常の可積分性を出発点にしている。</p>
-</div>
+<p>では、フーリエ積分が収束しない。ここで単位ステップは</p>
+<div class="arithmatex">\[
+u(t)=\begin{cases}0 &amp; (t&lt;0)\\[2pt] 1 &amp; (t\ge0)\end{cases}
+\]</div>
+<p>である。<strong>初期条件</strong>（<span class="arithmatex">\(t=0\)</span> での値や速度）も、フーリエ変換では自然には扱えない。</p>
+<p>そこで、積分する前に <strong>減衰因子 <span class="arithmatex">\(e^{-\sigma t}\)</span></strong>（<span class="arithmatex">\(\sigma\)</span> は実数）を掛けて無理やり可積分にする、というのがラプラス変換の発想である。</p>
 <div class="arithmatex">\[
 \int_0^{\infty} \bigl[f(t)e^{-\sigma t}\bigr]e^{-i\omega t}\,dt
 =\int_0^{\infty} f(t)\,e^{-(\sigma+i\omega)t}\,dt
 \]</div>
-<p>ここで <span class="arithmatex">\(s=\sigma+i\omega\)</span> とまとめれば、<strong>（片側）ラプラス変換</strong> の定義が得られる。</p>
+<p>ここで <span class="arithmatex">\(s=\sigma+i\omega\)</span> とまとめれば、<strong>ラプラス変換</strong> の定義が得られる。</p>
 <div class="arithmatex">\[
 F(s)=\mathcal{L}[f(t)]=\int_0^{\infty} f(t)\,e^{-st}\,dt
 \]</div>
+<ul>
+<li><span class="arithmatex">\(s\)</span> は複素数で、実部 <span class="arithmatex">\(\sigma\)</span> が減衰の強さ、虚部 <span class="arithmatex">\(\omega\)</span> が角周波数を担う。</li>
+<li>時間関数を小文字 <span class="arithmatex">\(f(t)\)</span>、その変換を大文字 <span class="arithmatex">\(F(s)\)</span> で書く。<span class="arithmatex">\(\mathcal{L}[\,\cdot\,]\)</span> は「ラプラス変換する」操作を表す。</li>
+<li><span class="arithmatex">\(\sigma=0\)</span> とおけば、<span class="arithmatex">\(t\ge0\)</span> の部分だけのフーリエ変換に戻る。</li>
+</ul>
 <figure>
   <img alt="フーリエからラプラスへ：減衰因子による収束" src="../img/convergence.png" width="820" />
 <br />
-<figcaption>左：$f(t)=e^{0.5t}$ は発散し、絶対可積分でないのでフーリエ変換が存在しない。右：減衰因子 $e^{-\sigma t}$ を掛けると、$\sigma&gt;0.5$ ならば積分が収束する。$s=\sigma+i\omega$ の実部 $\sigma$ が「どれだけ強く減衰させるか」を担い、これがラプラス変換を可能にする。</figcaption>
+<figcaption>左：$e^{0.5t}$ は増え続け、絶対可積分でない。右：$e^{-\sigma t}$ を掛けると、$\sigma&gt;0.5$ なら $0$ へ減衰し、積分が収束する。$\sigma$ を大きくするほど、$t\to\infty$ での減衰が強まる。</figcaption>
 </figure>
 <div class="admonition note">
 <p class="admonition-title">なぜ <span class="arithmatex">\(t\ge 0\)</span> なのか（片側ラプラス変換）</p>
-<p>積分の下限を <span class="arithmatex">\(0\)</span> にした <span class="arithmatex">\(\int_0^\infty\)</span> を <strong>片側（unilateral）ラプラス変換</strong> と呼ぶ。システム解析では「ある時刻にスイッチを入れる（<span class="arithmatex">\(t=0\)</span> で入力が始まる）」状況を扱うことが多く、初期条件 <span class="arithmatex">\(f(0)\)</span> を自然に取り込めるこの形が標準である。本講義でもこちらを使う。</p>
-<p>なお下限 <span class="arithmatex">\(0\)</span> の扱いには <strong><span class="arithmatex">\(0^-\)</span> 規約</strong> と <strong><span class="arithmatex">\(0^+\)</span> 規約</strong> があり、本講義は <span class="arithmatex">\(\int_{0^-}^{\infty}\)</span>（<strong><span class="arithmatex">\(t=0\)</span> のインパルスを全重量で含める</strong>）を採る。この規約のもとで <span class="arithmatex">\(\mathcal L[\delta(t)]=1\)</span> が成り立ち、微分の公式に現れる初期値も <span class="arithmatex">\(f(0^-)\)</span>（入力を加える直前の値）と読む。<span class="arithmatex">\(0^+\)</span> 規約では <span class="arithmatex">\(\delta\)</span> の重みが積分区間から外れてしまい、<span class="arithmatex">\(\mathcal L[\delta]=0\)</span> となって表と食い違うので注意する。</p>
+<p>積分の下限を <span class="arithmatex">\(0\)</span> にした変換を <strong>片側ラプラス変換</strong>（unilateral Laplace transform）という。本講義はこれを使う。システム解析では「<span class="arithmatex">\(t=0\)</span> でスイッチを入れる」状況が多く、初期値 <span class="arithmatex">\(f(0)\)</span> を自然に取り込める。<span class="arithmatex">\(t&lt;0\)</span> の値は使わないので、<span class="arithmatex">\(f(t)\)</span> と <span class="arithmatex">\(f(t)u(t)\)</span> は同じ <span class="arithmatex">\(F(s)\)</span> をもつ。</p>
+<p>下限は正確には <span class="arithmatex">\(t=0\)</span> の直前 <span class="arithmatex">\(0^-\)</span> とし、<span class="arithmatex">\(t=0\)</span> に集中した入力（インパルス）も積分に含める。微分の公式に現れる初期値 <span class="arithmatex">\(f(0)\)</span> も、入力を加える直前の値と読む。</p>
 </div>
 <h2 id="roc">収束領域（ROC）</h2>
-<p><span class="arithmatex">\(\sigma\)</span>（<span class="arithmatex">\(=\operatorname{Re}(s)\)</span>）を大きくすれば減衰は強まるが、<strong>どこまで小さくできるか</strong> には限界がある。ラプラス変換が収束する <span class="arithmatex">\(s\)</span> の範囲を <strong>収束領域（Region of Convergence, ROC）</strong> と呼ぶ。例として <span class="arithmatex">\(f(t)=e^{-at}u(t)\)</span> を変換すると、</p>
+<p>例として、<span class="arithmatex">\(f(t)=e^{-at}\)</span>（<span class="arithmatex">\(a\)</span> は実数の定数）を定義どおり積分する。</p>
 <div class="arithmatex">\[
-F(s)=\int_0^\infty e^{-at}e^{-st}dt=\int_0^\infty e^{-(s+a)t}dt=\frac{1}{s+a}
-\qquad(\operatorname{Re}(s)&gt;-a)
+F(s)=\int_0^{\infty} e^{-at}e^{-st}\,dt=\int_0^{\infty} e^{-(s+a)t}\,dt
+=\Bigl[-\frac{e^{-(s+a)t}}{s+a}\Bigr]_0^{\infty}=\frac{1}{s+a}
 \]</div>
-<p>積分が収束するのは <span class="arithmatex">\(\operatorname{Re}(s+a)&gt;0\)</span>、すなわち <span class="arithmatex">\(\operatorname{Re}(s)&gt;-a\)</span> のときだけである。これが ROC で、複素平面上では <strong>ある縦線より右の半平面</strong> になる。</p>
+<p>最後の等号には、<span class="arithmatex">\(t\to\infty\)</span> で <span class="arithmatex">\(e^{-(s+a)t}\to0\)</span> となることが要る。指数を実部と虚部に分けると、</p>
+<div class="arithmatex">\[
+e^{-(s+a)t}=e^{-\operatorname{Re}(s+a)t}\,e^{-i\operatorname{Im}(s+a)t}
+\]</div>
+<p>となる。<span class="arithmatex">\(\operatorname{Re}\)</span>, <span class="arithmatex">\(\operatorname{Im}\)</span> は実部と虚部（<span class="arithmatex">\(s=\sigma+i\omega\)</span> なら <span class="arithmatex">\(\operatorname{Re}(s)=\sigma\)</span>, <span class="arithmatex">\(\operatorname{Im}(s)=\omega\)</span>）を表し、<span class="arithmatex">\(a\)</span> は実数なので <span class="arithmatex">\(\operatorname{Re}(s+a)=\sigma+a\)</span> である。後ろの因子は大きさ <span class="arithmatex">\(1\)</span> なので（<span class="arithmatex">\(\lvert e^{i\theta}\rvert=\sqrt{\cos^2\theta+\sin^2\theta}=1\)</span> は第2回のオイラーの公式から出る）、<span class="arithmatex">\(\lvert e^{-(s+a)t}\rvert=e^{-\operatorname{Re}(s+a)t}\)</span> になる。これが <span class="arithmatex">\(0\)</span> に近づくのは <span class="arithmatex">\(\operatorname{Re}(s+a)&gt;0\)</span>、つまり <span class="arithmatex">\(\operatorname{Re}(s)&gt;-a\)</span> のときに限られる。</p>
+<p>ラプラス変換の積分が収束する <span class="arithmatex">\(s\)</span> の範囲を <strong>収束領域（ROC, Region of Convergence）</strong> という。<span class="arithmatex">\(e^{-at}\)</span> の ROC は <span class="arithmatex">\(\operatorname{Re}(s)&gt;-a\)</span> であり、複素平面上では縦線 <span class="arithmatex">\(\operatorname{Re}(s)=-a\)</span> より右の半平面になる。<span class="arithmatex">\(\sigma\)</span>（<span class="arithmatex">\(=\operatorname{Re}(s)\)</span>）を大きくすれば減衰は強まるが、どこまで小さくできるかには限界がある。その境がこの縦線である。</p>
 <figure>
   <img alt="e^{-at} の収束領域" src="../img/roc.png" width="520" />
 <br />
 <figcaption>$e^{-at}$（$a&gt;0$）の ROC。縦線 $\operatorname{Re}(s)=-a$ より右の半平面で、$\sigma$ を大きくするほど減衰が強い。</figcaption>
 </figure>
 <div class="admonition tip">
-<p class="admonition-title">ROC とフーリエ変換の存在条件</p>
-<p>ROC が <strong>虚軸 <span class="arithmatex">\(\operatorname{Re}(s)=0\)</span> を含む</strong> とき、<span class="arithmatex">\(s=i\omega\)</span> を代入したラプラス変換＝フーリエ変換が存在する。<span class="arithmatex">\(e^{0.5t}u(t)\)</span> の ROC は <span class="arithmatex">\(\operatorname{Re}(s)&gt;0.5\)</span> で虚軸を含まないため、フーリエ変換は存在しない ── 冒頭の図はこの事実を時間領域で見たものである。</p>
+<p class="admonition-title">ROC が虚軸を含めばフーリエ変換が求まる</p>
+<p>虚軸 <span class="arithmatex">\(\operatorname{Re}(s)=0\)</span> の上では <span class="arithmatex">\(s=i\omega\)</span> なので、<span class="arithmatex">\(F(i\omega)\)</span> は <span class="arithmatex">\(t\ge0\)</span> の信号のフーリエ変換そのものである。ROC が <strong>虚軸を含めば</strong>、<span class="arithmatex">\(s=i\omega\)</span> を代入してフーリエ変換が得られる。<span class="arithmatex">\(e^{0.5t}\)</span>（<span class="arithmatex">\(a=-0.5\)</span>）の ROC は <span class="arithmatex">\(\operatorname{Re}(s)&gt;0.5\)</span> で、虚軸を含まない。この代入はできず、フーリエ変換は存在しない（冒頭の図の左）。</p>
 </div>
 <h2 id="_3">基本的な変換対</h2>
-<p>実用上は、毎回積分するのではなく <strong>変換対の表</strong> を使う。代表的なものを挙げる（すべて <span class="arithmatex">\(t\ge0\)</span>、<span class="arithmatex">\(u(t)\)</span> は省略）。</p>
+<p>実用上は、毎回積分するのではなく <strong>変換対</strong> の表を使う。<span class="arithmatex">\(f(t)\leftrightarrow F(s)\)</span> と書いて、<span class="arithmatex">\(F\)</span> が <span class="arithmatex">\(f\)</span> のラプラス変換であることを表す。代表的なものを挙げる（すべて <span class="arithmatex">\(t\ge0\)</span>、<span class="arithmatex">\(u(t)\)</span> は省略）。</p>
 <table>
 <thead>
 <tr>
@@ -3230,7 +3385,7 @@ F(s)=\int_0^\infty e^{-at}e^{-st}dt=\int_0^\infty e^{-(s+a)t}dt=\frac{1}{s+a}
 </tr>
 </tbody>
 </table>
-<p>以下では、表の各行を定義から 1 つずつ導く。各図の上段は <span class="arithmatex">\(f(t)\)</span>、下段は <span class="arithmatex">\(s\)</span> を実数 <span class="arithmatex">\(\sigma\)</span> にとった <span class="arithmatex">\(F(\sigma)\)</span> である。このとき <span class="arithmatex">\(F(\sigma)=\int_0^{\infty}f(t)\,e^{-\sigma t}\,dt\)</span> は、減衰因子を掛けた <span class="arithmatex">\(f(t)\,e^{-\sigma t}\)</span> の面積にあたる。下段の薄い青は ROC、縦の破線はその境を表す。ROC の外では積分が収束しないので、<span class="arithmatex">\(F(\sigma)\)</span> を描いていない。</p>
+<p>以下では、表の各行を定義から 1 つずつ導く。各図の上段は <span class="arithmatex">\(f(t)\)</span>、下段は <span class="arithmatex">\(s=\sigma+i\omega\)</span> で <span class="arithmatex">\(\omega=0\)</span> とおいた実軸上の <span class="arithmatex">\(F(\sigma)\)</span> である。このとき <span class="arithmatex">\(F(\sigma)=\int_0^{\infty}f(t)\,e^{-\sigma t}\,dt\)</span> は、減衰因子を掛けた <span class="arithmatex">\(f(t)\,e^{-\sigma t}\)</span> の面積にあたる。下段の薄い青は ROC、縦の破線はその境を表す。ROC の外では積分が収束しないので、<span class="arithmatex">\(F(\sigma)\)</span> を描いていない。</p>
 <h3 id="deltat"><span class="arithmatex">\(\delta(t)\)</span></h3>
 <p><span class="arithmatex">\(\delta(t)\)</span> は <span class="arithmatex">\(t=0\)</span> に集中した面積 <span class="arithmatex">\(1\)</span> の鋭いパルス（<strong>単位インパルス</strong>）で、<span class="arithmatex">\(\int f(t)\,\delta(t)\,dt=f(0)\)</span> を満たす。つまり、掛けた関数の <span class="arithmatex">\(t=0\)</span> での値を取り出す。下限が <span class="arithmatex">\(0^-\)</span> なのでパルス全体が積分に入り、</p>
 <div class="arithmatex">\[
@@ -3240,7 +3395,7 @@ F(s)=\int_0^\infty e^{-at}e^{-st}dt=\int_0^\infty e^{-(s+a)t}dt=\frac{1}{s+a}
 <figure>
   <img alt="δ(t) を幅 ε のパルスで近似した図と、パルスの F(σ) が 1 に近づく図" src="../img/pair_delta.png" width="460" />
 <br />
-<figcaption>上：$\delta(t)$ を幅 $\varepsilon$・高さ $1/\varepsilon$（面積 $1$）のパルスで近似したもの。下：パルスの変換は $\int_0^{\varepsilon}e^{-\sigma t}/\varepsilon\,dt=(1-e^{-\varepsilon\sigma})/(\varepsilon\sigma)$ で、$\varepsilon\to0$ でどの $\sigma$ でも $F(\sigma)=1$（黒）に近づく。$\sigma=1$ では、$\varepsilon=0.5,\ 0.25,\ 0.125$ のとき $0.79,\ 0.88,\ 0.94$ である。</figcaption>
+<figcaption>上：$\delta(t)$ を幅 $\varepsilon$・高さ $1/\varepsilon$（面積 $1$）のパルスで近似したもの。下：パルスの変換は $\int_0^{\varepsilon}e^{-\sigma t}/\varepsilon\,dt=(1-e^{-\varepsilon\sigma})/(\varepsilon\sigma)$ で、$\varepsilon\to0$ で、パルスの $F(\sigma)$（色）はどの $\sigma$ でも $1$（黒）に近づく。$\sigma=1$ では、$\varepsilon=0.5,\ 0.25,\ 0.125$ のとき $0.79,\ 0.88,\ 0.94$ である。</figcaption>
 </figure>
 <h3 id="ut"><span class="arithmatex">\(u(t)\)</span></h3>
 <p><span class="arithmatex">\(t&gt;0\)</span> では <span class="arithmatex">\(u(t)=1\)</span> なので、<span class="arithmatex">\(e^{-st}\)</span> だけを積分すればよい。</p>
@@ -3305,7 +3460,7 @@ F(s)=\int_0^\infty e^{-at}e^{-st}dt=\int_0^\infty e^{-(s+a)t}dt=\frac{1}{s+a}
 &amp;=\frac{1}{2i}\cdot\frac{2i\omega}{s^2+\omega^2}=\frac{\omega}{s^2+\omega^2}
 \end{aligned}
 \]</div>
-<p><span class="arithmatex">\(\operatorname{Re}(\mp i\omega)=0\)</span> なので、ROC は <span class="arithmatex">\(\operatorname{Re}(s)&gt;0\)</span> である。</p>
+<p>ROC は <span class="arithmatex">\(\operatorname{Re}(s+a)=\operatorname{Re}(s\mp i\omega)=\operatorname{Re}(s)&gt;0\)</span> である。</p>
 <figure>
   <img alt="sin 3t と F(σ)=3/(σ²+9)" src="../img/pair_sin.png" width="460" />
 <br />
@@ -3334,57 +3489,127 @@ e^{-at}\sin\omega t=\frac{e^{-(a-i\omega)t}-e^{-(a+i\omega)t}}{2i}
 <div class="arithmatex">\[
 \mathcal{L}[e^{-at}\sin\omega t]=\frac{1}{2i}\Bigl(\frac{1}{s+a-i\omega}-\frac{1}{s+a+i\omega}\Bigr)=\frac{\omega}{(s+a)^2+\omega^2}
 \]</div>
-<p><span class="arithmatex">\(\operatorname{Re}(a\mp i\omega)=a\)</span> なので、ROC は <span class="arithmatex">\(\operatorname{Re}(s)&gt;-a\)</span> である。</p>
+<p>ROC は <span class="arithmatex">\(\operatorname{Re}(s+a\mp i\omega)=\operatorname{Re}(s)+a&gt;0\)</span>、つまり <span class="arithmatex">\(\operatorname{Re}(s)&gt;-a\)</span> である。</p>
+<p>結果は <span class="arithmatex">\(\sin\omega t\)</span> の変換の <span class="arithmatex">\(s\)</span> を <span class="arithmatex">\(s+a\)</span> に替えた形である。この関係は <span class="arithmatex">\(\sin\)</span> に限らず成り立ち、次節の s 推移として表にまとめる。</p>
 <figure>
   <img alt="e^{-0.5t} sin 3t と、sin 3t の F(σ) を左へずらした F(σ)" src="../img/pair_expsin.png" width="460" />
 <br />
 <figcaption>$a=0.5$, $\omega=3$ の場合。上の破線は包絡線 $\pm e^{-at}$。下：$F(\sigma)$ は $\sin 3t$ の $F(\sigma)$（破線）を $a$ だけ左へずらした形で、ROC の境も $0$ から $-a$ へ移る。</figcaption>
 </figure>
 <h3 id="s-lvert-fsrvert"><span class="arithmatex">\(s\)</span> 平面全体での <span class="arithmatex">\(\lvert F(s)\rvert\)</span></h3>
-<p>ここまでの図の下段には、<span class="arithmatex">\(s\)</span> を実数 <span class="arithmatex">\(\sigma\)</span> にとった <span class="arithmatex">\(F(\sigma)\)</span> を描いた。<span class="arithmatex">\(s=\sigma+i\omega\)</span> の全体にわたって <span class="arithmatex">\(\lvert F(s)\rvert\)</span> を描くと、次の図になる。</p>
+<p>ここまでの図の下段には、実軸 <span class="arithmatex">\(\omega=0\)</span> の上の <span class="arithmatex">\(F(\sigma)\)</span> を描いた。<span class="arithmatex">\(s=\sigma+i\omega\)</span> の全体にわたって <span class="arithmatex">\(\lvert F(s)\rvert\)</span> を描くと、次の図になる。</p>
 <figure>
   <img alt="sin 3t と e^{-0.5t} sin 3t の |F(s)| を s 平面の上の曲面で描いた図" src="../img/pair_surface.png" width="400" />
 <br />
 <figcaption>上が $\sin 3t$、下が $e^{-0.5t}\sin 3t$。薄い青は ROC、灰色は ROC の外である。灰色の部分では積分は収束しないが、式の値を描いた。極の付近は高さ 1 で切ってある。青の破線は ROC の境の上の $\lvert F\rvert$ である。</figcaption>
 </figure>
-<p>黒の線は、<span class="arithmatex">\(\sin\omega t\)</span> と <span class="arithmatex">\(e^{-at}\sin\omega t\)</span> の図の下段の <span class="arithmatex">\(F(\sigma)\)</span> である。曲面を実軸 <span class="arithmatex">\(\omega=0\)</span> で切った断面にあたる。</p>
+<p>黒の線は、<span class="arithmatex">\(\sin 3t\)</span> と <span class="arithmatex">\(e^{-0.5t}\sin 3t\)</span> の図の下段の <span class="arithmatex">\(F(\sigma)\)</span> である。曲面を実軸 <span class="arithmatex">\(\omega=0\)</span> で切った断面にあたる。</p>
 <p><span class="arithmatex">\(\lvert F\rvert\)</span> は、分母が <span class="arithmatex">\(0\)</span> になる点で限りなく大きくなる。この点を <strong>極</strong> という（<a href="../inverse/">逆ラプラス変換と s 平面</a> で扱う）。<span class="arithmatex">\(\sin 3t\)</span> の極は <span class="arithmatex">\(\pm3i\)</span> にあり、ROC の境 <span class="arithmatex">\(\operatorname{Re}(s)=0\)</span> はこの 2 点を通る。極が実軸の外にあるので、実軸上の <span class="arithmatex">\(F(\sigma)\)</span> は ROC の境でも有限の値 <span class="arithmatex">\(1/3\)</span> をとる。<span class="arithmatex">\(\sin\omega t\)</span> の図で <span class="arithmatex">\(\sigma\to0\)</span> としても <span class="arithmatex">\(F(\sigma)\)</span> が発散しなかったのは、このためである。</p>
-<p><span class="arithmatex">\(e^{-0.5t}\)</span> を掛けると、極は <span class="arithmatex">\(-0.5\pm3i\)</span> へ、ROC の境は <span class="arithmatex">\(\operatorname{Re}(s)=-0.5\)</span> へ移る。どちらも <span class="arithmatex">\(0.5\)</span> だけ左へずれる。</p>
-<h3 id="sympy">sympy で表を確かめる</h3>
-<p><code>sympy</code> を使えば、表の変換対を記号計算で確認できる。</p>
+<p><span class="arithmatex">\(e^{-0.5t}\)</span> を掛けると、極は <span class="arithmatex">\(-0.5\pm3i\)</span> へ、ROC の境は <span class="arithmatex">\(\operatorname{Re}(s)=-0.5\)</span> へ移る。どちらも <span class="arithmatex">\(0.5\)</span> だけ左へずれる。極はやはり実軸の外にあるので、<span class="arithmatex">\(F(\sigma)\)</span> は ROC の境 <span class="arithmatex">\(\sigma=-0.5\)</span> でも有限の値 <span class="arithmatex">\(1/3\)</span> をとる。極 <span class="arithmatex">\(-0.5\pm3i\)</span> の実部は <span class="arithmatex">\(e^{-0.5t}\sin 3t\)</span> の減衰率 <span class="arithmatex">\(0.5\)</span> に負号を付けた値、虚部は角周波数 <span class="arithmatex">\(3\)</span> に <span class="arithmatex">\(\pm\)</span> を付けた値である（<a href="../inverse/">逆ラプラス変換と s 平面</a> で扱う）。</p>
+<p>曲面を縦線 <span class="arithmatex">\(\operatorname{Re}(s)=\sigma\)</span> で切ると、別の読み方ができる。<span class="arithmatex">\(s=\sigma+i\omega\)</span> の実部 <span class="arithmatex">\(\sigma\)</span> を決めて虚部 <span class="arithmatex">\(\omega\)</span> だけを動かすと、定義の式は</p>
+<div class="arithmatex">\[
+F(\sigma+i\omega)=\int_0^{\infty}\bigl[f(t)\,e^{-\sigma t}\bigr]\,e^{-i\omega t}\,dt
+\]</div>
+<p>と書ける。右辺は <span class="arithmatex">\(f(t)e^{-\sigma t}\)</span> のフーリエ変換である。つまり、縦線の上の <span class="arithmatex">\(F\)</span> は、<span class="arithmatex">\(f(t)\)</span> に <span class="arithmatex">\(e^{-\sigma t}\)</span> を掛けた信号のスペクトルである。<span class="arithmatex">\(e^{-0.5t}\sin 3t\)</span> で、ROC の中の縦線を 4 本選んで重ねると、次の図になる。</p>
+<figure>
+  <img alt="e^{-0.5t} sin 3t の s 平面の縦線と、縦線の上の |F(σ+iω)| を重ねた図" src="../img/sigma_slices.png" width="820" />
+<br />
+<figcaption>左：$s$ 平面の縦線 $\operatorname{Re}(s)=\sigma$（$\sigma=0.5,\ 0,\ -0.25,\ -0.4$）、ROC（薄い青）、極（×）。右：それぞれの縦線の上の $\lvert F(\sigma+i\omega)\rvert$。凡例は掛けた後の信号 $f(t)e^{-\sigma t}$ である。青の破線は ROC の境 $\sigma=-0.5$ の上の式の値で、$\omega=3$ で限りなく大きくなる。</figcaption>
+</figure>
+<p><span class="arithmatex">\(f(t)=e^{-0.5t}\sin 3t\)</span> に <span class="arithmatex">\(e^{-\sigma t}\)</span> を掛けると <span class="arithmatex">\(e^{-\alpha t}\sin 3t\)</span> になる。<span class="arithmatex">\(\alpha=\sigma+0.5\)</span> は掛けた後の信号の減衰率である。<span class="arithmatex">\(\sigma\)</span> を極の実部 <span class="arithmatex">\(-0.5\)</span> に近づけるほど <span class="arithmatex">\(\alpha\)</span> は小さくなり、信号は長く振動を続ける。そのぶん <span class="arithmatex">\(\omega=3\)</span> の山は高く細くなる。</p>
+<p>山の高さは式から求まる。<span class="arithmatex">\((\alpha+i\omega)^2+9=(9+\alpha^2-\omega^2)+2i\alpha\omega\)</span> なので、分母の大きさの 2 乗は <span class="arithmatex">\((9+\alpha^2-\omega^2)^2+4\alpha^2\omega^2\)</span> である。これは <span class="arithmatex">\(\omega^2=9-\alpha^2\)</span> で最小値 <span class="arithmatex">\(36\alpha^2\)</span> をとる。したがって山の高さは <span class="arithmatex">\(3/(6\alpha)=1/(2\alpha)\)</span> で、<span class="arithmatex">\(\sigma=0.5,\ 0,\ -0.25,\ -0.4\)</span> では <span class="arithmatex">\(0.5,\ 1,\ 2,\ 5\)</span> である。山の幅（高さが山の <span class="arithmatex">\(1/\sqrt2\)</span> になる 2 点の間隔）は数値で <span class="arithmatex">\(2.33,\ 1.03,\ 0.50,\ 0.20\)</span> で、<span class="arithmatex">\(\alpha\)</span> が小さいときおよそ <span class="arithmatex">\(2\alpha\)</span> である。</p>
+<p><span class="arithmatex">\(\sigma=-0.5\)</span> では <span class="arithmatex">\(\alpha=0\)</span> で、<span class="arithmatex">\(f(t)e^{-\sigma t}=\sin 3t\)</span> となる。減衰しない振動なので、<span class="arithmatex">\(\omega=3\)</span> で <span class="arithmatex">\(\lvert F\rvert\)</span> は限りなく大きくなる。この点が極 <span class="arithmatex">\(-0.5+3i\)</span> である。フーリエ変換では、純粋な振動のスペクトルが 1 つの角周波数で限りなく大きくなった。ラプラス変換では、減衰振動 <span class="arithmatex">\(e^{-0.5t}\sin 3t\)</span> が、減衰率 <span class="arithmatex">\(0.5\)</span> と角周波数 <span class="arithmatex">\(3\)</span> をまとめた 1 点 <span class="arithmatex">\(s=-0.5+3i\)</span> で限りなく大きくなる。これが極である。</p>
+<p>図には <span class="arithmatex">\(\omega\ge0\)</span> の側だけを描いた。<span class="arithmatex">\(f\)</span> が実数なので <span class="arithmatex">\(\lvert F(\sigma-i\omega)\rvert=\lvert F(\sigma+i\omega)\rvert\)</span> となり、<span class="arithmatex">\(\omega&lt;0\)</span> の側も同じ形になる。もう 1 つの極 <span class="arithmatex">\(-0.5-3i\)</span> はその側にある。</p>
+<h3 id="sympy">sympy とは</h3>
+<p>ここからは、ラプラス変換の計算を Python で確かめる。これまで使ってきた NumPy・SciPy は <strong>数値計算</strong> のライブラリである。変数には数や配列が入り、結果は有限の桁で丸めた小数で返る。たとえば <code>np.sqrt(8)</code> は <code>2.8284271247461903</code> を返す。</p>
+<p><strong>sympy</strong>（SymPy）は <strong>記号計算</strong>（数式処理）のライブラリである。<span class="arithmatex">\(x\)</span> や <span class="arithmatex">\(s\)</span> のような文字を文字のまま扱い、因数分解・微分・積分・方程式の解・ラプラス変換を、手計算と同じく式の形で返す。<code>sp.sqrt(8)</code> は <code>2*sqrt(2)</code> という厳密な値を返す。本講義では第6〜8回と第11回で、変換や部分分数分解の計算と、手計算の答え合わせに使う。Colab には最初から入っている（第1回の <a href="../../week01/setup-colab/">ライブラリの確認</a> で import した）。図を描く、微分方程式を数値で解くなど、数値が要る場面では引き続き NumPy・SciPy を使う。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>NumPy・SciPy</th>
+<th>sympy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>扱うもの</td>
+<td>数・配列</td>
+<td>文字を含む式</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sqrt{8}\)</span> の結果</td>
+<td><code>np.sqrt(8)</code> → <code>2.8284271247461903</code></td>
+<td><code>sp.sqrt(8)</code> → <code>2*sqrt(2)</code></td>
+</tr>
+<tr>
+<td>得意な計算</td>
+<td>数値積分・FFT・微分方程式の数値解</td>
+<td>因数分解・微分・積分・方程式の解・ラプラス変換</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sympy_1">sympy の使い方</h3>
+<p>使い方は次の 3 段である。</p>
+<ol>
+<li><code>sp.symbols</code> で記号を作る。<code>x = sp.symbols("x")</code> とすると、Python の変数 <code>x</code> には数ではなく記号 <span class="arithmatex">\(x\)</span> が入る。</li>
+<li>記号と演算子、sympy の関数（<code>sp.sin</code>, <code>sp.exp</code> など）で式を組む。NumPy の <code>np.sin</code> などは記号を受け付けない。</li>
+<li>式を sympy の関数（<code>sp.factor</code>, <code>sp.solve</code>, <code>sp.diff</code>, <code>sp.integrate</code> など）に渡すと、答えが式で返る。</li>
+</ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">t</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 時間は t&gt;=0</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">s</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>                 <span class="c1"># 複素変数なので仮定を付けない</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">a</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;a omega&quot;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">L</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">laplace_transform</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">noconds</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;u(t)      -&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t         -&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;e^{-at}   -&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sin(wt)   -&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cos(wt)   -&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;e^{-at}sin-&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>       <span class="c1"># 記号 x を作る</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>        <span class="c1"># 式を組む</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>       <span class="c1"># 因数分解</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>     <span class="c1"># f=0 を解く</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">))</span>                      <span class="c1"># 微分</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">oo</span><span class="p">)))</span>  <span class="c1"># 0 から無限大までの積分</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>u(t)      -&gt; 1/s
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>t         -&gt; s**(-2)
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>e^{-at}   -&gt; 1/(a + s)
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>sin(wt)   -&gt; omega/(omega**2 + s**2)
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>cos(wt)   -&gt; s/(omega**2 + s**2)
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>e^{-at}sin-&gt; omega/(omega**2 + (a + s)**2)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>x**2 + 3*x + 2
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>(x + 1)*(x + 2)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[-2, -1]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>cos(x)
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>1/2
 </code></pre></div>
-<p>表のとおりの結果が得られる。<span class="arithmatex">\(e^{-at}\sin\omega t\)</span> の分母 <span class="arithmatex">\((s+a)^2+\omega^2\)</span> は、<span class="arithmatex">\(\sin\omega t\)</span> の <span class="arithmatex">\(s\)</span> を <span class="arithmatex">\(s+a\)</span> に置き換えた形になっている ── これは次の <strong>s 推移</strong> の性質である。</p>
+<p>出力の <code>*</code> は積、<code>**</code> はべき（<code>x**2</code> は <span class="arithmatex">\(x^2\)</span>）を表す。<code>sp.solve(f, x)</code> は <span class="arithmatex">\(f=0\)</span> の解を並べて返し、<code>sp.oo</code> は <span class="arithmatex">\(\infty\)</span> を表す。最後の行は <span class="arithmatex">\(\displaystyle\int_0^\infty e^{-2x}\,dx=\frac{1}{2}\)</span> が、小数でなく分数のまま返ったものである。ラプラス変換の定義と同じ形の積分になっている。記号には仮定を付けられる。次のコードでは、時間 <span class="arithmatex">\(t\)</span> に <code>positive=True</code>（正の実数）を付ける。</p>
+<h3 id="sympy_2">sympy で表を確かめる</h3>
+<p>sympy の <code>laplace_transform</code> を使えば、表の変換対を確認できる。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">t</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 時間は t&gt;=0</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">s</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>                 <span class="c1"># 複素変数なので仮定を付けない</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">a</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;a omega&quot;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">L</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">laplace_transform</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">noconds</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;u(t)      -&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t         -&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;e^{-at}   -&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sin(wt)   -&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cos(wt)   -&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;e^{-at}sin-&gt;&quot;</span><span class="p">,</span> <span class="n">L</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>u(t)      -&gt; 1/s
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>t         -&gt; s**(-2)
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>e^{-at}   -&gt; 1/(a + s)
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>sin(wt)   -&gt; omega/(omega**2 + s**2)
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>cos(wt)   -&gt; s/(omega**2 + s**2)
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>e^{-at}sin-&gt; omega/(omega**2 + (a + s)**2)
+</code></pre></div>
+<p><code>laplace_transform(f, t, s)</code> が <span class="arithmatex">\(\mathcal{L}[f]\)</span> を計算する。<code>noconds=True</code> は ROC の条件を省く。関数 <code>L</code> は、その結果を <code>sp.simplify</code>（式を整理する）に通して返す。表のとおりの結果が得られる。<span class="arithmatex">\(e^{-at}\sin\omega t\)</span> の分母 <span class="arithmatex">\((s+a)^2+\omega^2\)</span> は、<span class="arithmatex">\(\sin\omega t\)</span> の <span class="arithmatex">\(s\)</span> を <span class="arithmatex">\(s+a\)</span> に置き換えた形になっている ── これは次節の <strong>s 推移</strong> の性質である。</p>
 <p>ここで宣言した <code>t</code>, <code>s</code> と関数 <code>L</code> は、この回の以降のページと演習でもそのまま使う。</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>s</code> に <code>positive=True</code> を付けない</p>
+<p>上のコードで仮定 <code>positive=True</code> を付けたのは <span class="arithmatex">\(t\)</span> だけである。<span class="arithmatex">\(s=\sigma+i\omega\)</span> は複素変数なので、<code>s = sp.symbols("s", positive=True)</code> として正の実数と仮定すると、その後の計算が壊れる。たとえば <code>sp.solve((s+1)*(s+3), s)</code> は、仮定なしなら <code>[-3, -1]</code> を返すが、<code>positive=True</code> の <span class="arithmatex">\(s\)</span> では <code>[]</code>（解なし）を返す。<span class="arithmatex">\(t\)</span> と <span class="arithmatex">\(s\)</span> は必ず分けて宣言する。</p>
+</div>
 <h2 id="_4">性質（公式）</h2>
-<p>ラプラス変換には、計算を支える重要な性質がいくつもある。とくに最後の <strong>微分の公式</strong> が本講義の主役である。</p>
+<p>ラプラス変換には、計算を支える重要な性質がいくつもある。とくに <strong>微分の公式</strong> が本講義の主役である。</p>
 <table>
 <thead>
 <tr>
 <th>性質</th>
 <th>時間領域</th>
-<th>s 領域</th>
+<th><span class="arithmatex">\(s\)</span> 領域</th>
 </tr>
 </thead>
 <tbody>
@@ -3425,30 +3650,46 @@ e^{-at}\sin\omega t=\frac{e^{-(a-i\omega)t}-e^{-(a+i\omega)t}}{2i}
 </tr>
 </tbody>
 </table>
-<p>この表のうち <strong>時間推移</strong> は <span class="arithmatex">\(\tau\ge0\)</span>（未来へずらす向き）でだけ成り立つ。片側変換は <span class="arithmatex">\(t&lt;0\)</span> の情報を捨てているので、<span class="arithmatex">\(\tau&lt;0\)</span> とすると <span class="arithmatex">\(t\in[0,-\tau)\)</span> の値が積分区間から外れてしまい、この形にはならない。<strong>スケーリング</strong> も <span class="arithmatex">\(a&gt;0\)</span> が必要で、<span class="arithmatex">\(a&lt;0\)</span> では <span class="arithmatex">\(f(at)\)</span> の <span class="arithmatex">\(t\ge0\)</span> 側が元の関数の <span class="arithmatex">\(t&lt;0\)</span> 側を参照してしまう。</p>
-<p><strong>微分の公式</strong> <span class="arithmatex">\(\mathcal{L}[f'(t)]=sF(s)-f(0)\)</span> がラプラス変換の威力の源である。時間領域での「微分」という重たい演算が、s 領域では <strong><span class="arithmatex">\(s\)</span> を掛けて初期値を引くだけ</strong> の代数操作になる。<code>sympy</code> で（記号的な）関数について確かめてみる。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">f</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">)))</span>
+<p><span class="arithmatex">\(a\)</span>, <span class="arithmatex">\(b\)</span> は定数、<span class="arithmatex">\(G(s)\)</span> は <span class="arithmatex">\(g(t)\)</span> の変換である。この表のうち <strong>時間推移</strong> は <span class="arithmatex">\(\tau\ge0\)</span>（遅らせる向き）でだけ成り立つ。片側変換は <span class="arithmatex">\(t&lt;0\)</span> の情報を捨てているので、<span class="arithmatex">\(\tau&lt;0\)</span> とすると <span class="arithmatex">\(t\in[0,-\tau)\)</span> の値が積分区間から外れてしまい、この形にはならない。<strong>スケーリング</strong> も <span class="arithmatex">\(a&gt;0\)</span> が必要で、<span class="arithmatex">\(a&lt;0\)</span> では <span class="arithmatex">\(f(at)\)</span> の <span class="arithmatex">\(t\ge0\)</span> 側が元の関数の <span class="arithmatex">\(t&lt;0\)</span> 側を参照してしまう。</p>
+<h3 id="s">s 推移の例</h3>
+<p>定義に <span class="arithmatex">\(e^{-at}\)</span> を入れると、<span class="arithmatex">\(s\)</span> が <span class="arithmatex">\(s+a\)</span> に置き換わる。</p>
+<div class="arithmatex">\[
+\mathcal{L}[e^{-at}f(t)]=\int_0^{\infty} f(t)\,e^{-(s+a)t}\,dt=F(s+a)
+\]</div>
+<p><span class="arithmatex">\(\sin\omega t\leftrightarrow\dfrac{\omega}{s^2+\omega^2}\)</span> に使うと、</p>
+<div class="arithmatex">\[
+e^{-at}\sin\omega t\ \leftrightarrow\ \frac{\omega}{(s+a)^2+\omega^2}
+\]</div>
+<p>となる。変換対の表の最後の行が、積分せずに出る。</p>
+<h3 id="_5">微分の公式を導く</h3>
+<p><strong>微分の公式</strong> <span class="arithmatex">\(\mathcal{L}[f'(t)]=sF(s)-f(0)\)</span> がラプラス変換の威力の源である。時間領域での「微分」という重たい演算が、<span class="arithmatex">\(s\)</span> 領域では <strong><span class="arithmatex">\(s\)</span> を掛けて初期値を引くだけ</strong> の代数操作になる。初期値 <span class="arithmatex">\(f(0)\)</span> が式に入るので、<strong>初期条件が自動的に組み込まれる</strong>。これが、ラプラス変換で微分方程式を初期値ごと解ける理由になる。</p>
+<p>公式は部分積分で導ける。</p>
+<div class="arithmatex">\[
+\int_0^{\infty} f'(t)\,e^{-st}\,dt
+=\bigl[f(t)\,e^{-st}\bigr]_0^{\infty}+s\int_0^{\infty} f(t)\,e^{-st}\,dt
+=-f(0)+sF(s)
+\]</div>
+<p>ROC の内側では <span class="arithmatex">\(t\to\infty\)</span> で <span class="arithmatex">\(f(t)\,e^{-st}\to0\)</span> となり、境界項は <span class="arithmatex">\(-f(0)\)</span> だけが残る。公式が成り立つには <span class="arithmatex">\(f\)</span> に条件が要るが、本講義で扱う関数（指数関数・三角関数・多項式の組み合わせ）ではすべて成り立つ。条件には本講義では立ち入らない。</p>
+<h3 id="2">2 階微分の公式</h3>
+<p><span class="arithmatex">\(f'\)</span> に微分の公式をもう一度使う。</p>
+<div class="arithmatex">\[
+\mathcal{L}[f'']=s\,\mathcal{L}[f']-f'(0)
+=s\bigl(sF(s)-f(0)\bigr)-f'(0)
+=s^2F(s)-sf(0)-f'(0)
+\]</div>
+<p>初期値 <span class="arithmatex">\(f(0)\)</span> と <span class="arithmatex">\(f'(0)\)</span> の 2 つが入る。2 階の微分方程式に与える 2 つの初期条件が、そのまま使われる（<a href="../inverse/">逆ラプラス変換と s 平面</a> の最後の節）。</p>
+<h3 id="sympy_3">sympy で微分の公式を確かめる</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">f</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">)))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>s*LaplaceTransform(f(t), t, s) - f(0)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>s*LaplaceTransform(f(t), t, s) - f(0)
 </code></pre></div>
-<p>まさに <span class="arithmatex">\(sF(s)-f(0)\)</span> である。初期値 <span class="arithmatex">\(f(0)\)</span> が式に現れるため、<strong>初期条件が自動的に組み込まれる</strong>。これが、ラプラス変換で微分方程式を初期値ごと解ける理由になる。</p>
-<div class="admonition note">
-<p class="admonition-title">微分の公式が成り立つ条件</p>
-<p>上の出力は「<span class="arithmatex">\(f\)</span> にこの公式が使える形にしておけば」という前提での記号操作である。導出は部分積分
-<span class="arithmatex">\(\int_0^\infty f'(t)e^{-st}dt=\bigl[f(t)e^{-st}\bigr]_0^\infty+s\int_0^\infty f(t)e^{-st}dt\)</span>
-なので、実際に必要なのは (i) <span class="arithmatex">\(f\)</span> が各有限区間で <strong>絶対連続</strong>（<span class="arithmatex">\(f'\)</span> が存在して積分できる）、(ii) <span class="arithmatex">\(F(s)\)</span> と <span class="arithmatex">\(\mathcal L[f']\)</span> がともに存在する、(iii) 境界項が消える、すなわち <span class="arithmatex">\(\lim_{t\to\infty}f(t)e^{-st}=0\)</span> の 3 つである。(iii) は ROC の内側（<span class="arithmatex">\(\operatorname{Re}(s)\)</span> が十分大きいところ）では自動的に満たされる。本講義で扱う指数関数・三角関数・多項式の組み合わせはすべてこの条件を満たすので、以降は気にせず使ってよい。</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title"><code>sympy</code> で <span class="arithmatex">\(s\)</span> に <code>positive=True</code> を付けない</p>
-<p>上のコードで <span class="arithmatex">\(t\)</span> にだけ <code>positive=True</code> を付け、<span class="arithmatex">\(s\)</span> を素の記号にしているのは意図的である。<span class="arithmatex">\(s=\sigma+i\omega\)</span> は <strong>複素変数</strong> であり、<code>s = sp.symbols("s", positive=True)</code> としてしまうと <span class="arithmatex">\(s\)</span> が正の実数に限定され、その後の計算が壊れる。実際 <code>sp.solve((s+1)*(s+3), s)</code> は、正と仮定した <span class="arithmatex">\(s\)</span> では <code>[]</code>（解なし）を返し、仮定なしなら正しく <code>[-3, -1]</code> を返す。<span class="arithmatex">\(t\)</span> と <span class="arithmatex">\(s\)</span> は必ず分けて宣言すること。</p>
-</div>
-<h2 id="_5">まとめ</h2>
+<p><code>sp.Function("f")</code> は中身を決めない関数、<code>LaplaceTransform(f(t), t, s)</code> は <span class="arithmatex">\(F(s)\)</span> を表す。出力は <span class="arithmatex">\(sF(s)-f(0)\)</span> そのものである。sympy は、<span class="arithmatex">\(f\)</span> に公式が使える前提で計算している。</p>
+<h2 id="_6">まとめ</h2>
 <ul>
-<li>ラプラス変換は、フーリエ変換の核 <span class="arithmatex">\(e^{-i\omega t}\)</span> を <strong>複素指数 <span class="arithmatex">\(e^{-st}\)</span>（<span class="arithmatex">\(s=\sigma+i\omega\)</span>）</strong> に置き換えた一般化。減衰因子 <span class="arithmatex">\(e^{-\sigma t}\)</span> で発散信号も扱える。</li>
-<li><strong>収束領域（ROC）</strong> は変換が収束する <span class="arithmatex">\(s\)</span> の範囲。ROC が虚軸を含めばフーリエ変換が存在する。</li>
-<li>基本変換対は表で覚え、<code>sympy.laplace_transform</code> で確認できる。</li>
-<li>性質のなかでも <strong>微分の公式 <span class="arithmatex">\(\mathcal{L}[f']=sF(s)-f(0)\)</span></strong> が要。微分が代数演算（<span class="arithmatex">\(s\)</span> 倍＋初期値）になることが、微分方程式を解く鍵になる。</li>
+<li><strong>ラプラス変換</strong> <span class="arithmatex">\(F(s)=\int_0^{\infty}f(t)\,e^{-st}dt\)</span>（<span class="arithmatex">\(s=\sigma+i\omega\)</span>）は、フーリエ変換に減衰因子 <span class="arithmatex">\(e^{-\sigma t}\)</span> を入れた一般化で、増大する信号も扱える。</li>
+<li><strong>収束領域（ROC）</strong> は積分が収束する <span class="arithmatex">\(s\)</span> の範囲で、右半平面になる。ROC が虚軸を含めば <span class="arithmatex">\(F(i\omega)\)</span> がフーリエ変換になる。</li>
+<li>変換対の表と性質を使う（表は <code>sympy.laplace_transform</code> で確かめられる）。<strong>微分の公式</strong> <span class="arithmatex">\(\mathcal{L}[f']=sF(s)-f(0)\)</span> で、微分が <span class="arithmatex">\(s\)</span> 倍と初期値の代数操作になる。</li>
 </ul>
 <p>次は、s 領域の式を時間領域へ戻す <a href="../inverse/">逆ラプラス変換と s 平面</a> に進む。</p>
 

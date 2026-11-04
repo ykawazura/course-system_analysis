@@ -1353,10 +1353,60 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="s 平面の極と時間応答">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        実極
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複素共役の極対
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重極
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        極の位置とインパルス応答
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         ラプラス変換で微分方程式を解く
@@ -1364,10 +1414,38 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="ラプラス変換で微分方程式を解く">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sympy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sympy で解く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solve_ivp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        solve_ivp と比べる
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -2835,10 +2913,60 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="s 平面の極と時間応答">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        実極
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複素共役の極対
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重極
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        極の位置とインパルス応答
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         ラプラス変換で微分方程式を解く
@@ -2846,10 +2974,38 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="ラプラス変換で微分方程式を解く">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sympy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sympy で解く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solve_ivp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        solve_ivp と比べる
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -2877,18 +3033,23 @@
 
 
 <h1 id="s">逆ラプラス変換と s 平面</h1>
-<p>前ページでは時間領域からラプラス変換 <span class="arithmatex">\(F(s)\)</span> を求めた。本ページでは逆向き ── <span class="arithmatex">\(F(s)\)</span> から時間関数 <span class="arithmatex">\(f(t)\)</span> を復元する <strong>逆ラプラス変換</strong> を扱う。実用上の鍵は <strong>部分分数分解</strong> であり、その背後にある <strong>s 平面の極</strong> が時間応答を決める。最後に、この道具立てで <strong>微分方程式を解く</strong>。</p>
+<p>前ページでは時間領域からラプラス変換 <span class="arithmatex">\(F(s)\)</span> を求めた。本ページでは逆向き ── <span class="arithmatex">\(F(s)\)</span> から時間関数 <span class="arithmatex">\(f(t)\)</span> に戻す <strong>逆ラプラス変換</strong> を扱う。これを <span class="arithmatex">\(\mathcal{L}^{-1}[F(s)]\)</span> と書く。実用上の鍵は <strong>部分分数分解</strong> であり、その背後にある <strong>s 平面の極</strong> が時間応答を決める。最後に、この道具立てで <strong>微分方程式を解く</strong>。</p>
 <h2 id="_1">逆変換は部分分数分解で</h2>
-<p>逆ラプラス変換は本来、複素積分（ブロムウィッチ積分）で定義されるが、実用上は積分を直接行うことはまずない。システム解析で現れる <span class="arithmatex">\(F(s)\)</span> はたいてい <strong><span class="arithmatex">\(s\)</span> の有理関数</strong>（多項式 ÷ 多項式）なので、これを <strong>部分分数</strong> に分解し、各項を変換対の表（前ページ）で逆変換すればよい。以下では、分子の次数が分母の次数より真に小さい <strong>厳密プロパー</strong>（strictly proper）な有理関数を扱う。分子の次数が分母以上だと、割り算で出てくる多項式部分が <span class="arithmatex">\(\delta(t)\)</span> やその導関数に対応してしまい、通常の関数の範囲に収まらないためである（例：<span class="arithmatex">\(\frac{s}{s+1}=1-\frac{1}{s+1}\ \leftrightarrow\ \delta(t)-e^{-t}\)</span>）。</p>
+<p>システム解析で現れる <span class="arithmatex">\(F(s)\)</span> はたいてい <strong><span class="arithmatex">\(s\)</span> の有理関数</strong>（多項式 ÷ 多項式）なので、これを <strong>部分分数</strong> に分け、各項を変換対の表（前ページ）で時間関数に戻せばよい。逆変換を与える複素積分もあるが、本講義では使わない。</p>
+<p>分子の次数が分母の次数より真に小さい有理関数を <strong>厳密プロパー</strong>（strictly proper）という。本講義はこれを扱う。分子の次数が分母以上だと、割り算で出る多項式の部分が <span class="arithmatex">\(\delta(t)\)</span> などになり、ふつうの関数に収まらない。</p>
+<div class="arithmatex">\[
+\frac{s}{s+1}=1-\frac{1}{s+1}\ \leftrightarrow\ \delta(t)-e^{-t}
+\]</div>
 <p>例として <span class="arithmatex">\(F(s)=\dfrac{s+3}{(s+1)(s+2)}\)</span> を考える。部分分数に分けると</p>
 <div class="arithmatex">\[
 \frac{s+3}{(s+1)(s+2)}=\frac{2}{s+1}-\frac{1}{s+2}
 \]</div>
-<p>各項は表より <span class="arithmatex">\(\dfrac{1}{s+a}\leftrightarrow e^{-at}\)</span> だから、</p>
+<p>表の <span class="arithmatex">\(\dfrac{1}{s+a}\leftrightarrow e^{-at}\)</span> と線形性から、</p>
 <div class="arithmatex">\[
 f(t)=2e^{-t}-e^{-2t}
 \]</div>
-<p><code>sympy</code> なら部分分数も逆変換も一発で確認できる。</p>
+<p>分母の因子 <span class="arithmatex">\((s+1)\)</span>, <span class="arithmatex">\((s+2)\)</span> が、時間関数の <span class="arithmatex">\(e^{-t}\)</span>, <span class="arithmatex">\(e^{-2t}\)</span> を生む（次節で「極」として扱う）。</p>
+<p><code>sympy</code> で確かめる。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">Linv</span><span class="p">(</span><span class="n">F</span><span class="p">):</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">inverse_laplace_transform</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -2899,89 +3060,109 @@ f(t)=2e^{-t}-e^{-2t}
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>部分分数: -1/(s + 2) + 2/(s + 1)
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>逆変換  : 2*exp(-t) - exp(-2*t)
 </code></pre></div>
-<p>手計算と一致する。関数 <code>Linv</code> は、逆変換の結果を <code>expand</code> で展開し、手計算と同じ指数関数の和の形にそろえて返す（<code>sp.simplify</code> で整理すると <code>(2*exp(t) - 1)*exp(-2*t)</code> のような積の形になる）。<code>Linv</code> は、後の微分方程式の解と演習でも使う。数値的に部分分数の <strong>係数（留数）と極</strong> を取り出すなら <code>scipy.signal.residue</code> が使える。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ss</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># 分子 s+3 = [1, 3], 分母 (s+1)(s+2) = s^2+3s+2 = [1, 3, 2]</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">residue</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;留数 r =&quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="s2">&quot; 極 p =&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>留数 r = [ 2. -1.]  極 p = [-1. -2.]
-</code></pre></div>
-<p>留数 <span class="arithmatex">\(r=[2,-1]\)</span>、極 <span class="arithmatex">\(p=[-1,-2]\)</span> から、<span class="arithmatex">\(f(t)=2e^{-t}+(-1)e^{-2t}\)</span> と読める。</p>
+<p><code>sp.apart</code> が部分分数分解を行う。関数 <code>Linv</code> は <code>inverse_laplace_transform</code> で逆変換し、<code>expand</code> で指数関数の和に展開して返す（<code>sp.simplify</code> で整理すると <code>(2*exp(t) - 1)*exp(-2*t)</code> のような積の形になる）。手計算の <span class="arithmatex">\(2e^{-t}-e^{-2t}\)</span> と一致する。<code>Linv</code> は、後の微分方程式の解と演習でも使う。</p>
 <h2 id="s_1">s 平面の極と時間応答</h2>
-<p>有理関数 <span class="arithmatex">\(F(s)=\dfrac{N(s)}{D(s)}\)</span> について、<strong><span class="arithmatex">\(N\)</span> と <span class="arithmatex">\(D\)</span> の共通因子を約分した既約形</strong>を作ったうえで、<strong>分母 <span class="arithmatex">\(D(s)=0\)</span> の根を極（pole）</strong>、分子 <span class="arithmatex">\(N(s)=0\)</span> の根を <strong>零点（zero）</strong> と呼ぶ。約分が必要なのは、たとえば <span class="arithmatex">\(\dfrac{s+1}{s+1}=1\)</span> の <span class="arithmatex">\(s=-1\)</span> が極でも零点でもないからである。逆変換した時間関数の振る舞いは、<strong>極の位置だけ</strong> でほぼ決まる。極 <span class="arithmatex">\(s=p\)</span> は時間領域の <span class="arithmatex">\(e^{pt}\)</span> に対応するからである。</p>
-<ul>
-<li><strong>実極</strong>：<span class="arithmatex">\(s=p\)</span>（実数）<span class="arithmatex">\(\to e^{pt}\)</span>。<span class="arithmatex">\(p&lt;0\)</span> なら減衰、<span class="arithmatex">\(p&gt;0\)</span> なら発散。<strong>減衰率は <span class="arithmatex">\(-\operatorname{Re}(p)\)</span></strong>（<span class="arithmatex">\(\operatorname{Re}(p)\)</span> そのものは指数の増大率）。</li>
-<li><strong>複素共役の極対</strong>：<span class="arithmatex">\(s=-\sigma\pm i\omega \to e^{-\sigma t}\cos(\omega t+\phi)\)</span>。実部 <span class="arithmatex">\(-\sigma\)</span> が減衰率 <span class="arithmatex">\(\sigma\)</span> を、虚部 <span class="arithmatex">\(\omega\)</span> が <strong>角周波数</strong>［rad/時間］を与える（Hz 単位の振動数は <span class="arithmatex">\(f=\omega/(2\pi)\)</span>）。</li>
-<li><strong>重極</strong>：既約形で <span class="arithmatex">\(D\)</span> が <span class="arithmatex">\((s-p)^m\)</span> を因子にもつ <strong><span class="arithmatex">\(m\)</span> 重極</strong> のときは、<span class="arithmatex">\(e^{pt}\)</span> だけでなく <span class="arithmatex">\(t^{m-1}e^{pt}\)</span> までの多項式倍の項が現れる（例：<span class="arithmatex">\(\dfrac{1}{(s+1)^2}\leftrightarrow te^{-t}\)</span>）。</li>
-</ul>
-<p>したがって、極が複素平面のどこにあるかで応答が分類できる。</p>
+<p>有理関数 <span class="arithmatex">\(F(s)=\dfrac{N(s)}{D(s)}\)</span> を、<span class="arithmatex">\(N\)</span> と <span class="arithmatex">\(D\)</span> の共通因子を約分した <strong>既約形</strong> にしてから、<strong>分母 <span class="arithmatex">\(D(s)=0\)</span> の根を極（pole）</strong>、分子 <span class="arithmatex">\(N(s)=0\)</span> の根を <strong>零点（zero）</strong> という。約分が要るのは、たとえば <span class="arithmatex">\(\dfrac{s+1}{s+1}=1\)</span> の <span class="arithmatex">\(s=-1\)</span> が極でも零点でもないからである。極 <span class="arithmatex">\(s=p\)</span> は時間領域の <span class="arithmatex">\(e^{pt}\)</span> に対応する。応答の振る舞いは、ほぼ極の位置だけで決まる。第1回の「固有値 <span class="arithmatex">\(\lambda\)</span> が <span class="arithmatex">\(e^{\lambda t}\)</span> の形で振る舞いを決める」と同じ見方である。</p>
+<h3 id="_2">実極</h3>
+<p>実数の極 <span class="arithmatex">\(s=p\)</span> は <span class="arithmatex">\(e^{pt}\)</span> を生む。<span class="arithmatex">\(p&lt;0\)</span> なら減衰、<span class="arithmatex">\(p&gt;0\)</span> なら発散する。<strong>減衰率</strong> は <span class="arithmatex">\(-p\)</span> である（<span class="arithmatex">\(p\)</span> そのものは指数の増大率）。たとえば極 <span class="arithmatex">\(-1\)</span>, <span class="arithmatex">\(-2\)</span> をもつ <span class="arithmatex">\(2e^{-t}-e^{-2t}\)</span> では、減衰率の大きい <span class="arithmatex">\(e^{-2t}\)</span> の項が先に消える。</p>
+<h3 id="_3">複素共役の極対</h3>
+<p><span class="arithmatex">\(F(s)\)</span> の係数が実数なら、複素数の極は共役の対 <span class="arithmatex">\(s=-\sigma\pm i\omega\)</span> で現れる。2 つの項をまとめると</p>
+<div class="arithmatex">\[
+e^{(-\sigma+i\omega)t},\ e^{(-\sigma-i\omega)t}
+\ \longrightarrow\ 
+e^{-\sigma t}\cos(\omega t+\phi)
+\]</div>
+<p>となる。ここでの <span class="arithmatex">\(\sigma\)</span> は減衰率（正の数）で、極の実部は <span class="arithmatex">\(-\sigma\)</span> である。対の 2 項の係数も共役 <span class="arithmatex">\(c\)</span>, <span class="arithmatex">\(\bar c\)</span> になり、<span class="arithmatex">\(c\,e^{i\omega t}+\bar c\,e^{-i\omega t}=2\lvert c\rvert\cos(\omega t+\phi)\)</span>（<span class="arithmatex">\(\phi=\arg c\)</span>）となる。</p>
+<p>実部 <span class="arithmatex">\(-\sigma\)</span> が減衰率 <span class="arithmatex">\(\sigma\)</span> を、虚部 <span class="arithmatex">\(\omega\)</span> が <strong>角周波数</strong> [rad/時間] を与える。単位時間あたりの振動の回数は <span class="arithmatex">\(\omega/(2\pi)\)</span> [cycle/時間] である。</p>
+<h3 id="_4">重極</h3>
+<p>既約形の分母が <span class="arithmatex">\((s-p)^m\)</span> を因子にもつとき、<span class="arithmatex">\(p\)</span> を <strong><span class="arithmatex">\(m\)</span> 重極</strong> という（<span class="arithmatex">\(m=1\)</span> なら <strong>単純な極</strong>）。このとき <span class="arithmatex">\(e^{pt}\)</span> だけでなく、<span class="arithmatex">\(t^{m-1}e^{pt}\)</span> までの項が現れる。たとえば表の <span class="arithmatex">\(t\leftrightarrow 1/s^2\)</span> に s 推移を使うと、</p>
+<div class="arithmatex">\[
+t\ \leftrightarrow\ \frac{1}{s^2}
+\quad\xrightarrow{\ \text{s 推移}\ }\quad
+t\,e^{-t}\ \leftrightarrow\ \frac{1}{(s+1)^2}
+\]</div>
+<p>となり、<span class="arithmatex">\(s=-1\)</span> の 2 重極が <span class="arithmatex">\(te^{-t}\)</span> を生む。<span class="arithmatex">\(t\)</span> 倍が付くが、<span class="arithmatex">\(e^{-t}\)</span> のほうが速く小さくなるので減衰する。</p>
+<h3 id="_5">極の位置とインパルス応答</h3>
+<p>極が複素平面のどこにあるかで、応答が分類できる。</p>
 <figure>
   <img alt="s 平面の極とインパルス応答" src="../img/pole_response.png" width="860" />
 <br />
-<figcaption>左：$s$ 平面上の 4 種類の極配置（実極 2 個と複素共役対 2 組で、極は計 6 個）。右：対応するインパルス応答 $h(t)$。<b>左半面（実部 &lt; 0）の極は減衰</b>（青：単調減衰、緑：減衰振動）、<b>右半面の極は発散</b>（赤）、<b>虚軸上の単純な極は持続振動</b>（橙）。極の実部の符号を変えた $-\operatorname{Re}(s)$ が減衰率、虚部が角周波数 $\omega$［rad/時間］を決める（橙の $\omega=2\pi$ は 1 cycle/時間にあたる）。虚軸が安定・不安定の境界になる。見やすさのため、振動する 2 例は分子を $\omega$ にして振幅を揃えてある（分子は極の位置を変えないので、応答の「形」の比較には影響しない）。</figcaption>
+<figcaption>左：$s$ 平面上の 4 種類の極配置（実極 2 個と複素共役の極対 2 組で、極は計 6 個）。右：対応するインパルス応答 $h(t)$。<b>左半面（実部 &lt; 0）の極は減衰</b>（青：単調減衰、緑：減衰振動）、<b>右半面の極は発散</b>（赤）、<b>虚軸上の単純な極は持続振動</b>（橙）。極の実部の符号を変えた $-\operatorname{Re}(s)$ が減衰率、虚部が角周波数 $\omega$ [rad/時間] を決める（橙の $\omega=2\pi$ は 1 cycle/時間にあたる）。虚軸が安定・不安定の境界になる。見やすさのため、振動する 2 例は分子を $\omega$ にして振幅を揃えてある（分子は極の位置を変えないので、応答の「形」の比較には影響しない）。</figcaption>
 </figure>
+<p><span class="arithmatex">\(F(s)\)</span> をシステムの性質を表す式とみると、その逆変換 <span class="arithmatex">\(h(t)\)</span> が第4回のインパルス応答にあたる。詳細は第7回で扱う。</p>
 <div class="admonition note">
 <p class="admonition-title">極の位置と「安定性」</p>
-<p>すべての極が <strong>左半面（<span class="arithmatex">\(\operatorname{Re}(s)&lt;0\)</span>）</strong> にあれば、応答は時間とともに <span class="arithmatex">\(0\)</span> へ減衰する ── これを（漸近）<strong>安定</strong> という。1 つでも右半面に極があれば発散して <strong>不安定</strong>。右半面に極がなく、虚軸上の極が <strong>すべて単純（1 重）</strong> な場合が境界のケースで、減衰も発散もしない <strong>持続振動</strong> となる。これを <strong>限界安定</strong> と呼ぶ。</p>
+<p>すべての極が <strong>左半面（<span class="arithmatex">\(\operatorname{Re}(s)&lt;0\)</span>）</strong> にあれば、応答は時間とともに <span class="arithmatex">\(0\)</span> へ減衰する ── これを（漸近）<strong>安定</strong> という。1 つでも右半面に極があれば発散する。これを <strong>不安定</strong> という。右半面に極がなく、虚軸上の極が <strong>すべて単純（1 重）</strong> な場合が境界のケースで、減衰も発散もしない <strong>持続振動</strong> となる。これを <strong>限界安定</strong> という。</p>
 <p>ここで「単純」という条件は落とせない。虚軸上に <strong>重極</strong> があると振幅は発散する。たとえば
-<span class="arithmatex">\(\dfrac{1}{(s^2+1)^2}\)</span> の逆変換は <span class="arithmatex">\(-\dfrac{t\cos t}{2}+\dfrac{\sin t}{2}\)</span> で、<span class="arithmatex">\(t\cos t\)</span> の項が線形に増大する。虚軸上に極があるだけで「持続振動」と即断してはいけない。</p>
+<span class="arithmatex">\(\dfrac{1}{(s^2+1)^2}\)</span> の逆変換は <span class="arithmatex">\(-\dfrac{t\cos t}{2}+\dfrac{\sin t}{2}\)</span> で、<span class="arithmatex">\(t\cos t\)</span> の項が増え続ける。虚軸上に極があるだけで持続振動と決めつけてはいけない。</p>
 <p>さらに、入力に対する <strong>BIBO 安定</strong>（有界な入力に有界な出力）では基準がもっと厳しく、<strong>虚軸上の極は単純であっても不安定</strong> と判定される。実際 <span class="arithmatex">\(\dfrac{1}{s^2+1}\)</span> の系に共振する入力 <span class="arithmatex">\(\sin t\)</span> を入れると出力は発散する。漸近安定・限界安定・BIBO 安定の厳密な区別は第8回で整理する。この「極の位置で安定性が決まる」という見方は、第8回の応用（制御・安定判別）の中心テーマになる。</p>
 </div>
-<h2 id="_2">ラプラス変換で微分方程式を解く</h2>
-<p>ここまでの道具 ── <strong>微分の公式</strong>（前ページ）と <strong>部分分数による逆変換</strong> ── を組み合わせると、微分方程式が機械的に解ける。次の初期値問題を解いてみる。</p>
+<h2 id="_6">ラプラス変換で微分方程式を解く</h2>
+<p>ここまでの道具 ── <strong>微分の公式</strong>（前ページ）と <strong>部分分数による逆変換</strong> ── だけで、微分方程式が機械的に解ける。微分方程式 → 代数方程式 → 部分分数 → 逆変換 の順に進む。例として次の初期値問題を解く。</p>
 <div class="arithmatex">\[
 y''+3y'+2y=0,\qquad y(0)=1,\quad y'(0)=0
 \]</div>
-<p><strong>手順1：両辺をラプラス変換する。</strong> 微分の公式 <span class="arithmatex">\(\mathcal{L}[y']=sY-y(0)\)</span>、<span class="arithmatex">\(\mathcal{L}[y'']=s^2Y-sy(0)-y'(0)\)</span> を使うと、</p>
+<p>未知関数 <span class="arithmatex">\(y(t)\)</span> の変換を <span class="arithmatex">\(Y(s)=\mathcal{L}[y(t)]\)</span> と書く。</p>
+<p><strong>手順 1：両辺をラプラス変換する。</strong> 微分の公式 <span class="arithmatex">\(\mathcal{L}[y']=sY-y(0)\)</span>、<span class="arithmatex">\(\mathcal{L}[y'']=s^2Y-sy(0)-y'(0)\)</span> に初期値を入れると、</p>
 <div class="arithmatex">\[
 \bigl[s^2Y-s\cdot1-0\bigr]+3\bigl[sY-1\bigr]+2Y=0
 \]</div>
-<p><strong>手順2：<span class="arithmatex">\(Y(s)\)</span> について解く（代数方程式！）。</strong></p>
+<p>となる。初期値 <span class="arithmatex">\(y(0)=1\)</span>, <span class="arithmatex">\(y'(0)=0\)</span> は、この段階で式に入る。右辺の <span class="arithmatex">\(0\)</span> の変換は <span class="arithmatex">\(0\)</span> である（線形性）。</p>
+<p><strong>手順 2：<span class="arithmatex">\(Y(s)\)</span> について解く。</strong></p>
 <div class="arithmatex">\[
 (s^2+3s+2)\,Y=s+3
 \quad\Longrightarrow\quad
 Y(s)=\frac{s+3}{(s+1)(s+2)}
 \]</div>
-<p><strong>手順3：部分分数に分けて逆変換する。</strong> これは先ほど計算した式そのもので、</p>
+<p>微分方程式が、<span class="arithmatex">\(Y\)</span> の 1 次の <strong>代数方程式</strong> になった。これは先に部分分数で逆変換した <span class="arithmatex">\(F(s)\)</span> と同じ式である。分母 <span class="arithmatex">\(s^2+3s+2\)</span> の根 <span class="arithmatex">\(-1\)</span>, <span class="arithmatex">\(-2\)</span> は、この方程式を状態方程式 <span class="arithmatex">\(\dot{\mathbf{x}}=A\mathbf{x}\)</span> に書き直したときの行列 <span class="arithmatex">\(A\)</span> の固有値に一致する（詳細は第8回・第11回）。</p>
+<p><strong>手順 3：部分分数に分けて逆変換する。</strong></p>
 <div class="arithmatex">\[
+Y(s)=\frac{2}{s+1}-\frac{1}{s+2}
+\quad\Longrightarrow\quad
 y(t)=2e^{-t}-e^{-2t}
 \]</div>
-<p>時間領域の微分方程式が、s 領域では <strong>ただの代数方程式</strong> になった点に注目してほしい。これがラプラス変換の威力である。得られた解を数値積分（<code>scipy.integrate.solve_ivp</code>）と比べて検証する。</p>
+<p>検算すると、<span class="arithmatex">\(y(0)=2-1=1\)</span>、<span class="arithmatex">\(y'(t)=-2e^{-t}+2e^{-2t}\)</span> より <span class="arithmatex">\(y'(0)=0\)</span> で、初期条件を満たす。極 <span class="arithmatex">\(-1\)</span>, <span class="arithmatex">\(-2\)</span> がそれぞれ <span class="arithmatex">\(e^{-t}\)</span>, <span class="arithmatex">\(e^{-2t}\)</span> を生む。どちらも左半面にあるので解は減衰する。</p>
+<p>時間領域の微分方程式が、<span class="arithmatex">\(s\)</span> 領域では <strong>ただの代数方程式</strong> になった点に注目してほしい。これがラプラス変換の威力である。</p>
+<h3 id="sympy">sympy で解く</h3>
+<p>手順 2・3 を sympy に解かせる。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Y</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">Ys</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Eq</span><span class="p">((</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">3</span><span class="p">),</span> <span class="n">Y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Y(s) =&quot;</span><span class="p">,</span> <span class="n">Ys</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ラプラス解 y(t) =&quot;</span><span class="p">,</span> <span class="n">Linv</span><span class="p">(</span><span class="n">Ys</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Y(s) = (s + 3)/(s**2 + 3*s + 2)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ラプラス解 y(t) = 2*exp(-t) - exp(-2*t)
+</code></pre></div>
+<p><code>sp.Eq(左辺, 右辺)</code> は等式「左辺 <span class="arithmatex">\(=\)</span> 右辺」を表す。手順 2 の方程式をこれで作る。<a href="../definition/">前ページ</a> の「sympy の使い方」の <code>sp.solve(f, x)</code> は <span class="arithmatex">\(f=0\)</span> を解いた。右辺が <span class="arithmatex">\(0\)</span> でない方程式は、このように <code>sp.Eq</code> で等式にして <code>sp.solve</code> に渡す。Python の <code>=</code> は代入、<code>==</code> は 2 つの式が同じ形かどうかの判定（<code>True</code>／<code>False</code> を返す）なので、どちらも等式の代わりにはならない。<code>sp.solve</code> で <span class="arithmatex">\(Y\)</span> について解き、解のリストの 1 つ目（ここでは唯一の解）を <code>[0]</code> で取り出す。<code>Linv</code> で時間領域に戻す。</p>
+<p>出力の <span class="arithmatex">\(Y(s)\)</span> と <span class="arithmatex">\(y(t)\)</span> は、手順 2・3 の手計算と一致する。<span class="arithmatex">\(Y(s)\)</span> は、手順 2 の式の分母を展開した形 <span class="arithmatex">\(\dfrac{s+3}{s^2+3s+2}\)</span> で表示されている。</p>
+<h3 id="solve_ivp">solve_ivp と比べる</h3>
+<p>得られた解を、数値積分（<code>scipy.integrate.solve_ivp</code>）と比べて検証する。<span class="arithmatex">\(y''=-3y'-2y\)</span> を、<span class="arithmatex">\(z=[y,\ y']\)</span> の 1 階の連立系に直して数値積分する（第1回と同じ）。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_ivp</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># --- ラプラス変換による解：(s^2+3s+2)Y = s+3 を Y について解いて逆変換 ---</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">Y</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">Ys</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Eq</span><span class="p">((</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">3</span><span class="p">),</span> <span class="n">Y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">y_t</span> <span class="o">=</span> <span class="n">Linv</span><span class="p">(</span><span class="n">Ys</span><span class="p">)</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ラプラス解 y(t) =&quot;</span><span class="p">,</span> <span class="n">y_t</span><span class="p">)</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># --- 数値積分で検証 ---</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">rhs</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>           <span class="c1"># z = [y, y&#39;]</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="n">num</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">t_eval</span><span class="o">=</span><span class="n">tm</span><span class="p">,</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>                <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="n">ana</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">tm</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">tm</span><span class="p">)</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;最大誤差:&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ana</span><span class="p">))</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">rhs</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>           <span class="c1"># z = [y, y&#39;]</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">num</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">t_eval</span><span class="o">=</span><span class="n">tm</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>                <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">ana</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">tm</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">tm</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;最大誤差:&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ana</span><span class="p">))</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ラプラス解 y(t) = 2*exp(-t) - exp(-2*t)
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>最大誤差: 1.99e-12
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>最大誤差: 1.99e-12
 </code></pre></div>
+<p><code>rtol</code>, <code>atol</code> は相対・絶対の許容誤差である。<code>tm</code> の 7 点で、数値解 <code>num</code> と解析解 <code>ana</code> の差の最大を測る。</p>
 <p>ラプラス変換による解析解と数値積分が、<span class="arithmatex">\(\sim10^{-12}\)</span> の範囲で一致する。この差は丸め誤差ではなく <strong>数値積分（時間刻みを有限個に区切ったこと）による誤差</strong> で、許容誤差の指定で大きさが変わる。上のコードで <code>atol=1e-12</code> のまま <code>rtol</code> だけを変えると、最大誤差は <code>rtol=1e-3</code>（<code>solve_ivp</code> の既定値）で <code>2.39e-05</code>、<code>1e-6</code> で <code>4.29e-08</code>、<code>1e-10</code> で <code>1.99e-12</code> と、指定した許容誤差に応じて素直に小さくなる ── 解析解があるからこそ、こうして数値解の精度そのものを測ることができる。</p>
 <figure>
   <img alt="ラプラス変換による ODE 解と数値解の一致" src="../img/ode_solution.png" width="760" />
 <br />
-<figcaption>$y''+3y'+2y=0,\ y(0)=1,\ y'(0)=0$ の解。青実線はラプラス変換で得た $y=2e^{-t}-e^{-2t}$、赤点は数値積分（solve_ivp）で、両者は一致する。緑・橙の破線は 2 つの極 $s=-1,-2$ がそれぞれ生む成分 $2e^{-t}$ と $-e^{-2t}$。極が応答の「部品」になっていることがわかる。</figcaption>
+<figcaption>$y''+3y'+2y=0,\ y(0)=1,\ y'(0)=0$ の解。青実線はラプラス変換で得た $y=2e^{-t}-e^{-2t}$、赤点は数値積分（solve_ivp）で、両者は一致する。緑・橙の破線は 2 つの極 $s=-1,-2$ がそれぞれ生む成分 $2e^{-t}$ と $-e^{-2t}$ である。</figcaption>
 </figure>
-<h2 id="_3">まとめ</h2>
+<h2 id="_7">まとめ</h2>
 <ul>
-<li>逆ラプラス変換は <strong>部分分数分解 → 変換対の表</strong> で求める（<code>sympy.apart</code>／<code>inverse_laplace_transform</code>、<code>scipy.signal.residue</code>）。</li>
-<li>有理関数 <span class="arithmatex">\(F(s)=N/D\)</span> の <strong>極</strong>（既約形にしたうえで <span class="arithmatex">\(D=0\)</span> の根）が時間応答を決める。実極は減衰／発散、複素対は（減衰）振動、<span class="arithmatex">\(m\)</span> 重極は <span class="arithmatex">\(t^{m-1}e^{pt}\)</span> まで。減衰率は <span class="arithmatex">\(-\operatorname{Re}(p)\)</span>、角周波数は <span class="arithmatex">\(\operatorname{Im}(p)\)</span>。</li>
-<li><strong>左半面なら（漸近）安定、右半面なら不安定、虚軸上の極がすべて単純なら限界安定（持続振動）</strong>。虚軸上の重極は発散するので「虚軸＝持続振動」と即断しない。</li>
-<li><strong>微分の公式 → 代数方程式 → 部分分数 → 逆変換</strong> の流れで、初期値問題が機械的に解ける。<span class="arithmatex">\(y''+3y'+2y=0\)</span> の解 <span class="arithmatex">\(2e^{-t}-e^{-2t}\)</span> は数値積分と一致する。</li>
+<li><strong>逆変換</strong> <span class="arithmatex">\(\mathcal{L}^{-1}\)</span> は部分分数分解と表で求める（<code>sympy.apart</code>／<code>inverse_laplace_transform</code>）。</li>
+<li>有理関数 <span class="arithmatex">\(F(s)=N/D\)</span> の <strong>極</strong> <span class="arithmatex">\(p\)</span>（既約形にしたうえで <span class="arithmatex">\(D=0\)</span> の根）が <span class="arithmatex">\(e^{pt}\)</span> を生む。左半面なら減衰（安定）、右半面なら発散、虚軸上の単純な極なら持続振動。実極は減衰／発散、複素共役の極対は（減衰）振動、<span class="arithmatex">\(m\)</span> 重極は <span class="arithmatex">\(t^{m-1}e^{pt}\)</span> までを生む。減衰率は <span class="arithmatex">\(-\operatorname{Re}(p)\)</span>、角周波数は <span class="arithmatex">\(\lvert\operatorname{Im}(p)\rvert\)</span>。</li>
+<li>虚軸上の重極は発散するので、虚軸上に極があるだけで持続振動と決めつけない。</li>
+<li>微分方程式 → 代数方程式 → 部分分数 → 逆変換 で初期値問題が解ける。<span class="arithmatex">\(y''+3y'+2y=0\)</span> の解 <span class="arithmatex">\(2e^{-t}-e^{-2t}\)</span> は solve_ivp と一致する。</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">本講義との接続</p>

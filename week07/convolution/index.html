@@ -1730,46 +1730,13 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#scipy-3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        scipy で 3 つのステップ応答を計算する
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ステップ応答と極の位置
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        減衰比と極の角度
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_16" class="md-nav__link">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -3330,46 +3297,13 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#scipy-3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        scipy で 3 つのステップ応答を計算する
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ステップ応答と極の位置
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        減衰比と極の角度
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_16" class="md-nav__link">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -3413,12 +3347,13 @@ y''+3y'+2y=x(t)
 </ul>
 <p>両方を満たすシステムを <strong>線形時不変（Linear Time-Invariant, LTI）システム</strong> と呼ぶ。第1回の「線形時不変系」と同じものである。定数係数の線形微分方程式は、初期値がすべて <span class="arithmatex">\(0\)</span> の状態（<strong>零状態</strong>）から始めれば LTI システムになる。</p>
 <h3 id="_4">インパルス応答</h3>
-<p>零状態のシステムに <span class="arithmatex">\(x(t)=\delta(t)\)</span> を入れたときの出力を <strong>インパルス応答</strong> と呼び、<span class="arithmatex">\(h(t)\)</span> と書く。<span class="arithmatex">\(\delta(t)\)</span> は、幅を <span class="arithmatex">\(0\)</span> に縮めた面積 <span class="arithmatex">\(1\)</span> のパルスだった（第6回）。</p>
+<p>零状態のシステムに <span class="arithmatex">\(x(t)=\delta(t)\)</span> を入れたときの出力を <strong>インパルス応答</strong> と呼び、<span class="arithmatex">\(h(t)\)</span> と書く。<span class="arithmatex">\(\delta(t)\)</span> は、幅を <span class="arithmatex">\(0\)</span> に縮めた面積 <span class="arithmatex">\(1\)</span> のパルスだった（第6回）。<span class="arithmatex">\(h(t)\)</span> はシステムだけで決まり、入力によらない。入力 <span class="arithmatex">\(x(t)\)</span> は外から自由に選んで与える。</p>
 <ul>
 <li>時不変性から <span class="arithmatex">\(\delta(t-\tau)\to h(t-\tau)\)</span>、線形性から <span class="arithmatex">\(c\,\delta(t-\tau)\to c\,h(t-\tau)\)</span> となる（<span class="arithmatex">\(c\)</span> は定数）。</li>
 <li>入力を加える前に出力は出ない（<strong>因果性</strong>）ので、<span class="arithmatex">\(t&lt;0\)</span> では <span class="arithmatex">\(h(t)=0\)</span> である。</li>
 </ul>
 <p>第4回で周波数応答 <span class="arithmatex">\(H(\omega)\)</span> の逆フーリエ変換として出てきた <span class="arithmatex">\(h(t)\)</span> と同じものである。</p>
+<p>以下では、代表の入力 <span class="arithmatex">\(\delta(t)\)</span> への出力 <span class="arithmatex">\(h(t)\)</span> が分かれば、どんな入力 <span class="arithmatex">\(x(t)\)</span> への出力 <span class="arithmatex">\(y(t)\)</span> も、<span class="arithmatex">\(h(t)\)</span> を使った積分 1 つで求まることを示す。</p>
 <h3 id="_5">入力をパルスに分ける</h3>
 <p>入力 <span class="arithmatex">\(x(t)\)</span> を幅 <span class="arithmatex">\(\Delta\tau\)</span> の細いパルスに分ける。時刻 <span class="arithmatex">\(\tau\)</span> のパルスは高さ <span class="arithmatex">\(x(\tau)\)</span>、面積 <span class="arithmatex">\(x(\tau)\Delta\tau\)</span> なので、<span class="arithmatex">\(x(\tau)\Delta\tau\,\delta(t-\tau)\)</span> で近似できる。前項より、その応答は <span class="arithmatex">\(x(\tau)\Delta\tau\,h(t-\tau)\)</span> になる。</p>
 <figure>
@@ -3426,7 +3361,7 @@ y''+3y'+2y=x(t)
 <br />
 <figcaption>上：入力 $x(t)=e^{-t}$ を幅 $\Delta\tau=0.25$ のパルスに分けたもの。下：各パルスの応答 $x(\tau)\Delta\tau\,h(t-\tau)$（$h(t)=e^{-2t}$）。色を付けたのは $\tau=0,1,2$ のパルスとその応答で、灰色はほかのパルスの応答である。</figcaption>
 </figure>
-<p>図の <span class="arithmatex">\(h(t)=e^{-2t}\)</span> は、<span class="arithmatex">\(y'+2y=x(t)\)</span> のインパルス応答である（求め方は次節）。</p>
+<p>図では、入力に <span class="arithmatex">\(x(t)=e^{-t}\)</span> を選んだ。システムは <span class="arithmatex">\(y'+2y=x\)</span> で、<span class="arithmatex">\(h(t)=e^{-2t}\)</span> はこれで決まる（求め方は次節）。</p>
 <h3 id="_6">パルスの応答を足す</h3>
 <p>線形性から、出力はパルスの応答の和になる。<span class="arithmatex">\(\Delta\tau\to0\)</span> で和は積分になる。</p>
 <div class="arithmatex">\[
@@ -3470,6 +3405,7 @@ y(t)=(x*h)(t)=\int_0^t x(\tau)\,h(t-\tau)\,d\tau
 <p>内側は <span class="arithmatex">\(t\)</span> を固定して <span class="arithmatex">\(\tau\)</span> を <span class="arithmatex">\(0\)</span> から <span class="arithmatex">\(t\)</span> まで、外側は <span class="arithmatex">\(t\)</span> を <span class="arithmatex">\(0\)</span> から <span class="arithmatex">\(\infty\)</span> まで積分する。積分する範囲は、<span class="arithmatex">\((\tau,t)\)</span> 平面の <span class="arithmatex">\(0\le\tau\le t\)</span> の領域になる。このままでは <span class="arithmatex">\(F(s)\)</span> も <span class="arithmatex">\(G(s)\)</span> も現れない。</p>
 <p><strong>② 積分の順序を入れ替える。</strong> 同じ領域を、<span class="arithmatex">\(\tau\)</span> を固定して <span class="arithmatex">\(t\)</span> を <span class="arithmatex">\(\tau\)</span> から <span class="arithmatex">\(\infty\)</span> まで積分してもよい。<span class="arithmatex">\(f(\tau)\)</span> は内側の積分の変数 <span class="arithmatex">\(t\)</span> を含まないので、外に出せる。</p>
 <div class="arithmatex">\[
+\int_0^{\infty}\left[\int_0^{t} f(\tau)\,g(t-\tau)\,d\tau\right]e^{-st}\,dt
 =\int_0^{\infty} f(\tau)\left[\int_{\tau}^{\infty} g(t-\tau)\,e^{-st}\,dt\right]d\tau
 \]</div>
 <p>順序を入れ替えてよい条件には立ち入らない。</p>
@@ -3486,7 +3422,7 @@ y(t)=(x*h)(t)=\int_0^t x(\tau)\,h(t-\tau)\,d\tau
 <div class="arithmatex">\[
 \int_0^{\infty} f(\tau)\,e^{-s\tau}\,d\tau\cdot G(s)=F(s)\,G(s)
 \]</div>
-<p>を得る。新しい変数を <span class="arithmatex">\(u\)</span> でなく <span class="arithmatex">\(v\)</span> と書くのは、<span class="arithmatex">\(u(t)\)</span> をステップ関数に使っているからである。</p>
+<p>を得る。</p>
 <h3 id="_11">伝達関数</h3>
 <p><span class="arithmatex">\(X(s)=\mathcal{L}[x(t)]\)</span>, <span class="arithmatex">\(Y(s)=\mathcal{L}[y(t)]\)</span> として、LTI システムの出力 <span class="arithmatex">\(y=x*h\)</span> に畳み込み定理を使うと</p>
 <div class="arithmatex">\[
@@ -3561,23 +3497,54 @@ A=1,\quad B=-1
 </ul>
 <p>畳み込み <span class="arithmatex">\(e^{-t}-e^{-2t}\)</span> の変換が、<span class="arithmatex">\(F(s)G(s)=\dfrac{1}{(s+1)(s+2)}\)</span> と一致する。</p>
 <h3 id="_12">数値で畳み込む</h3>
+<p>刻み幅 <span class="arithmatex">\(dt\)</span> で <span class="arithmatex">\(f_k=f(k\,dt)\)</span>, <span class="arithmatex">\(g_k=g(k\,dt)\)</span>（<span class="arithmatex">\(k=0,1,2,\dots\)</span>）を作ると、畳み込み積分は短冊の面積の和（<strong>リーマン和</strong>）で近似できる。</p>
+<div class="arithmatex">\[
+(f*g)(n\,dt)\approx\sum_{k=0}^{n} f_k\,g_{n-k}\,dt
+\]</div>
+<ul>
+<li>NumPy の <code>np.convolve(fk, gk)</code> は、和 <span class="arithmatex">\(\sum_k f_k\,g_{n-k}\)</span> を <span class="arithmatex">\(n=0,1,2,\dots\)</span> の順に並べた配列を返す。長さは <code>len(fk)+len(gk)-1</code> である。</li>
+<li>時刻の配列 <code>tm</code> の範囲に入る先頭の <code>len(tm)</code> 個だけを取り出し、<span class="arithmatex">\(dt\)</span> を掛ける。</li>
+</ul>
+<p><span class="arithmatex">\(dt=0.001\)</span> として、<span class="arithmatex">\(t=0.5,\,1,\,2\)</span> の値を解析解 <span class="arithmatex">\(e^{-t}-e^{-2t}\)</span> と比べる。数値の時間配列は <code>tm</code> と名付け、sympy の記号 <code>t</code> を上書きしないようにする。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.001</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>           <span class="c1"># 時刻 k dt（k = 0, 1, 2, ...）</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">fk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">tm</span><span class="p">)</span>                   <span class="c1"># f_k = f(k dt)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">gk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">tm</span><span class="p">)</span>               <span class="c1"># g_k = g(k dt)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">yk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">fk</span><span class="p">,</span> <span class="n">gk</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">tm</span><span class="p">)]</span> <span class="o">*</span> <span class="n">dt</span>   <span class="c1"># 和に dt を掛ける</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">exact</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">tm</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">tm</span><span class="p">)</span>     <span class="c1"># 解析解</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">):</span>        <span class="c1"># t = 0.5, 1, 2</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t=</span><span class="si">{</span><span class="n">tm</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">: 数値=</span><span class="si">{</span><span class="n">yk</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">  解析解=</span><span class="si">{</span><span class="n">exact</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;最大誤差:&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">yk</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">exact</span><span class="p">))</span><span class="si">:</span><span class="s2">.1e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>t=0.5: 数値=0.23914  解析解=0.23865
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>t=1.0: 数値=0.23280  解析解=0.23254
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>t=2.0: 数値=0.11710  解析解=0.11702
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>最大誤差: 1.0e-03
+</code></pre></div>
+<p>最大誤差は <span class="arithmatex">\(t=0\)</span> で生じ、<span class="arithmatex">\(dt\)</span> に等しい。和は <span class="arithmatex">\(f_0g_0\,dt=dt\)</span> だが、積分は <span class="arithmatex">\(0\)</span> である。誤差は <span class="arithmatex">\(dt\)</span> に比例する。</p>
 <figure>
   <img alt="畳み込む 2 つの信号と、数値畳み込みと解析解の比較" src="../img/convolution.png" width="860" />
 <br />
 <figcaption>左：畳み込む 2 つの信号 $f(t)=e^{-t}$、$g(t)=e^{-2t}$。右：畳み込み $(f*g)(t)$。緑の実線は解析解 $e^{-t}-e^{-2t}$、赤の点は数値畳み込み（<code>np.convolve</code> の和に刻み幅 $dt$ を掛けたもの）で、両者は一致する。</figcaption>
 </figure>
-<p>刻み幅 <span class="arithmatex">\(dt=0.001\)</span> の列 <span class="arithmatex">\(f_k=f(k\,dt)\)</span>, <span class="arithmatex">\(g_k=g(k\,dt)\)</span> を作り、NumPy の <code>np.convolve(f, g)</code> で和 <span class="arithmatex">\(\sum_k f_k\,g_{n-k}\)</span> を計算して <span class="arithmatex">\(dt\)</span> を掛ける。これは短冊の面積の和（<strong>リーマン和</strong>）で畳み込み積分を近似したもので、赤の点が緑の解析解に重なる。<span class="arithmatex">\(dt\)</span> を掛け忘れると、値が <span class="arithmatex">\(1/dt\)</span> 倍ずれる。</p>
+<p>赤の点（<code>np.convolve</code> の和に <span class="arithmatex">\(dt\)</span> を掛けたもの）が、緑の解析解に重なる。<span class="arithmatex">\(dt\)</span> を掛け忘れると、値が <span class="arithmatex">\(1/dt\)</span> 倍ずれる。</p>
 <h2 id="2">伝達関数と 2 次系</h2>
 <h3 id="2_1">2 次系の伝達関数</h3>
 <p>2 つの定数 <span class="arithmatex">\(\omega_n&gt;0\)</span>, <span class="arithmatex">\(\zeta\ge0\)</span> を使って、2 階の微分方程式を次の形に書く。</p>
 <div class="arithmatex">\[
 y''+2\zeta\omega_n\,y'+\omega_n^2\,y=\omega_n^2\,x(t)
 \]</div>
-<p>零状態で両辺を変換すると <span class="arithmatex">\((s^2+2\zeta\omega_n s+\omega_n^2)\,Y(s)=\omega_n^2X(s)\)</span> なので</p>
+<p>初期値を <span class="arithmatex">\(y(0)=y'(0)=0\)</span>（零状態）とすると、微分の公式の初期値の項が消える。</p>
+<div class="arithmatex">\[
+\mathcal{L}[y']=sY(s),\qquad \mathcal{L}[y'']=s^2Y(s)
+\]</div>
+<p>両辺を変換すると <span class="arithmatex">\((s^2+2\zeta\omega_n s+\omega_n^2)\,Y(s)=\omega_n^2X(s)\)</span> なので</p>
 <div class="arithmatex">\[
 H(s)=\frac{Y(s)}{X(s)}=\frac{\omega_n^2}{s^2+2\zeta\omega_n s+\omega_n^2}
 \]</div>
-<p>となる。<span class="arithmatex">\(\omega_n\)</span> を <strong>固有角周波数</strong> と呼ぶ。<span class="arithmatex">\(\zeta=0\)</span> なら角周波数 <span class="arithmatex">\(\omega_n\)</span> で振動し続ける。<span class="arithmatex">\(\zeta\)</span> を <strong>減衰比（damping ratio）</strong> と呼ぶ。<span class="arithmatex">\(y'\)</span> の項（抵抗）の強さを表す。右辺の係数 <span class="arithmatex">\(\omega_n^2\)</span> は <span class="arithmatex">\(H(0)=1\)</span> にするためで、その意味は <a href="../theorems/">ラプラス変換の公式</a> の「ステップ応答の定常値」で扱う。</p>
+<p>となる。<span class="arithmatex">\(\omega_n\)</span> を <strong>固有角周波数</strong> と呼ぶ。<span class="arithmatex">\(\zeta=0\)</span> なら角周波数 <span class="arithmatex">\(\omega_n\)</span> で振動し続ける。<span class="arithmatex">\(\zeta\)</span> を <strong>減衰比（damping ratio）</strong> と呼ぶ。<span class="arithmatex">\(y'\)</span> の項（抵抗）の強さを表す。右辺の係数 <span class="arithmatex">\(\omega_n^2\)</span> は <span class="arithmatex">\(H(0)=1\)</span> にするためで、その意味は <a href="../theorems/">ラプラス変換の公式</a> の「初期値定理・最終値定理」と「ステップ応答の定常値」で扱う。</p>
 <h3 id="2_2">2 次系の極</h3>
 <p>分母 <span class="arithmatex">\(s^2+2\zeta\omega_n s+\omega_n^2=0\)</span> を解の公式で解く。</p>
 <div class="arithmatex">\[
@@ -3603,6 +3570,7 @@ X(s)=\frac{1}{s}\quad\Longrightarrow\quad Y(s)=\frac{H(s)}{s}
 <th><span class="arithmatex">\(\zeta\)</span></th>
 <th>極</th>
 <th>ステップ応答</th>
+<th>典型的な形</th>
 </tr>
 </thead>
 <tbody>
@@ -3611,76 +3579,32 @@ X(s)=\frac{1}{s}\quad\Longrightarrow\quad Y(s)=\frac{H(s)}{s}
 <td><span class="arithmatex">\(0&lt;\zeta&lt;1\)</span></td>
 <td>複素共役の極対</td>
 <td>振動しながら収束し、オーバーシュートが出る</td>
+<td><img alt="不足制動のステップ応答" src="../img/damping_under.png" width="220" /></td>
 </tr>
 <tr>
 <td><strong>臨界制動</strong></td>
 <td><span class="arithmatex">\(\zeta=1\)</span></td>
 <td>重極 <span class="arithmatex">\(-\omega_n\)</span></td>
 <td>振動しない応答のうちで、最も速く収束する</td>
+<td><img alt="臨界制動のステップ応答" src="../img/damping_critical.png" width="220" /></td>
 </tr>
 <tr>
 <td><strong>過制動</strong></td>
 <td><span class="arithmatex">\(\zeta&gt;1\)</span></td>
 <td>異なる 2 つの実極</td>
 <td>振動せず、ゆっくり収束する</td>
+<td><img alt="過制動のステップ応答" src="../img/damping_over.png" width="220" /></td>
 </tr>
 </tbody>
 </table>
-<p>出力が最終的な値を一度超えて行き過ぎることを <strong>オーバーシュート</strong> と呼ぶ。過制動の遅い極 <span class="arithmatex">\(-\omega_n\bigl(\zeta-\sqrt{\zeta^2-1}\bigr)\)</span> は、臨界制動の <span class="arithmatex">\(-\omega_n\)</span> より虚軸に近い。そのため過制動は、臨界制動よりゆっくり収束する。</p>
-<h3 id="scipy-3">scipy で 3 つのステップ応答を計算する</h3>
-<p><code>scipy.signal</code> には、伝達関数からステップ応答を計算する関数がある。第4回の <code>ss.welch</code> と同じモジュールで、<code>ss</code> の名前で読み込む。</p>
-<ul>
-<li><code>ss.TransferFunction(分子, 分母)</code> は伝達関数を作る。分子・分母は、<span class="arithmatex">\(s\)</span> の高いべきから並べた係数のリストである。</li>
-<li><code>ss.step(系, T=時刻の配列)</code> は、時刻の配列とその各時刻でのステップ応答を組で返す。</li>
-<li><code>np.roots(分母)</code> は、分母の多項式の根、つまり極を返す。</li>
-</ul>
-<p><span class="arithmatex">\(\omega_n=2\pi\)</span> [rad/時間]（1 時間に 1 回振動する角周波数）として、<span class="arithmatex">\(\zeta=0.2,\,1,\,2\)</span> の 3 つを比べる。数値の時間配列は <code>tm</code> と名付け、sympy の記号 <code>t</code> を上書きしないようにする。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ss</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">wn</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">for</span> <span class="n">zeta</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">):</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">den</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">zeta</span> <span class="o">*</span> <span class="n">wn</span><span class="p">,</span> <span class="n">wn</span><span class="o">**</span><span class="mi">2</span><span class="p">]</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">sys</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">TransferFunction</span><span class="p">([</span><span class="n">wn</span><span class="o">**</span><span class="mi">2</span><span class="p">],</span> <span class="n">den</span><span class="p">)</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">tm</span><span class="p">)</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">poles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">den</span><span class="p">)</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ζ=</span><span class="si">{</span><span class="n">zeta</span><span class="si">}</span><span class="s2">: 極=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">poles</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">  &quot;</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>          <span class="sa">f</span><span class="s2">&quot;最大値=</span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  終値=</span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ζ=0.2: 極=[-1.26+6.16j -1.26-6.16j]  最大値=1.527  終値=1.000
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ζ=1.0: 極=[-6.28+0.j -6.28-0.j]  最大値=1.000  終値=1.000
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>ζ=2.0: 極=[-23.45  -1.68]  最大値=1.000  終値=1.000
-</code></pre></div>
-<p>結果は次のように読める。</p>
-<ul>
-<li><span class="arithmatex">\(\zeta=0.2\)</span>：最大値は <span class="arithmatex">\(1.527\)</span>。最終的な値 <span class="arithmatex">\(1\)</span> を <span class="arithmatex">\(52.7\%\)</span> 行き過ぎる（オーバーシュート）。</li>
-<li><span class="arithmatex">\(\zeta=1\)</span>, <span class="arithmatex">\(2\)</span>：最大値は <span class="arithmatex">\(1.000\)</span> で、行き過ぎない。</li>
-<li>どれも終値（<span class="arithmatex">\(t=6\)</span> の値）は <span class="arithmatex">\(1.000\)</span> で、<span class="arithmatex">\(H(0)=\omega_n^2/\omega_n^2=1\)</span> に一致する。理由は <a href="../theorems/">ラプラス変換の公式</a> の最終値定理で扱う。</li>
-<li>極：<span class="arithmatex">\(\zeta=0.2\)</span> は複素共役の極対、<span class="arithmatex">\(\zeta=1\)</span> は重極 <span class="arithmatex">\(-2\pi\approx-6.28\)</span>、<span class="arithmatex">\(\zeta=2\)</span> は 2 つの実極である。重極は、数値計算の都合で <code>-6.28+0.j</code> のように虚部 <span class="arithmatex">\(0\)</span> の複素数で表示される。</li>
-</ul>
-<h3 id="_14">ステップ応答と極の位置</h3>
-<figure>
-  <img alt="2 次系のステップ応答と極の位置" src="../img/transfer_function.png" width="880" />
-<br />
-<figcaption>左：2 次系のステップ応答。$\zeta=0.2$（青）は不足制動、$\zeta=1.0$（緑）は臨界制動、$\zeta=2.0$（橙）は過制動。破線は最終値 $H(0)=1$。右：対応する極の位置。</figcaption>
-</figure>
-<p>不足制動（青）の極は虚軸に近く、よく振動する。過制動（橙）の極 <span class="arithmatex">\(-1.68\)</span> も虚軸に近い。<span class="arithmatex">\(e^{-1.68t}\)</span> がゆっくり減衰するので、収束が遅い。</p>
-<h3 id="_15">減衰比と極の角度</h3>
-<p>不足制動の極 <span class="arithmatex">\(p=-\zeta\omega_n\pm i\,\omega_n\sqrt{1-\zeta^2}\)</span> の大きさと角度を求める。</p>
-<div class="arithmatex">\[
-\lvert p\rvert^2=\zeta^2\omega_n^2+\omega_n^2(1-\zeta^2)=\omega_n^2,
-\qquad
-\cos\theta=\frac{\zeta\omega_n}{\lvert p\rvert}=\zeta
-\]</div>
-<p><span class="arithmatex">\(\theta\)</span> は負の実軸から測った極の角度で、極は半径 <span class="arithmatex">\(\omega_n\)</span> の円の上にある。<span class="arithmatex">\(\zeta\)</span> が小さいほど <span class="arithmatex">\(\theta\to90^\circ\)</span> で、極は虚軸に近づき、よく振動する。<span class="arithmatex">\(\zeta\to1\)</span> で <span class="arithmatex">\(\theta\to0\)</span> となり、極は負の実軸上の重極 <span class="arithmatex">\(-\omega_n\)</span> に集まる。</p>
-<h2 id="_16">まとめ</h2>
+<p>出力が最終的な値を一度超えて行き過ぎることを <strong>オーバーシュート</strong> と呼ぶ（図の赤の矢印）。図は <span class="arithmatex">\(\omega_n=1\)</span>, <span class="arithmatex">\(\zeta=0.2,\,1,\,2\)</span> の <span class="arithmatex">\(y(t)\)</span> で、破線は最終的な値 <span class="arithmatex">\(1\)</span> である。3 つの図は軸の範囲をそろえてある。過制動の遅い極 <span class="arithmatex">\(-\omega_n\bigl(\zeta-\sqrt{\zeta^2-1}\bigr)\)</span> は、臨界制動の <span class="arithmatex">\(-\omega_n\)</span> より虚軸に近い。そのため過制動は、臨界制動よりゆっくり収束する。</p>
+<h2 id="_14">まとめ</h2>
 <ul>
 <li>入力をパルスに分けて応答を足すと <strong>畳み込み積分</strong> <span class="arithmatex">\(y=x*h\)</span> になる。<span class="arithmatex">\(h(t)\)</span> は <strong>インパルス応答</strong> である。</li>
-<li><strong>畳み込み定理</strong> <span class="arithmatex">\(\mathcal{L}[f*g]=F(s)G(s)\)</span> から <span class="arithmatex">\(Y(s)=H(s)X(s)\)</span> が出る。<strong>伝達関数</strong> は <span class="arithmatex">\(H(s)=\mathcal{L}[h(t)]\)</span> である。</li>
+<li><strong>畳み込み定理</strong> <span class="arithmatex">\(\mathcal{L}[f*g]=F(s)G(s)\)</span> から <span class="arithmatex">\(Y(s)=H(s)X(s)\)</span> が出る。<strong>伝達関数</strong> <span class="arithmatex">\(H(s)=\mathcal{L}[h(t)]\)</span> は、零状態での入出力の比である。</li>
 <li><strong>2 次系</strong> は減衰比 <span class="arithmatex">\(\zeta\)</span> で不足制動・臨界制動・過制動に分かれ、極の配置もそれぞれ異なる。</li>
 </ul>
-<p>次は <a href="../theorems/">ラプラス変換の公式</a> で、公式の導出と初期値定理・最終値定理を扱う。</p>
+<p>次は <a href="../theorems/">ラプラス変換の公式</a> で、公式の導出、初期値定理・最終値定理、ステップ応答の定常値を扱う。</p>
 
 
 

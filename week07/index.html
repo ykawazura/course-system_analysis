@@ -2923,22 +2923,22 @@ Y(s)=H(s)\,X(s),\qquad H(s)=\mathcal{L}[h(t)]
 <p>第4回ではフーリエ領域でフィルタ <span class="arithmatex">\(H(\omega)\)</span> を「周波数ごとの掛け算」として見た。伝達関数 <span class="arithmatex">\(H(s)\)</span> はその <strong>一般化</strong>である。<span class="arithmatex">\(s=\sigma+i\omega\)</span> と複素平面に広がることで、定常応答だけでなく <strong>過渡応答・安定性</strong> まで一つの <span class="arithmatex">\(H(s)\)</span> から読み取れる（<span class="arithmatex">\(H(s)=Y/X\)</span> は <strong>零状態</strong> での入出力の比である）。とくに、</p>
 <ul>
 <li><span class="arithmatex">\(H(s)\)</span> の <strong>極</strong> が応答の減衰・振動を決める（第6回の続き）</li>
-<li><span class="arithmatex">\(H(0)\)</span>（<span class="arithmatex">\(s\to0\)</span>）が <strong>DC 利得</strong> を与える（系が安定で、ステップ入力に対する出力が定常値をもつときに限り、その定常値が <span class="arithmatex">\(H(0)\)</span> になる）</li>
-<li>逆変換しなくても、<strong>初期値定理・最終値定理</strong>で波形の始端 <span class="arithmatex">\(y(0^+)\)</span> と終端 <span class="arithmatex">\(y(\infty)\)</span> がわかる</li>
+<li><span class="arithmatex">\(H(0)\)</span>（<span class="arithmatex">\(s\to0\)</span>）が <strong>DC 利得</strong> を与える。<span class="arithmatex">\(H(s)\)</span> が安定なら、ステップ応答の定常値は <span class="arithmatex">\(H(0)\)</span> になる</li>
+<li>逆変換しなくても、<strong>初期値定理・最終値定理</strong>で始めの値 <span class="arithmatex">\(y(0^+)\)</span> と終わりの値 <span class="arithmatex">\(\lim_{t\to\infty}y(t)\)</span> が読める</li>
 </ul>
 <p>といった見通しが立つ。</p>
 <div class="admonition info">
 <p class="admonition-title">今回の題材</p>
-<p>畳み込みでは <strong>時間領域の畳み込み <span class="arithmatex">\((f*g)(t)\)</span> が s 領域では積 <span class="arithmatex">\(F(s)G(s)\)</span></strong> になることを、数値畳み込みと解析解の一致で確かめる。伝達関数では <strong>2 次系 <span class="arithmatex">\(H(s)=\omega_n^2/(s^2+2\zeta\omega_n s+\omega_n^2)\)</span></strong> のステップ応答（減衰比 <span class="arithmatex">\(\zeta\)</span> で不足制動・臨界制動・過制動）を極配置と並べて可視化する。公式では <strong>最終値定理</strong> でステップ応答 <span class="arithmatex">\(y''+3y'+2y=u(t)\)</span> の定常値 <span class="arithmatex">\(H(0)=\tfrac12\)</span> を逆変換せずに求め、数値積分（<code>scipy.integrate.solve_ivp</code>）と一致することを確かめる。記号計算には <code>sympy</code>、数値計算には <code>scipy</code> を使う。</p>
+<p>畳み込みでは <strong>時間領域の畳み込み <span class="arithmatex">\((f*g)(t)\)</span> が s 領域では積 <span class="arithmatex">\(F(s)G(s)\)</span></strong> になることを導き、<code>sympy</code> で確かめる。数値の畳み込み（<code>np.convolve</code>）が解析解と一致することも見る。伝達関数では <strong>2 次系 <span class="arithmatex">\(H(s)=\omega_n^2/(s^2+2\zeta\omega_n s+\omega_n^2)\)</span></strong> のステップ応答が、減衰比 <span class="arithmatex">\(\zeta\)</span> で不足制動・臨界制動・過制動に分かれることを、極の位置と典型的な形で整理する。公式では、時間推移・スケーリング・積分・<span class="arithmatex">\(t\)</span> 倍の公式を導く。初期値定理・最終値定理では、ステップ応答 <span class="arithmatex">\(y''+3y'+2y=u(t)\)</span> の定常値 <span class="arithmatex">\(H(0)=\tfrac12\)</span> を逆変換せずに求め、数値積分（<code>scipy.integrate.solve_ivp</code>）と一致することを確かめる。記号計算には <code>sympy</code>、数値計算には <code>numpy</code> と <code>scipy</code> を使う。</p>
 </div>
 <h2 id="_3">このページの構成</h2>
 <ul>
 <li><a href="convolution/">畳み込み積分と伝達関数</a> — パルスの和から畳み込み積分を導く、畳み込み定理 <span class="arithmatex">\(\mathcal{L}[f*g]=F(s)G(s)\)</span> の導出、伝達関数 <span class="arithmatex">\(H(s)\)</span>、2 次系のステップ応答と極配置</li>
-<li><a href="theorems/">ラプラス変換の公式</a> — 公式の表と導出、初期値定理・最終値定理の導出と条件、ステップ応答の定常値</li>
+<li><a href="theorems/">ラプラス変換の公式</a> — 公式の表と導出、初期値定理・最終値定理の導出と便利な点、ステップ応答の定常値</li>
 </ul>
 <h2 id="_4">演習</h2>
 <ul>
-<li><a href="exercises/">演習問題</a> — 畳み込み定理の確認、初期値・最終値定理、伝達関数によるステップ応答</li>
+<li><a href="exercises/">演習問題</a> — 伝達関数によるステップ応答</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">前提</p>

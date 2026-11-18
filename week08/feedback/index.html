@@ -2937,7 +2937,11 @@ e_{ss}=\lim_{s\to0}sE(s)=\lim_{s\to0}\bigl(1-T(s)\bigr)=1-T(0)
 <div class="arithmatex">\[
 e_{ss}=1-\frac{K}{2+K}=\frac{2}{2+K}
 \]</div>
-<p>となり、<strong>ゲイン <span class="arithmatex">\(K\)</span> を上げるほど定常偏差は小さくなる</strong>（<span class="arithmatex">\(K\to\infty\)</span> で <span class="arithmatex">\(e_{ss}\to0\)</span>）。これは開ループの DC 利得 <span class="arithmatex">\(K_p=G(0)=K/2\)</span>（位置誤差定数）を使った <span class="arithmatex">\(e_{ss}=\dfrac{1}{1+K_p}\)</span> とも一致する。<code>scipy.signal</code> で閉ループ応答を計算して確かめる。</p>
+<p>となり、<strong>ゲイン <span class="arithmatex">\(K\)</span> を上げるほど定常偏差は小さくなる</strong>（<span class="arithmatex">\(K\to\infty\)</span> で <span class="arithmatex">\(e_{ss}\to0\)</span>）。これは開ループの DC 利得 <span class="arithmatex">\(K_p=G(0)=K/2\)</span>（位置誤差定数）を使った <span class="arithmatex">\(e_{ss}=\dfrac{1}{1+K_p}\)</span> とも一致する。<code>scipy.signal</code> で閉ループ応答を計算して確かめる。<code>scipy.signal</code> は第4回の <code>ss.welch</code> と同じモジュールで、<code>ss</code> の名前で読み込む。伝達関数からステップ応答を計算する関数がある。</p>
+<ul>
+<li><code>ss.TransferFunction(分子, 分母)</code> は伝達関数を作る。分子・分母は、<span class="arithmatex">\(s\)</span> の高いべきから並べた係数のリストである。</li>
+<li><code>ss.step(系, T=時刻の配列)</code> は、時刻の配列とその各時刻でのステップ応答を組で返す。</li>
+</ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ss</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>

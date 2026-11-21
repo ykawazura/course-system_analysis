@@ -2904,10 +2904,9 @@
 </blockquote>
 <h2 id="_1">今回の目標</h2>
 <ul>
-<li>システムの <strong>安定性</strong> を伝達関数の <strong>極の位置</strong>（左半面・虚軸・右半面）で判定できるようになる</li>
-<li>特性方程式の根を解かずに安定性を判別する <strong>ラウス・フルビッツの安定判別法</strong> を理解し、Python で実装できるようになる</li>
-<li><strong>フィードバック制御</strong> の構造（閉ループ伝達関数 <span class="arithmatex">\(T(s)=\dfrac{G(s)}{1+G(s)}\)</span>、特性方程式 <span class="arithmatex">\(1+G(s)=0\)</span>）を理解し、ゲインで極を動かして応答を設計できるようになる</li>
-<li><strong>最終値定理</strong> を使って、フィードバック系の <strong>定常偏差</strong>（目標値との残り誤差）を逆変換せずに評価できるようになる</li>
+<li>伝達関数の <strong>極の位置</strong>（左半面・虚軸・右半面）から、システムが <strong>安定</strong> かどうかを判定する</li>
+<li>特性方程式の根を解かずに判定する <strong>ラウス・フルビッツの安定判別法</strong> で、安定でいられるゲインの範囲を求め、Python で確かめる</li>
+<li><strong>フィードバック制御</strong> の閉ループ伝達関数 <span class="arithmatex">\(T(s)=\dfrac{G(s)}{1+G(s)}\)</span> を導き、ゲインを上げたときの <strong>定常偏差</strong> と振動のトレードオフを <strong>最終値定理</strong> で読む</li>
 </ul>
 <h2 id="7">第7回からの接続</h2>
 <p>第6回・第7回で、ラプラス変換による <strong>システムの記述</strong>（伝達関数 <span class="arithmatex">\(H(s)\)</span>）と <strong>応答の読み方</strong>（極で決まる過渡応答、<span class="arithmatex">\(H(0)\)</span> で決まる定常値）がそろった。今回はそれらを <strong>道具として使う</strong> 段階に進む。伝達関数 <span class="arithmatex">\(H(s)\)</span> が手に入ったら、次に知りたいのは</p>
@@ -2915,7 +2914,7 @@
 <li>このシステムは <strong>安定か</strong>（出力が発散せず収まるか）</li>
 <li>目標値にきちんと <strong>追従するか</strong>（定常偏差はどれだけ残るか）</li>
 </ul>
-<p>の 2 点である。第7回で見た「極が左半面なら減衰、右半面なら発散」という見方を <strong>安定性の判定基準</strong> に格上げし、さらに <strong>フィードバック</strong> によって極の位置そのものを設計する、というのが今回の主題である。</p>
+<p>の 2 点である。第6回で見た「極が左半面なら減衰、右半面なら発散」という見方を <strong>安定性の判定基準</strong> に格上げし、さらに <strong>フィードバック</strong> によって極の位置そのものを設計する、というのが今回の主題である。</p>
 <h2 id="_2">なぜ安定性とフィードバックか</h2>
 <p>第7回の 2 次系では、減衰比 <span class="arithmatex">\(\zeta\)</span> によって応答が振動的にも滑らかにもなった。実際のシステムでは、この極の位置を <strong>フィードバック</strong> で動かして望ましい応答に近づける。たとえば、</p>
 <ul>
@@ -2925,7 +2924,7 @@
 <p>こうした「調べる・設計する」場面で、ラプラス変換（伝達関数・極・最終値定理）がそのまま実用の道具になる。</p>
 <div class="admonition info">
 <p class="admonition-title">今回の題材</p>
-<p>安定性では、フィードバック系 <span class="arithmatex">\(G(s)=\dfrac{K}{s(s+1)(s+2)}\)</span> の特性方程式 <span class="arithmatex">\(s^3+3s^2+2s+K=0\)</span> に <strong>ラウス・フルビッツ判別</strong> を適用し、<strong>ゲイン <span class="arithmatex">\(K\)</span> を上げすぎると不安定化する</strong>（安定なのは <span class="arithmatex">\(0&lt;K&lt;6\)</span>）ことを、<code>np.roots</code> の実際の根と照らして確かめる。フィードバックでは、<span class="arithmatex">\(G(s)=\dfrac{K}{(s+1)(s+2)}\)</span> の閉ループ応答を <code>scipy.signal</code> で計算し、<strong>ゲインを上げると定常偏差 <span class="arithmatex">\(e_{ss}\)</span> が縮む一方、極が複素になって振動的になる</strong> トレードオフを可視化する。記号計算には <code>sympy</code>、数値計算には <code>numpy</code>・<code>scipy</code> を使う。</p>
+<p>安定性では、フィードバック系 <span class="arithmatex">\(G(s)=\dfrac{K}{s(s+1)(s+2)}\)</span> の特性方程式 <span class="arithmatex">\(s^3+3s^2+2s+K=0\)</span> に <strong>ラウス・フルビッツ判別</strong> を適用し、<strong>ゲイン <span class="arithmatex">\(K\)</span> を上げすぎると不安定化する</strong>（安定なのは <span class="arithmatex">\(0&lt;K&lt;6\)</span>）ことを、<code>np.roots</code> の実際の根と照らして確かめる。フィードバックでは、<span class="arithmatex">\(G(s)=\dfrac{K}{(s+1)(s+2)}\)</span> の閉ループ応答を <code>scipy.signal</code> で計算し、<strong>ゲインを上げると定常偏差 <span class="arithmatex">\(e_{ss}\)</span> が縮む一方、減衰比 <span class="arithmatex">\(\zeta\)</span> が下がって振動が増える</strong> トレードオフを可視化する。記号計算には <code>sympy</code>、数値計算には <code>numpy</code>・<code>scipy</code> を使う。</p>
 </div>
 <h2 id="_3">このページの構成</h2>
 <ul>
@@ -2934,7 +2933,7 @@
 </ul>
 <h2 id="_4">演習</h2>
 <ul>
-<li><a href="exercises/">演習問題</a> — ラウス・フルビッツによる安定判別、定常偏差の評価、フィードバックによる安定化</li>
+<li><a href="exercises/">演習問題</a> — フィードバック系の安定範囲と安定限界（ラウス・フルビッツ）</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">前提</p>

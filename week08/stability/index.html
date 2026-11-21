@@ -1680,10 +1680,76 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#1-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ラウス表 ①：係数を 2 行に並べる
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ラウス表 ②：たすき掛けで次の行を作る
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ラウス表 ③：最後の行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        例：ゲインを上げると不安定化するフィードバック系
+        ラウス・フルビッツの判定規則
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例：ゲイン \(K\) を含む系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ステップ応答で確かめる
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        極とステップ応答を描く
       
     </span>
   </a>
@@ -1696,7 +1762,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -2867,10 +2933,76 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#1-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ラウス表 ①：係数を 2 行に並べる
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ラウス表 ②：たすき掛けで次の行を作る
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ラウス表 ③：最後の行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        例：ゲインを上げると不安定化するフィードバック系
+        ラウス・フルビッツの判定規則
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例：ゲイン \(K\) を含む系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ステップ応答で確かめる
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        極とステップ応答を描く
       
     </span>
   </a>
@@ -2883,7 +3015,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -2913,161 +3045,276 @@
 <h1 id="_1">安定性とラウス・フルビッツ判別</h1>
 <p>第7回までで、伝達関数 <span class="arithmatex">\(H(s)\)</span> とその極が応答を決めることを見た。本ページでは、それを <strong>安定性の判定</strong> に使う。極が左半面にあるかどうかを、特性方程式の根を実際に解かずに調べる <strong>ラウス・フルビッツの安定判別法</strong> を導入する。</p>
 <h2 id="_2">安定性と極の位置</h2>
-<p>システムが <strong>BIBO 安定</strong>（有界な入力に対し出力が有界）であるとは、<strong>インパルス応答 <span class="arithmatex">\(h(t)\)</span> が絶対可積分</strong>、すなわち</p>
+<p>第6回では入力のない応答を調べ、極がすべて左半面にあれば応答が <span class="arithmatex">\(0\)</span> へ減衰することを見た。第7回からは入力のあるシステムを扱っている。入力のあるシステムでは、安定を次のように決める。</p>
+<p>有界な入力（大きさがある値を超えない入力）に対して、出力も有界になるとき、システムは <strong>安定</strong> であるという。有界な入力に有界な出力（bounded-input bounded-output）の頭文字をとって <strong>BIBO 安定</strong> とも呼ぶ。例として、ステップ入力 <span class="arithmatex">\(u(t)\)</span> は有界である。安定なシステムなら、ステップ応答は発散しない。この定義を <span class="arithmatex">\(h(t)\)</span> の条件に言い直す厳密な議論には、本講義では立ち入らない。本講義で扱う <span class="arithmatex">\(H(s)\)</span>（分子・分母が <span class="arithmatex">\(s\)</span> の多項式）なら、安定かどうかは極の位置だけで決まる。この後、極の位置が分かれば、出力を計算しなくても安定かどうかが判定できることを見る。</p>
+<p>伝達関数の極 <span class="arithmatex">\(s=-\sigma+i\omega\)</span> は、<span class="arithmatex">\(h(t)\)</span> に次の形の項を生む（第6・7回）。</p>
 <div class="arithmatex">\[
-\int_0^{\infty}\lvert h(t)\rvert\,dt&lt;\infty
+e^{-\sigma t}\cos(\omega t+\phi)
 \]</div>
-<p>であることをいう。これが必要十分条件である。「<span class="arithmatex">\(h(t)\to0\)</span> に減衰すれば安定」と覚えたくなるが、それでは足りない。反例として <span class="arithmatex">\(h(t)=\dfrac{1}{1+t}\)</span> は <span class="arithmatex">\(t\to\infty\)</span> で <span class="arithmatex">\(0\)</span> に収束するが、<span class="arithmatex">\(\int_0^\infty h\,dt=\infty\)</span> なので、有界な入力 <span class="arithmatex">\(x\equiv1\)</span> に対する出力が <span class="arithmatex">\(\log(1+t)\)</span> となって発散してしまう。</p>
-<p>とはいえ、本講義で扱う <strong>有理な伝達関数</strong> に限れば、絶対可積分性は極の位置だけで判定できる。伝達関数の極が</p>
+<p><span class="arithmatex">\(\omega\)</span> [rad/時間] は角周波数、<span class="arithmatex">\(\phi\)</span> は位相である。<span class="arithmatex">\(\omega=0\)</span> の実極なら、項は <span class="arithmatex">\(e^{-\sigma t}\)</span> になる。項が減衰するか増大するかは、極の実部 <span class="arithmatex">\(-\sigma\)</span> の符号だけで決まる。実部が負（<span class="arithmatex">\(\sigma&gt;0\)</span>）なら <span class="arithmatex">\(e^{-\sigma t}\to0\)</span>、正（<span class="arithmatex">\(\sigma&lt;0\)</span>）なら <span class="arithmatex">\(e^{-\sigma t}\to\infty\)</span> である。<span class="arithmatex">\(\sigma\)</span> は第6回と同じく減衰率で、極の実部は <span class="arithmatex">\(-\sigma\)</span> である。<span class="arithmatex">\(s=\sigma+i\omega\)</span> と書いたときの <span class="arithmatex">\(\sigma\)</span>（実部そのもの）とは符号が逆になる。</p>
+<table>
+<thead>
+<tr>
+<th>極の位置</th>
+<th>実部 <span class="arithmatex">\(-\sigma\)</span></th>
+<th><span class="arithmatex">\(h(t)\)</span> の項</th>
+<th>判定</th>
+<th>典型的な形</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>左半面</strong></td>
+<td>負</td>
+<td>減衰する</td>
+<td><strong>安定</strong></td>
+<td><img alt="左半面の極が生む減衰振動" src="../img/pole_left.png" width="220" /></td>
+</tr>
+<tr>
+<td><strong>虚軸上</strong></td>
+<td><span class="arithmatex">\(0\)</span></td>
+<td>振幅が一定のまま振動し続ける</td>
+<td><strong>限界安定</strong>（安定に含めない）</td>
+<td><img alt="虚軸上の極が生む持続振動" src="../img/pole_imag.png" width="220" /></td>
+</tr>
+<tr>
+<td><strong>右半面</strong></td>
+<td>正</td>
+<td>増大する</td>
+<td><strong>不安定</strong></td>
+<td><img alt="右半面の極が生む発散振動" src="../img/pole_right.png" width="220" /></td>
+</tr>
+</tbody>
+</table>
+<p>図は <span class="arithmatex">\(\omega=2.5\)</span> の <span class="arithmatex">\(e^{-\sigma t}\cos\omega t\)</span> で、上から <span class="arithmatex">\(\sigma=0.25,\,0,\,-0.08\)</span> である。灰色の破線は振幅 <span class="arithmatex">\(\pm e^{-\sigma t}\)</span> を表す。3 つの図は軸の範囲をそろえてある。</p>
+<p>つまり <strong>安定 ⇔ すべての極が左半面にある</strong>。極が 1 つでも右半面にあれば不安定である。</p>
+<p>虚軸上の単純な極 <span class="arithmatex">\(\pm i\omega\)</span> は持続振動を生む。第6回ではこれを <strong>限界安定</strong> と呼んだ。入力がなければ、振幅は一定のまま発散しない。しかし、同じ角周波数の入力 <span class="arithmatex">\(\sin\omega t\)</span>（有界）を入れると、出力の振幅が時間とともに増え続ける（共振）。たとえば <span class="arithmatex">\(H(s)=\dfrac{1}{s^2+1}\)</span>（極 <span class="arithmatex">\(\pm i\)</span>）に <span class="arithmatex">\(x(t)=\sin t\)</span>（<span class="arithmatex">\(X(s)=\dfrac{1}{s^2+1}\)</span>）を入れると</p>
 <div class="arithmatex">\[
-s=-\sigma+i\omega\quad\Longrightarrow\quad h(t)\sim e^{-\sigma t}\cos(\omega t+\phi)
+Y(s)=\frac{1}{(s^2+1)^2}
+\quad\longleftrightarrow\quad
+y(t)=\frac{\sin t-t\cos t}{2}
 \]</div>
-<p>という形の項を生むことを思い出すと（第6・7回）、減衰するかどうかは極の <strong>実部の符号</strong> で決まる。</p>
-<ul>
-<li>すべての極の実部が <strong>負（左半面）</strong> … 各項が <span class="arithmatex">\(e^{-\sigma t}\)</span> で減衰 → <strong>安定</strong></li>
-<li>実部が <strong>正（右半面）</strong> の極が 1 つでもある … その項が <span class="arithmatex">\(e^{+\sigma t}\)</span> で発散 → <strong>不安定</strong></li>
-<li>実部が <strong>ちょうど <span class="arithmatex">\(0\)</span>（虚軸上）</strong> の極がある … <strong>安定限界</strong>。ただし中身は虚軸極の種類で変わる（下の note を参照）</li>
-</ul>
-<p>つまり <strong>安定性 ⇔ すべての極が左半面にある</strong>。第7回の「極の位置 → 過渡応答」が、ここで「極の位置 → 安定か否か」という判定基準になる。</p>
-<div class="admonition note">
-<p class="admonition-title">虚軸上の極は一括りにできない</p>
-<p>「虚軸上の極 ＝ 持続振動」と覚えるのは雑すぎる。極の種類で応答が違う。</p>
-<ul>
-<li><strong>単純な <span class="arithmatex">\(\pm i\omega\)</span>（<span class="arithmatex">\(\omega\neq0\)</span>）</strong> … <span class="arithmatex">\(\cos(\omega t+\phi)\)</span> の <strong>持続振動</strong>。振幅は増えも減りもしない。</li>
-<li><strong>原点の単純極 <span class="arithmatex">\(s=0\)</span></strong> … <span class="arithmatex">\(e^{0\cdot t}=1\)</span>、つまり <strong>一定値のまま</strong>（積分器がこれ）。振動ではない。</li>
-<li><strong>虚軸上の重極</strong>（<span class="arithmatex">\((s^2+\omega^2)^2\)</span> など） … <span class="arithmatex">\(t\cos\omega t\)</span> の形になり <strong>振幅が増大</strong>（第6回の <a href="../../week06/inverse/">逆ラプラス変換と s 平面</a> で見た <span class="arithmatex">\(1/(s^2+1)^2\)</span> の例）。</li>
-</ul>
-<p>さらに、上の 3 つは <strong>いずれも BIBO 安定ではない</strong>。単純な虚軸極でも、共振する入力（<span class="arithmatex">\(\pm i\omega\)</span> の極に <span class="arithmatex">\(\sin\omega t\)</span>、原点の極にステップ）を入れれば出力は発散するからである。虚軸上の極は「安定と不安定の境界」であって「安定の一種」ではない。</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">「減衰」と絶対可積分性</p>
-<p>本講義で扱う <strong>有理かつ厳密プロパーな伝達関数</strong>（分子の次数 &lt; 分母の次数）では、〈すべての極が左半面にある〉⇔〈<span class="arithmatex">\(h(t)\)</span> が指数的に減衰する〉⇔〈絶対可積分である〉の三つが一致する。したがって本ページでは「極がすべて左半面 ⇔ 減衰 ⇔ 安定」と考えてよい。</p>
-<p>厳密プロパーでない（分子と分母が同次数の）場合は、<span class="arithmatex">\(h(t)\)</span> に <span class="arithmatex">\(\delta(t)\)</span> の直達項が混じるので「通常の関数として減衰する」という言い方が使えない。ただし <span class="arithmatex">\(\delta\)</span> は有界入力を有界出力に写すので、BIBO 安定性の判定自体は残りの極の位置だけで決まる。</p>
-</div>
+<p>となり、<span class="arithmatex">\(t\cos t\)</span> の項が増え続ける。そこで、限界安定は安定に含めない。虚軸上の重極は、第6回で見たとおり入力がなくても発散する。</p>
 <h2 id="_3">特性方程式</h2>
 <p>伝達関数 <span class="arithmatex">\(H(s)=\dfrac{N(s)}{D(s)}\)</span> を <strong>既約形</strong>（<span class="arithmatex">\(N\)</span> と <span class="arithmatex">\(D\)</span> の共通因子を約分した形）で書いたとき、その極は分母 <span class="arithmatex">\(=0\)</span> すなわち</p>
 <div class="arithmatex">\[
 D(s)=0\qquad(\textbf{特性方程式})
 \]</div>
-<p>の根である（約分で消える根は極ではないので、先に既約形にしておく）。安定性を調べるには、この多項式の根がすべて左半面にあるかを知ればよい。</p>
-<p>問題は、次数が上がると根を手で解けないことである。3 次・4 次でも因数分解できるとは限らず、ましてゲインのような <strong>パラメータを含む</strong> 多項式では根を陽に書けない。そこで、<strong>根を求めずに、根の実部の符号だけを係数から判定する</strong> 方法が欲しくなる。それが次のラウス・フルビッツの判別法である。</p>
+<p>の根である（約分で消える根は極ではないので、先に既約形にしておく）。<span class="arithmatex">\(D(s)\)</span> を <strong>特性多項式</strong> と呼ぶ。安定かどうかは、この多項式の根がすべて左半面にあるかで決まる。</p>
+<p>問題は、次数が上がると根を手で求めるのが難しいことである。3 次・4 次でも因数分解できるとは限らず、調整できる定数（後で扱うゲイン <span class="arithmatex">\(K\)</span>）を含むと、根を <span class="arithmatex">\(K\)</span> の式で書くのはさらに難しい。そこで、<strong>根を求めずに、根の実部の符号だけを係数から判定する</strong> 方法が欲しくなる。それが次のラウス・フルビッツの判別法である。</p>
 <h2 id="_4">ラウス・フルビッツの安定判別法</h2>
 <p>特性多項式</p>
 <div class="arithmatex">\[
 D(s)=a_n s^n + a_{n-1}s^{n-1}+\cdots+a_1 s+a_0
 \]</div>
-<p>に対し、係数を 2 行に互い違いに並べ、決まった規則で <strong>ラウス表</strong> を作る。3 次 <span class="arithmatex">\(a_3 s^3+a_2 s^2+a_1 s+a_0\)</span> なら、</p>
+<p>の係数から表を作り、根の実部の符号を調べる。3 次の特性多項式 <span class="arithmatex">\(a_3s^3+a_2s^2+a_1s+a_0\)</span> を例にとり、3 段に分けて作り方を示す。</p>
+<h3 id="1-2">ラウス表 ①：係数を 2 行に並べる</h3>
+<p>係数を高いべきから、2 行に互い違いに並べる。</p>
+<div class="arithmatex">\[
+\begin{array}{c|cc}
+s^3 &amp; a_3 &amp; a_1\\
+s^2 &amp; a_2 &amp; a_0
+\end{array}
+\]</div>
+<p>1 行目は <span class="arithmatex">\(a_3\)</span>, <span class="arithmatex">\(a_1\)</span>（1 つおき）、2 行目は <span class="arithmatex">\(a_2\)</span>, <span class="arithmatex">\(a_0\)</span>（残り）である。左の <span class="arithmatex">\(s^3\)</span>, <span class="arithmatex">\(s^2\)</span> は行の名前で、<span class="arithmatex">\(s\)</span> のべきが 1 つずつ下がる。この 2 行から、下の行を決まった規則で埋めていく。この表を <strong>ラウス表</strong> と呼ぶ。</p>
+<h3 id="2">ラウス表 ②：たすき掛けで次の行を作る</h3>
+<p>直上 2 行の先頭の列と次の列で、たすき掛けの差 <span class="arithmatex">\(a_2a_1-a_3a_0\)</span> を作る。それを直上の行の先頭 <span class="arithmatex">\(a_2\)</span> で割ったものが、<span class="arithmatex">\(s^1\)</span> 行の先頭 <span class="arithmatex">\(b\)</span> になる。</p>
 <div class="arithmatex">\[
 \begin{array}{c|cc}
 s^3 &amp; a_3 &amp; a_1\\
 s^2 &amp; a_2 &amp; a_0\\
-s^1 &amp; \dfrac{a_2 a_1-a_3 a_0}{a_2} &amp; 0\\[2pt]
+s^1 &amp; b &amp; 0
+\end{array}
+\qquad
+b=\frac{a_2a_1-a_3a_0}{a_2}
+\]</div>
+<p><span class="arithmatex">\(s^1\)</span> 行の右隣は、使う係数がない（<span class="arithmatex">\(0\)</span> とみなす）ので <span class="arithmatex">\(0\)</span> になる。</p>
+<h3 id="3">ラウス表 ③：最後の行</h3>
+<p><span class="arithmatex">\(s^2\)</span> 行と <span class="arithmatex">\(s^1\)</span> 行に同じ規則を当てる。</p>
+<div class="arithmatex">\[
+\begin{array}{c|cc}
+s^3 &amp; a_3 &amp; a_1\\
+s^2 &amp; a_2 &amp; a_0\\
+s^1 &amp; b &amp; 0\\
 s^0 &amp; a_0 &amp;
 \end{array}
+\qquad
+\frac{b\,a_0-a_2\cdot0}{b}=a_0
 \]</div>
-<p>のように、各行は直上 2 行から「たすき掛けの差を直上の先頭で割る」ことで埋めていく。こうしてできた表の <strong>第 1 列</strong> を見ると、</p>
+<p>表は <span class="arithmatex">\(s^0\)</span> 行で終わる。<span class="arithmatex">\(n\)</span> 次なら <span class="arithmatex">\(n+1\)</span> 行になる。左端の列（ここでは <span class="arithmatex">\(a_3,\,a_2,\,b,\,a_0\)</span>）を <strong>第 1 列</strong> と呼ぶ。</p>
+<h3 id="_5">ラウス・フルビッツの判定規則</h3>
+<p>第 1 列の符号から、次のように安定かどうかが分かる。</p>
 <div class="admonition note">
 <p class="admonition-title">ラウス・フルビッツの判定規則</p>
 <ul>
 <li><strong>第 1 列の符号変化の回数</strong> ＝ <strong>右半面にある極の個数</strong>。</li>
 <li>したがって <strong>安定 ⇔ 第 1 列がすべて同符号（通常は正）</strong> で、符号変化が <span class="arithmatex">\(0\)</span> 回。</li>
-<li>（必要条件）安定なら <strong>すべての係数 <span class="arithmatex">\(a_i\)</span> が正で同符号</strong>。係数に <span class="arithmatex">\(0\)</span> や符号違いがあれば、表を作るまでもなく不安定。</li>
+<li>必要条件：安定なら、すべての係数 <span class="arithmatex">\(a_i\)</span> が同符号（正）。</li>
+<li>係数に <span class="arithmatex">\(0\)</span> や符号違いがあれば、表を作るまでもなく安定ではない（不安定または限界安定）。</li>
 </ul>
 </div>
-<p>根を 1 つも解かずに、係数の四則演算だけで安定／不安定が判定できるのが要点である。</p>
-<div class="admonition warning">
-<p class="admonition-title">割り算が破綻する 2 つの特殊ケース</p>
-<p>上の手続きは「直上の行の先頭で割る」ので、その先頭が <span class="arithmatex">\(0\)</span> だと止まってしまう。教科書的には次の 2 つの逃げ道が用意されている。</p>
-<ol>
-<li><strong>第 1 列の途中だけが <span class="arithmatex">\(0\)</span></strong>（その行の他の要素は <span class="arithmatex">\(0\)</span> でない）… <span class="arithmatex">\(0\)</span> を微小な正数 <span class="arithmatex">\(\varepsilon\)</span> で置き換えて表を続け、最後に <span class="arithmatex">\(\varepsilon\to0^+\)</span> の極限で符号を数える。</li>
-<li><strong>行が丸ごと <span class="arithmatex">\(0\)</span></strong>（全零行）… 直上の行から <strong>補助多項式</strong> を作り、それを <span class="arithmatex">\(s\)</span> で微分した係数で全零行を置き換えてから続ける。全零行が出ること自体が「虚軸に関して対称な根の組（共役純虚数の対など）がある」印で、少なくとも安定ではない。</li>
-</ol>
-<p>以降のコードはこの特別処理を実装していない <strong>簡易版</strong> である。安定範囲の内側（第 1 列に <span class="arithmatex">\(0\)</span> が出ない領域）を調べるぶんには問題ないが、境界そのもの、たとえば下の例で <span class="arithmatex">\(K=6\)</span> を直接入れると第 1 列が <span class="arithmatex">\([1,\,3,\,0,\,\text{nan}]\)</span> になって破綻する。境界の判定は「<span class="arithmatex">\(K\)</span> を記号のまま残して不等式を解く」か、<code>np.roots</code> で実際の根を見るのが確実である。</p>
-</div>
-<h3 id="_5">例：ゲインを上げると不安定化するフィードバック系</h3>
-<p>次ページで扱うフィードバック系の代表例として、</p>
+<p>根を 1 つも解かずに、係数の四則演算だけで安定かどうかが判定できる。なお、表の途中で第 1 列に <span class="arithmatex">\(0\)</span> が出ると、次の行で <span class="arithmatex">\(0\)</span> で割ることになり、この手順では表を続けられない。その場合の扱いには、本講義では立ち入らない。</p>
+<h3 id="k">例：ゲイン <span class="arithmatex">\(K\)</span> を含む系</h3>
+<p>定数 <span class="arithmatex">\(K&gt;0\)</span> を含む 3 階の微分方程式</p>
 <div class="arithmatex">\[
-G(s)=\frac{K}{s(s+1)(s+2)}
+y'''+3y''+2y'+K\,y=K\,x(t)
 \]</div>
-<p>を単位フィードバックで閉じた系を考える（フィードバックの構造は<a href="../feedback/">次ページ</a>）。閉ループの特性方程式は <span class="arithmatex">\(1+G(s)=0\)</span>、すなわち</p>
+<p>を例にとる。次ページのフィードバック系から出てくる方程式である。零状態（<span class="arithmatex">\(y(0)=y'(0)=y''(0)=0\)</span>）では、微分の公式をくり返し使うと <span class="arithmatex">\(\mathcal{L}[y''']=s^3Y(s)\)</span> となる。両辺を変換すると <span class="arithmatex">\((s^3+3s^2+2s+K)\,Y(s)=K\,X(s)\)</span> なので、伝達関数は</p>
 <div class="arithmatex">\[
-s(s+1)(s+2)+K=0
-\quad\Longrightarrow\quad
+H(s)=\frac{Y(s)}{X(s)}=\frac{K}{s^3+3s^2+2s+K}
+\]</div>
+<p>である。<span class="arithmatex">\(K\)</span> は外から選んで調整できる定数で、<strong>ゲイン</strong> と呼ぶ。極は特性方程式</p>
+<div class="arithmatex">\[
 s^3+3s^2+2s+K=0
 \]</div>
-<p>である。ラウス表の第 1 列は</p>
+<p>の根で、<span class="arithmatex">\(K\)</span> を変えると動く。安定でいられる <span class="arithmatex">\(K\)</span> の範囲を、根を解かずに求める。<span class="arithmatex">\(a_3=1\)</span>, <span class="arithmatex">\(a_2=3\)</span>, <span class="arithmatex">\(a_1=2\)</span>, <span class="arithmatex">\(a_0=K\)</span> を上のラウス表に入れると</p>
 <div class="arithmatex">\[
-\begin{array}{c|c}
-s^3 &amp; 1\\
-s^2 &amp; 3\\
-s^1 &amp; \dfrac{3\cdot2-1\cdot K}{3}=\dfrac{6-K}{3}\\[4pt]
-s^0 &amp; K
+\begin{array}{c|cc}
+s^3 &amp; 1 &amp; 2\\
+s^2 &amp; 3 &amp; K\\
+s^1 &amp; \dfrac{6-K}{3} &amp; 0\\[4pt]
+s^0 &amp; K &amp;
 \end{array}
+\qquad
+b=\frac{3\cdot2-1\cdot K}{3}=\frac{6-K}{3}
 \]</div>
 <p>となる。安定 ⇔ 第 1 列がすべて正 ⇔ <span class="arithmatex">\(\dfrac{6-K}{3}&gt;0\)</span> かつ <span class="arithmatex">\(K&gt;0\)</span>、すなわち</p>
 <div class="arithmatex">\[
 \boxed{\ 0&lt;K&lt;6\ }
 \]</div>
-<p>がゲイン <span class="arithmatex">\(K\)</span> の <strong>安定範囲</strong> である。<span class="arithmatex">\(K=6\)</span> で第 1 列に <span class="arithmatex">\(0\)</span> が現れ、極が虚軸に乗って <strong>持続振動</strong>、<span class="arithmatex">\(K&gt;6\)</span> で <strong>不安定</strong> になる。Python で確かめる。<code>np.roots(係数)</code> は、<span class="arithmatex">\(s\)</span> の高いべきから並べた係数の多項式の根を返す。</p>
+<p>がゲイン <span class="arithmatex">\(K\)</span> の <strong>安定範囲</strong> である。</p>
+<p><span class="arithmatex">\(K&gt;6\)</span> では第 1 列の符号が <span class="arithmatex">\(+,+,-,+\)</span> と 2 回変わる。右半面に極が 2 つあり、<strong>不安定</strong> になる。<span class="arithmatex">\(K=6\)</span> では <span class="arithmatex">\(s^1\)</span> 行が <span class="arithmatex">\(0\)</span> になる。このとき因数分解できて</p>
+<div class="arithmatex">\[
+s^3+3s^2+2s+6=(s+3)(s^2+2)
+\]</div>
+<p>となり、極は <span class="arithmatex">\(-3\)</span> と <span class="arithmatex">\(\pm i\sqrt2\)</span> である。虚軸上の <span class="arithmatex">\(\pm i\sqrt2\)</span> が、角周波数 <span class="arithmatex">\(\sqrt2\)</span> の持続振動を生む（限界安定）。この境目の <span class="arithmatex">\(K=6\)</span> を <strong>安定限界</strong> と呼ぶ。</p>
+<p>Python で確かめる。数値計算には NumPy、記号計算には sympy（第6回）を使う。<span class="arithmatex">\(K\)</span> には正の仮定を付ける。<span class="arithmatex">\(s\)</span> は複素変数なので仮定を付けない。以下のコードは、すべてこの続きで動く。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">s</span><span class="p">,</span> <span class="n">K</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;s K&quot;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">routh_first_column</span><span class="p">(</span><span class="n">coeffs</span><span class="p">):</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;特性多項式の係数 [a_n,...,a_0] からラウス表の第1列を返す。&quot;&quot;&quot;</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coeffs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">width</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">R</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="k">if</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span>   <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">coeffs</span><span class="p">):</span> <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">]</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="k">if</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">coeffs</span><span class="p">):</span> <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>            <span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">((</span><span class="n">b</span><span class="o">*</span><span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="c1"># G=K/(s(s+1)(s+2)), 1+G=0 -&gt; s^3+3s^2+2s+K=0</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">col</span> <span class="o">=</span> <span class="n">routh_first_column</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">K</span><span class="p">])</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ラウス表 第1列:&quot;</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="c1"># 各 K で実際の根を求め、ラウス判定と照合</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;K=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: 極=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">  最大実部=</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">+.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;K=6 の因数分解:&quot;</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">s</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">s</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>                  <span class="c1"># 複素変数なので仮定を付けない</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">K</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># 調整できる定数 K&gt;0</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ラウス表 第1列: [1, 3, 2 - K/3, K]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>K=2: 極=[-2.521+0.j    -0.239+0.858j -0.239-0.858j]  最大実部=-0.239
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>K=6: 極=[-3.+0.j     0.+1.414j  0.-1.414j]  最大実部=+0.000
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>K=10: 極=[-3.309+0.j     0.154+1.732j  0.154-1.732j]  最大実部=+0.154
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>K=6 の因数分解: (s + 3)*(s**2 + 2)
+<p>ラウス表を作る関数 <code>routh_first_column</code> を用意する。係数を <span class="arithmatex">\(s\)</span> の高いべきから並べたリスト <span class="arithmatex">\([a_n,\dots,a_0]\)</span> を受け取り、第 1 列を返す。</p>
+<ul>
+<li><code>sp.zeros(行数, 列数)</code> は、要素がすべて <span class="arithmatex">\(0\)</span> の sympy の行列を作る。<code>R[i, j]</code> で <span class="arithmatex">\(i\)</span> 行 <span class="arithmatex">\(j\)</span> 列の要素を読み書きする（番号は <span class="arithmatex">\(0\)</span> から）。</li>
+<li><code>width</code> は表の列数である。<code>//</code> は割り算の商（小数を切り捨てた値）を返す。</li>
+<li>最初の 2 行に係数を互い違いに入れ、3 行目からは「たすき掛けの差を直上の先頭で割る」規則で埋める。<code>top</code>・<code>piv</code> は直上 2 行の先頭の要素で、3 次の <span class="arithmatex">\(s^1\)</span> 行なら <span class="arithmatex">\(a_3\)</span> と <span class="arithmatex">\(a_2\)</span> にあたる。<code>piv</code> で割る。</li>
+<li><code>sp.simplify(式)</code> は、式を簡単な形に整える。返す前に第 1 列の各要素を整える。</li>
+<li>第 1 列に <span class="arithmatex">\(0\)</span> が出る場合は扱わない簡易版である。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">routh_first_column</span><span class="p">(</span><span class="n">coeffs</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;係数 [a_n, ..., a_0] からラウス表の第1列を返す（簡易版）&quot;&quot;&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coeffs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">width</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">R</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="k">if</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span>   <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">coeffs</span><span class="p">):</span> <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="k">if</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">coeffs</span><span class="p">):</span> <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">top</span><span class="p">,</span> <span class="n">piv</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>            <span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">piv</span><span class="o">*</span><span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">top</span><span class="o">*</span><span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">piv</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
 </code></pre></div>
-<p>第 1 列の <code>2 - K/3</code> <span class="arithmatex">\(=\dfrac{6-K}{3}\)</span> が <span class="arithmatex">\(K&lt;6\)</span> で正になることが、ラウス判定の核心である。実際の根を見ると、</p>
+<p>例の分母 <span class="arithmatex">\(s^3+3s^2+2s+K\)</span> の係数を、<span class="arithmatex">\(K\)</span> を記号のまま入れる。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">col</span> <span class="o">=</span> <span class="n">routh_first_column</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">K</span><span class="p">])</span>   <span class="c1"># s^3+3s^2+2s+K</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ラウス表 第1列:&quot;</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ラウス表 第1列: [1, 3, 2 - K/3, K]
+</code></pre></div>
+<p><span class="arithmatex">\(K\)</span> を記号のまま入れたので、第 1 列が <span class="arithmatex">\(K\)</span> の式で返る。<code>2 - K/3</code> <span class="arithmatex">\(=\dfrac{6-K}{3}\)</span> は、手で作った <span class="arithmatex">\(s^1\)</span> 行と一致する。<span class="arithmatex">\(K&lt;6\)</span> で正になる。</p>
+<p>次は <span class="arithmatex">\(K\)</span> に数値を入れて根（極）を求め、この判定と照らし合わせる。</p>
+<ul>
+<li><code>np.roots(係数)</code> は、<span class="arithmatex">\(s\)</span> の高いべきから並べた係数の多項式の根を返す。ここでは分母の根、つまり極を求める。</li>
+<li><code>np.round(配列, 3)</code> は、小数第 3 位に丸める。</li>
+<li><code>sp.factor(式)</code> は、式を因数分解する。<span class="arithmatex">\(K=6\)</span> の特性多項式に当てる。</li>
+<li>数値の <span class="arithmatex">\(K\)</span> はループ変数 <code>k</code> に入れ、記号 <code>K</code> を上書きしないようにする。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>                 <span class="c1"># 数値の K で根（極）を求める</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">poles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;K=</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">: 極=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">poles</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      最大実部=</span><span class="si">{</span><span class="n">poles</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">+.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;K=6 の因数分解:&quot;</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">s</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="mi">6</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>K= 2: 極=[-2.521+0.j    -0.239+0.858j -0.239-0.858j]
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>      最大実部=-0.239
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>K= 6: 極=[-3.+0.j     0.+1.414j  0.-1.414j]
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>      最大実部=+0.000
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>K=10: 極=[-3.309+0.j     0.154+1.732j  0.154-1.732j]
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>      最大実部=+0.154
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>K=6 の因数分解: (s + 3)*(s**2 + 2)
+</code></pre></div>
+<p>実際の根を見ると、</p>
 <ul>
 <li><span class="arithmatex">\(K=2\)</span>（<span class="arithmatex">\(&lt;6\)</span>）… 最大実部 <span class="arithmatex">\(-0.239&lt;0\)</span> で全極が左半面 → <strong>安定</strong></li>
-<li><span class="arithmatex">\(K=6\)</span> … 極が <span class="arithmatex">\(-3\)</span> と <span class="arithmatex">\(\pm i\sqrt2\)</span>（<span class="arithmatex">\(\sqrt2\approx1.414\)</span>）。<code>factor</code> でも <span class="arithmatex">\(s^3+3s^2+2s+6=(s+3)(s^2+2)\)</span> となり、<span class="arithmatex">\(\pm i\sqrt2\)</span> が <strong>虚軸上</strong> → <strong>安定限界</strong>（角周波数 <span class="arithmatex">\(\sqrt2\)</span> の持続振動）</li>
-<li><span class="arithmatex">\(K=10\)</span>（<span class="arithmatex">\(&gt;6\)</span>）… 最大実部 <span class="arithmatex">\(+0.154&gt;0\)</span> で右半面に極 → <strong>不安定</strong></li>
+<li><span class="arithmatex">\(K=6\)</span> … 極が <span class="arithmatex">\(-3\)</span> と <span class="arithmatex">\(\pm i\sqrt2\)</span>（<span class="arithmatex">\(\sqrt2\approx1.414\)</span>）。<code>sp.factor</code> でも <span class="arithmatex">\(s^3+3s^2+2s+6=(s+3)(s^2+2)\)</span> となり、<span class="arithmatex">\(\pm i\sqrt2\)</span> が <strong>虚軸上</strong> → <strong>限界安定</strong>（角周波数 <span class="arithmatex">\(\sqrt2\)</span> の持続振動）</li>
+<li><span class="arithmatex">\(K=10\)</span>（<span class="arithmatex">\(&gt;6\)</span>）… 実部 <span class="arithmatex">\(+0.154&gt;0\)</span> の極が 2 つ右半面にある → <strong>不安定</strong></li>
 </ul>
-<p>と、ラウス・フルビッツの判定（<span class="arithmatex">\(0&lt;K&lt;6\)</span>）と完全に一致する。根を陽に解かずに、係数だけから安定範囲が出せている。</p>
-<p><figure markdown="span">
+<p>と、ラウス・フルビッツの判定（<span class="arithmatex">\(0&lt;K&lt;6\)</span>、<span class="arithmatex">\(K&gt;6\)</span> で右半面に極が 2 つ）と一致する。根を陽に解かずに、係数だけから安定範囲が出せた。</p>
+<h3 id="_6">ステップ応答で確かめる</h3>
+<p><span class="arithmatex">\(H(0)=K/K=1\)</span> なので、安定ならステップ応答は <span class="arithmatex">\(1\)</span> に落ち着く（第7回の DC 利得）。<code>scipy.signal</code> で <span class="arithmatex">\(K=2,6,10\)</span> のステップ応答を計算し、<span class="arithmatex">\(1\)</span> からのずれ <span class="arithmatex">\(\lvert y-1\rvert\)</span> の最大を、<span class="arithmatex">\(5&lt;t\le10\)</span> と <span class="arithmatex">\(10&lt;t\le15\)</span> で比べる。<code>scipy.signal</code> は第4回の <code>ss.welch</code> と同じモジュールで、<code>ss</code> の名前で読み込む。伝達関数からステップ応答を計算する関数がある。</p>
+<ul>
+<li><code>ss.TransferFunction(分子, 分母)</code> は伝達関数を作る。分子・分母は、<span class="arithmatex">\(s\)</span> の高いべきから並べた係数のリストである。</li>
+<li><code>ss.step(系, T=時刻の配列)</code> は、時刻の配列とその各時刻でのステップ応答を組で返す。時刻は返り値の 1 つ目にも入っているので、<code>_</code> で受けて捨てる。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ss</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">3001</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">first</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">)</span>          <span class="c1"># 5&lt;t&lt;=10</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">second</span> <span class="o">=</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">10</span>                      <span class="c1"># 10&lt;t&lt;=15</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">H</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">TransferFunction</span><span class="p">([</span><span class="n">k</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>                <span class="c1"># H(0)=1 からのずれ</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">first</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">d</span><span class="p">[</span><span class="n">second</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;K=</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">: ずれの最大 </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>K= 2: ずれの最大 0.281 → 0.067
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>K= 6: ずれの最大 0.905 → 0.905
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>K=10: ずれの最大 3.616 → 8.381
+</code></pre></div>
+<p><span class="arithmatex">\(K=2\)</span> ではずれが縮んで <span class="arithmatex">\(1\)</span> に落ち着き、<span class="arithmatex">\(K=6\)</span> では同じ大きさの振動が続き、<span class="arithmatex">\(K=10\)</span> では振動が大きくなって発散する。<span class="arithmatex">\(K=10\)</span> でも <span class="arithmatex">\(H(0)=1\)</span> だが、不安定なので <span class="arithmatex">\(1\)</span> には落ち着かない（第7回の「不安定なら <span class="arithmatex">\(H(0)\)</span> にならない」）。</p>
+<h3 id="_7">極とステップ応答を描く</h3>
+<p>極とステップ応答を図に描く。描画には、第1回から使っている matplotlib を <code>plt</code> の名前で読み込む。<code>plt.subplots(1, 2)</code> は、左右に並んだ 2 つのグラフの枠 <code>ax1</code>, <code>ax2</code> を返す。左の <code>ax1</code> に極を、右の <code>ax2</code> にステップ応答を描く。<code>axvline</code> は縦線を、<code>axhline</code> は横線を引く。時刻の配列 <code>t</code>（<span class="arithmatex">\(0\le t\le15\)</span>）を使い回し、横軸は <code>set_xlim(0, 10)</code> で <span class="arithmatex">\(0\le t\le10\)</span> に絞る。縦軸は、発散する <span class="arithmatex">\(K=10\)</span> の応答がこの区間で切れない範囲を <code>set_ylim</code> で指定する。図のラベルは、Colab でも文字化けしないよう英語と数式で書く（第1回）。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;tab:green&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)):</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">poles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">poles</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">poles</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># 左：極</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">H</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">TransferFunction</span><span class="p">([</span><span class="n">k</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;$K=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>      <span class="c1"># 右：応答</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="n">ax1</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>              <span class="c1"># 虚軸</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="n">ax2</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>               <span class="c1"># H(0)=1</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Re $s$&quot;</span><span class="p">);</span> <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Im $s$&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;poles&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">4.9</span><span class="p">)</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$t$&quot;</span><span class="p">);</span> <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$y(t)$&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;step response&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>次の図は、同じ計算を日本語のラベルを付けて描き直したものである。</p>
+<figure>
   <img alt="ゲインと安定性：極が虚軸を横切ると応答が質的に変わる" src="../img/stability.png" width="900" />
 <br />
-<figcaption>左：特性方程式 $s^3+3s^2+2s+K=0$ の閉ループ極。$K=2$（緑）は左半面で安定、$K=6$（橙）は極 $\pm i\sqrt2$ が虚軸に乗る安定限界、$K=10$（赤）は右半面に極が出て不安定。破線が虚軸（安定境界）。右：対応する閉ループのステップ応答。$K=2$ は目標値 $1$ へ減衰、$K=6$ は持続振動、$K=10$ は振幅が増大して発散する。極が虚軸を横切る瞬間に、応答が「収まる/振動し続ける/発散する」と質的に変わる。</figcaption></p>
+<figcaption>左：特性方程式 $s^3+3s^2+2s+K=0$ の根（極）。$K=2$（緑）は左半面で安定、$K=6$（橙）は極 $\pm i\sqrt2$ が虚軸に乗る限界安定、$K=10$（赤）は右半面に極が出て不安定。破線が虚軸（安定と不安定の境目）。右：$H(s)=K/(s^3+3s^2+2s+K)$ のステップ応答。$K=2$ は $H(0)=1$ へ落ち着き、$K=6$ は持続振動、$K=10$ は振幅が増大して発散する。極が虚軸を横切ると、応答が「収まる／振動し続ける／発散する」と質的に変わる。</figcaption>
 </figure>
 <div class="admonition tip">
 <p class="admonition-title">ラウス・フルビッツの使いどころ</p>
-<p>ラウス・フルビッツの真価は、上の例のように特性方程式が <strong>パラメータ（ゲイン <span class="arithmatex">\(K\)</span>）を含む</strong> 場合に出る。根を <span class="arithmatex">\(K\)</span> の式で陽に書くのは（3 次でも）大変だが、ラウス表なら第 1 列を <span class="arithmatex">\(K\)</span> の式のまま書き下せて、安定範囲 <span class="arithmatex">\(0&lt;K&lt;6\)</span> が不等式として直接得られる。設計では「安定でいられるゲインの上限」を知ることが多く、そこにこの方法が効く。</p>
+<p>ラウス・フルビッツの判別法は、上の例のように特性方程式が <strong>調整できる定数（ゲイン <span class="arithmatex">\(K\)</span>）を含む</strong> ときに役に立つ。根を <span class="arithmatex">\(K\)</span> の式で書くのは 3 次でも大変だが、ラウス表なら第 1 列を <span class="arithmatex">\(K\)</span> の式のまま書ける。安定範囲 <span class="arithmatex">\(0&lt;K&lt;6\)</span> が、不等式として直接得られる。設計では「安定でいられるゲインの上限」を知りたいことが多い。</p>
 </div>
-<h2 id="_6">まとめ</h2>
+<h2 id="_8">まとめ</h2>
 <ul>
-<li>BIBO 安定の定義は <strong><span class="arithmatex">\(h(t)\)</span> が絶対可積分</strong>。有理かつ厳密プロパーな伝達関数なら、これは <strong>すべての極が左半面</strong>（実部 <span class="arithmatex">\(&lt;0\)</span>）と同値になる。</li>
-<li>右半面の極があれば発散。虚軸上の極は <strong>安定限界</strong> で、単純な <span class="arithmatex">\(\pm i\omega\)</span> なら持続振動、原点なら一定値、重極なら増大と中身は違うが、<strong>いずれも BIBO 安定ではない</strong>。</li>
-<li>極は <strong>特性方程式 <span class="arithmatex">\(D(s)=0\)</span></strong> の根。次数が上がると陽に解けないので、<strong>根を求めずに</strong>符号だけ判定したい。</li>
+<li>有界な入力に対して出力も有界になるとき、システムは <strong>安定</strong>（BIBO 安定）。本講義で扱う <span class="arithmatex">\(H(s)\)</span> では、安定 ⇔ <strong>すべての極が左半面</strong>（実部 <span class="arithmatex">\(&lt;0\)</span>）。</li>
+<li>右半面に極があれば発散して不安定。虚軸上の単純な極は持続振動を生む <strong>限界安定</strong> で、安定には含めない。</li>
+<li>極は <strong>特性方程式 <span class="arithmatex">\(D(s)=0\)</span></strong> の根。次数が上がると手で解くのは難しいので、<strong>根を求めずに</strong> 符号だけ判定したい。</li>
 <li><strong>ラウス・フルビッツの安定判別法</strong>：ラウス表の <strong>第 1 列の符号変化の回数 ＝ 右半面の極の個数</strong>。安定 ⇔ 第 1 列がすべて同符号。</li>
-<li>例 <span class="arithmatex">\(s^3+3s^2+2s+K=0\)</span> では安定範囲が <span class="arithmatex">\(0&lt;K&lt;6\)</span>。<span class="arithmatex">\(K=6\)</span> で持続振動、<span class="arithmatex">\(K&gt;6\)</span> で不安定と、実際の根と一致する。</li>
+<li>例 <span class="arithmatex">\(s^3+3s^2+2s+K=0\)</span> では安定範囲が <span class="arithmatex">\(0&lt;K&lt;6\)</span>。<span class="arithmatex">\(K=6\)</span> で持続振動、<span class="arithmatex">\(K&gt;6\)</span> で不安定と、実際の根・ステップ応答と一致する。</li>
 </ul>
 <p>次は、この特性方程式を生み出す <a href="../feedback/">フィードバック制御</a> の構造そのものに進み、ゲインで極を動かして定常偏差と過渡応答を設計する。</p>
 

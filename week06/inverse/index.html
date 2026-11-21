@@ -3095,7 +3095,7 @@ t\,e^{-t}\ \leftrightarrow\ \frac{1}{(s+1)^2}
 <p>すべての極が <strong>左半面（<span class="arithmatex">\(\operatorname{Re}(s)&lt;0\)</span>）</strong> にあれば、応答は時間とともに <span class="arithmatex">\(0\)</span> へ減衰する ── これを（漸近）<strong>安定</strong> という。1 つでも右半面に極があれば発散する。これを <strong>不安定</strong> という。右半面に極がなく、虚軸上の極が <strong>すべて単純（1 重）</strong> な場合が境界のケースで、減衰も発散もしない <strong>持続振動</strong> となる。これを <strong>限界安定</strong> という。</p>
 <p>ここで「単純」という条件は落とせない。虚軸上に <strong>重極</strong> があると振幅は発散する。たとえば
 <span class="arithmatex">\(\dfrac{1}{(s^2+1)^2}\)</span> の逆変換は <span class="arithmatex">\(-\dfrac{t\cos t}{2}+\dfrac{\sin t}{2}\)</span> で、<span class="arithmatex">\(t\cos t\)</span> の項が増え続ける。虚軸上に極があるだけで持続振動と決めつけてはいけない。</p>
-<p>さらに、入力に対する <strong>BIBO 安定</strong>（有界な入力に有界な出力）では基準がもっと厳しく、<strong>虚軸上の極は単純であっても不安定</strong> と判定される。実際 <span class="arithmatex">\(\dfrac{1}{s^2+1}\)</span> の系に共振する入力 <span class="arithmatex">\(\sin t\)</span> を入れると出力は発散する。漸近安定・限界安定・BIBO 安定の厳密な区別は第8回で整理する。この「極の位置で安定性が決まる」という見方は、第8回の応用（制御・安定判別）の中心テーマになる。</p>
+<p>さらに、入力に対する <strong>BIBO 安定</strong>（有界な入力に有界な出力）では基準がもっと厳しく、<strong>虚軸上の極は単純であっても不安定</strong> と判定される。実際 <span class="arithmatex">\(\dfrac{1}{s^2+1}\)</span> の系に共振する入力 <span class="arithmatex">\(\sin t\)</span> を入れると出力は発散する。入力のあるシステムの安定性は第8回で扱う。この「極の位置で安定性が決まる」という見方は、第8回の応用（制御・安定判別）の中心テーマになる。</p>
 </div>
 <h2 id="_6">ラプラス変換で微分方程式を解く</h2>
 <p>ここまでの道具 ── <strong>微分の公式</strong>（前ページ）と <strong>部分分数による逆変換</strong> ── だけで、微分方程式が機械的に解ける。微分方程式 → 代数方程式 → 部分分数 → 逆変換 の順に進む。例として次の初期値問題を解く。</p>
@@ -3114,7 +3114,7 @@ y''+3y'+2y=0,\qquad y(0)=1,\quad y'(0)=0
 \quad\Longrightarrow\quad
 Y(s)=\frac{s+3}{(s+1)(s+2)}
 \]</div>
-<p>微分方程式が、<span class="arithmatex">\(Y\)</span> の 1 次の <strong>代数方程式</strong> になった。これは先に部分分数で逆変換した <span class="arithmatex">\(F(s)\)</span> と同じ式である。分母 <span class="arithmatex">\(s^2+3s+2\)</span> の根 <span class="arithmatex">\(-1\)</span>, <span class="arithmatex">\(-2\)</span> は、この方程式を状態方程式 <span class="arithmatex">\(\dot{\mathbf{x}}=A\mathbf{x}\)</span> に書き直したときの行列 <span class="arithmatex">\(A\)</span> の固有値に一致する（詳細は第8回・第11回）。</p>
+<p>微分方程式が、<span class="arithmatex">\(Y\)</span> の 1 次の <strong>代数方程式</strong> になった。これは先に部分分数で逆変換した <span class="arithmatex">\(F(s)\)</span> と同じ式である。分母 <span class="arithmatex">\(s^2+3s+2\)</span> の根 <span class="arithmatex">\(-1\)</span>, <span class="arithmatex">\(-2\)</span> は、この方程式を状態方程式 <span class="arithmatex">\(\dot{\mathbf{x}}=A\mathbf{x}\)</span> に書き直したときの行列 <span class="arithmatex">\(A\)</span> の固有値に一致する（詳細は第11回）。</p>
 <p><strong>手順 3：部分分数に分けて逆変換する。</strong></p>
 <div class="arithmatex">\[
 Y(s)=\frac{2}{s+1}-\frac{1}{s+2}

@@ -1682,10 +1682,60 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="フィードバックの構造">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例：部屋の温度を微分方程式で書く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ブロック線図
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        閉ループ伝達関数を導く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1gs0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特性方程式 \(1+G(s)=0\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         比例制御と極の移動
@@ -1696,7 +1746,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         最終値定理による定常偏差
@@ -1707,7 +1757,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -2824,10 +2874,60 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="フィードバックの構造">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例：部屋の温度を微分方程式で書く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ブロック線図
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        閉ループ伝達関数を導く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1gs0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特性方程式 \(1+G(s)=0\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         比例制御と極の移動
@@ -2838,7 +2938,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         最終値定理による定常偏差
@@ -2849,7 +2949,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -2877,31 +2977,82 @@
 
 
 <h1 id="_1">フィードバック制御</h1>
-<p>前ページでは、特性方程式 <span class="arithmatex">\(s^3+3s^2+2s+K=0\)</span> の安定範囲を調べた。この特性方程式はどこから来たのか。本ページでは、それを生み出す <strong>フィードバック制御</strong> の構造を導入し、ゲインで極を動かして <strong>定常偏差</strong> と <strong>過渡応答</strong> を設計する見方を扱う。最終値定理（第7回）が、ここで定常偏差を読む道具として効いてくる。</p>
+<p>前ページでは、特性方程式 <span class="arithmatex">\(s^3+3s^2+2s+K=0\)</span> の安定範囲を調べた。この特性方程式はどこから来たのか。本ページでは、それを生み出す <strong>フィードバック制御</strong> の構造を導入し、ゲインで極を動かして <strong>定常偏差</strong> と <strong>過渡応答</strong> を設計する見方を扱う。定常偏差は、最終値定理（第7回）で求める。</p>
 <h2 id="_2">フィードバックの構造</h2>
-<p>制御の基本は、出力 <span class="arithmatex">\(y\)</span> を測って目標 <span class="arithmatex">\(r\)</span> と比べ、その <strong>偏差</strong> <span class="arithmatex">\(e=r-y\)</span> を使って制御対象を駆動することである。これを s 領域のブロック線図で描くと次のようになる。</p>
+<p>出力 <span class="arithmatex">\(y\)</span> を測って目標値 <span class="arithmatex">\(r\)</span> と比べ、その差で制御対象を動かすことを <strong>フィードバック制御</strong> と呼ぶ。</p>
+<ul>
+<li><span class="arithmatex">\(r(t)\)</span> は、出力に追わせたい <strong>目標値</strong> である。外から選んで与える。</li>
+<li><span class="arithmatex">\(e(t)=r(t)-y(t)\)</span> は、目標値と出力の差で、<strong>偏差</strong> と呼ぶ。</li>
+<li><strong>制御対象</strong> <span class="arithmatex">\(P(s)\)</span> は、動かしたいシステムである（例：モーター、部屋）。伝達関数で表す。</li>
+<li><strong>制御器</strong> <span class="arithmatex">\(C(s)\)</span> は、偏差 <span class="arithmatex">\(e\)</span> から制御対象への入力 <span class="arithmatex">\(v(t)\)</span> を決める。<span class="arithmatex">\(v\)</span> を <strong>操作量</strong> と呼ぶ。</li>
+</ul>
+<p>たとえば部屋の温度の制御では、制御対象 <span class="arithmatex">\(P\)</span> は部屋で、入力（操作量 <span class="arithmatex">\(v\)</span>）はエアコンの運転の強さ（部屋に送る熱の量）、出力 <span class="arithmatex">\(y\)</span> は室温である。制御器 <span class="arithmatex">\(C\)</span> はエアコンの制御回路で、設定温度（目標値 <span class="arithmatex">\(r\)</span>）と室温の差 <span class="arithmatex">\(e\)</span> から運転の強さ <span class="arithmatex">\(v\)</span> を決める。室温は温度計で測って戻す。</p>
+<h3 id="_3">例：部屋の温度を微分方程式で書く</h3>
+<p>制御対象は微分方程式で表せる。操作量 <span class="arithmatex">\(v\)</span> を入力、出力 <span class="arithmatex">\(y\)</span> とみた伝達関数が <span class="arithmatex">\(P(s)=Y(s)/V(s)\)</span> で、第7回の <span class="arithmatex">\(H(s)=Y(s)/X(s)\)</span> と同じ作り方である。</p>
+<p>部屋の例で書いてみる。外の気温は一定とし、室温 <span class="arithmatex">\(y(t)\)</span> を外の気温からの差で測る。エアコンが単位時間あたりに部屋へ送る熱の量を <span class="arithmatex">\(v(t)\)</span> とする。室温が上がる速さ <span class="arithmatex">\(y'\)</span> は、送った熱で上がる分から、壁を通って外へ逃げる熱で下がる分を引いたものである。逃げる熱は外との温度差 <span class="arithmatex">\(y\)</span> に比例するので</p>
+<div class="arithmatex">\[
+y'(t)=-a\,y(t)+b\,v(t)
+\]</div>
+<p>と書ける。<span class="arithmatex">\(a&gt;0\)</span> は熱の逃げやすさ、<span class="arithmatex">\(b&gt;0\)</span> は暖まりやすさで、どちらも部屋で決まる定数である。熱の収支から、<span class="arithmatex">\(a\)</span> は（壁の熱の通しやすさ）÷（部屋の熱容量）、<span class="arithmatex">\(b\)</span> は 1÷（部屋の熱容量）になる。零状態で両辺を変換すると <span class="arithmatex">\((s+a)\,Y(s)=b\,V(s)\)</span> なので</p>
+<div class="arithmatex">\[
+P(s)=\frac{Y(s)}{V(s)}=\frac{b}{s+a}
+\]</div>
+<p>を得る。これが部屋の伝達関数である。</p>
+<p>制御器は、偏差 <span class="arithmatex">\(e\)</span> から操作量 <span class="arithmatex">\(v\)</span> を決める規則であり、その伝達関数が <span class="arithmatex">\(C(s)=V(s)/E(s)\)</span> である。部屋の例で、偏差に比例して運転を強める規則 <span class="arithmatex">\(v(t)=K\,e(t)=K\,\bigl(r(t)-y(t)\bigr)\)</span>（<span class="arithmatex">\(K&gt;0\)</span> は選ぶ定数）を使うと、<span class="arithmatex">\(V(s)=K\,E(s)\)</span> より <span class="arithmatex">\(C(s)=K\)</span> である。規則に微分や積分が入ると <span class="arithmatex">\(C\)</span> は <span class="arithmatex">\(s\)</span> の関数になる（例：<span class="arithmatex">\(v'=K\,e\)</span> なら <span class="arithmatex">\(C(s)=K/s\)</span>）が、本講義では <span class="arithmatex">\(C(s)=K\)</span> だけを使う。</p>
+<p>この <span class="arithmatex">\(v\)</span> を部屋の微分方程式 <span class="arithmatex">\(y'=-a\,y+b\,v\)</span> に入れると</p>
+<div class="arithmatex">\[
+y'=-a\,y+bK\,(r-y)
+\qquad\Longrightarrow\qquad
+y'+(a+bK)\,y=bK\,r(t)
+\]</div>
+<p>となる。目標値 <span class="arithmatex">\(r\)</span> を入力、室温 <span class="arithmatex">\(y\)</span> を出力とする 1 階の微分方程式で、これがフィードバック系全体の式である。<span class="arithmatex">\(K\)</span> を大きくすると係数 <span class="arithmatex">\(a+bK\)</span> が大きくなり、室温は速く落ち着く。同じ結果は、<span class="arithmatex">\(v\)</span> を代入する手順を s 領域の掛け算で行っても求まる（下の「閉ループ伝達関数を導く」）。</p>
+<h3 id="_4">ブロック線図</h3>
+<p>偏差の定義 <span class="arithmatex">\(E=R-Y\)</span>、制御器の式 <span class="arithmatex">\(V=C\,E\)</span>、制御対象の式 <span class="arithmatex">\(Y=P\,V\)</span> の 3 つを絵にしたものを <strong>ブロック線図</strong> と呼ぶ。箱は伝達関数を掛けること、丸は足し引きを表す。式を立てるのに図は要らないが、信号の流れが見やすい。部屋の温度の制御をブロック線図で描くと次のようになる。</p>
 <figure>
   <img alt="単位フィードバックのブロック線図" src="../img/block_diagram.png" width="780" />
 <br />
-<figcaption>単位フィードバックの構造。目標 $R(s)$ から出力 $Y(s)$ を引いて偏差 $E(s)=R(s)-Y(s)$ を作り、それを前向き経路 $G(s)$（制御器 $C(s)$ と制御対象 $P(s)$ を直列にしたもの、$G=CP$）に通して出力 $Y(s)$ を得る。出力を一巡させて入力側に戻すのがフィードバック（ここでは帰還係数 $1$ の単位帰還）。この閉ループ全体の伝達関数が $T(s)=G(s)/(1+G(s))$ になる。</figcaption>
+<figcaption>単位フィードバックの構造。灰の字は一般の名前、橙の字は部屋の温度の制御の例である。目標値 $R(s)$ から出力 $Y(s)$ を引いて偏差 $E(s)=R(s)-Y(s)$ を作り、制御器 $C(s)$ が操作量 $V(s)$ を、制御対象 $P(s)$ が出力 $Y(s)$ を作る。破線の枠が前向き伝達関数 $G=CP$。この閉ループ全体の伝達関数 $T(s)$ を次で導く。</figcaption>
 </figure>
-<p>ここで <span class="arithmatex">\(G(s)\)</span> は <strong>前向き伝達関数</strong>、すなわち偏差 <span class="arithmatex">\(E\)</span> から出力 <span class="arithmatex">\(Y\)</span> までの経路をまとめたものである。実際には制御器 <span class="arithmatex">\(C(s)\)</span> と制御対象 <span class="arithmatex">\(P(s)\)</span> が直列につながっていて <span class="arithmatex">\(G(s)=C(s)P(s)\)</span> だが、閉ループの構造を見るだけならこの積を 1 つのブロックにまとめてよい。以下ではこの <span class="arithmatex">\(G\)</span> を使って話を進める。</p>
-<p>図の関係を式にすると、<span class="arithmatex">\(Y(s)=G(s)E(s)\)</span> かつ <span class="arithmatex">\(E(s)=R(s)-Y(s)\)</span> だから、<span class="arithmatex">\(Y=G(R-Y)\)</span> を <span class="arithmatex">\(Y\)</span> について解いて</p>
+<p><span class="arithmatex">\(C\)</span> と <span class="arithmatex">\(P\)</span> を続けて通ると <span class="arithmatex">\(Y(s)=C(s)P(s)E(s)\)</span> となる。偏差 <span class="arithmatex">\(E\)</span> から出力 <span class="arithmatex">\(Y\)</span> までの経路をまとめた <span class="arithmatex">\(G(s)=C(s)P(s)\)</span> を <strong>前向き伝達関数</strong> と呼ぶ（図の破線の枠）。閉ループの構造を見るだけなら、この積を 1 つのブロックとみてよい。以下ではこの <span class="arithmatex">\(G\)</span> を使って話を進める。出力をセンサで測って入力側に戻すのがフィードバックで、ここでは戻す倍率が <span class="arithmatex">\(1\)</span> の <strong>単位フィードバック</strong> である。</p>
+<h3 id="_5">閉ループ伝達関数を導く</h3>
+<p>目標値 <span class="arithmatex">\(R\)</span> から出力 <span class="arithmatex">\(Y\)</span> までの伝達関数を、制御対象と制御器の式、偏差の定義 <span class="arithmatex">\(e=r-y\)</span> を変換した式から導く（図は要らない）。</p>
 <div class="arithmatex">\[
-\boxed{\ T(s)=\frac{Y(s)}{R(s)}=\frac{G(s)}{1+G(s)}\ }
+Y=P\,V,\qquad V=C\,E,\qquad E=R-Y
 \]</div>
-<p>を得る。これが <strong>閉ループ伝達関数</strong> である。分母を <span class="arithmatex">\(0\)</span> とおいた</p>
+<p>はじめの 2 つから <span class="arithmatex">\(Y=CP\,E=G\,E\)</span> となる。<span class="arithmatex">\(E\)</span> を消して <span class="arithmatex">\(Y\)</span> について解くと</p>
+<div class="arithmatex">\[
+Y=G\,(R-Y)
+\quad\Longrightarrow\quad
+(1+G)\,Y=G\,R
+\]</div>
+<p>なので</p>
+<div class="arithmatex">\[
+T(s)=\frac{Y(s)}{R(s)}=\frac{G(s)}{1+G(s)}
+\]</div>
+<p>を得る。<span class="arithmatex">\(T(s)\)</span> を <strong>閉ループ伝達関数</strong> と呼ぶ。目標値 <span class="arithmatex">\(r\)</span> を入力、<span class="arithmatex">\(y\)</span> を出力とみた伝達関数である。部屋の例では、<span class="arithmatex">\(G=CP=\dfrac{bK}{s+a}\)</span> を入れると <span class="arithmatex">\(T=\dfrac{bK}{s+a+bK}\)</span> となる。これは上の微分方程式 <span class="arithmatex">\(y'+(a+bK)\,y=bK\,r\)</span> を零状態で変換したものと一致する。<span class="arithmatex">\(v\)</span> を代入する手順を、s 領域の掛け算で行ったことになる。</p>
+<h3 id="1gs0">特性方程式 <span class="arithmatex">\(1+G(s)=0\)</span></h3>
+<p><span class="arithmatex">\(T(s)=\dfrac{G(s)}{1+G(s)}\)</span> の極は、分母を <span class="arithmatex">\(0\)</span> とおいた</p>
 <div class="arithmatex">\[
 1+G(s)=0\qquad(\textbf{特性方程式})
 \]</div>
-<p>の根が閉ループの極であり、これが前ページのラウス・フルビッツ判別の対象だった。<span class="arithmatex">\(G(s)=\dfrac{K}{s(s+1)(s+2)}\)</span> を入れれば <span class="arithmatex">\(1+G=0 \Rightarrow s^3+3s^2+2s+K=0\)</span> となり、確かに前ページの式が出てくる。</p>
+<p>の根である。たとえば <span class="arithmatex">\(G(s)=\dfrac{K}{s(s+1)(s+2)}\)</span> のとき、分子と分母に <span class="arithmatex">\(s(s+1)(s+2)\)</span> を掛けて</p>
+<div class="arithmatex">\[
+T(s)=\frac{G(s)}{1+G(s)}=\frac{K}{s(s+1)(s+2)+K}=\frac{K}{s^3+3s^2+2s+K}
+\]</div>
+<p>となる。前ページの <span class="arithmatex">\(H(s)\)</span> は、この閉ループ伝達関数だった。特性方程式は <span class="arithmatex">\(s^3+3s^2+2s+K=0\)</span> で、前ページのラウス・フルビッツの判別法で求めた安定範囲は <span class="arithmatex">\(0&lt;K&lt;6\)</span> である。</p>
 <div class="admonition note">
 <p class="admonition-title">開ループと閉ループ</p>
-<p><span class="arithmatex">\(G(s)\)</span> 単体（フィードバックを切った状態）を <strong>開ループ伝達関数</strong>、<span class="arithmatex">\(T(s)=G/(1+G)\)</span> を <strong>閉ループ伝達関数</strong> と呼ぶ。フィードバックをかけると、極は <span class="arithmatex">\(G\)</span> の極（開ループ極）ではなく <span class="arithmatex">\(1+G=0\)</span> の根（閉ループ極）に移る。<strong>フィードバックの本質は、ゲインを通じて閉ループ極を動かし、望ましい応答に近づけられること</strong> にある。</p>
-<p>ただし「望む位置へ自由に置ける」わけではない。ゲイン <span class="arithmatex">\(K\)</span> ひとつを動かして得られる閉ループ極は、<span class="arithmatex">\(K\)</span> を <span class="arithmatex">\(0\to\infty\)</span> と変えたときに極が描く曲線（<strong>根軌跡</strong>）の上だけを動く。s 平面の任意の点へ移すには、<span class="arithmatex">\(C(s)\)</span> に極や零点を足す（PID や進み・遅れ補償）など、動かせるパラメータを増やす必要がある。</p>
+<ul>
+<li><span class="arithmatex">\(G(s)\)</span> だけ（フィードバックを切った状態）を <strong>開ループ伝達関数</strong>、<span class="arithmatex">\(T(s)=\dfrac{G}{1+G}\)</span> を <strong>閉ループ伝達関数</strong> と呼ぶ。</li>
+<li>単位フィードバックでは、前向き伝達関数 <span class="arithmatex">\(G\)</span> がそのまま開ループ伝達関数になる。</li>
+<li>開ループの極は <span class="arithmatex">\(G\)</span> の極（前の例では <span class="arithmatex">\(0,\,-1,\,-2\)</span>）である。</li>
+<li>フィードバックをかけると、極は <span class="arithmatex">\(1+G=0\)</span> の根（閉ループの極）に移る。</li>
+<li>ゲイン <span class="arithmatex">\(K\)</span> を変えると閉ループの極が動く。<span class="arithmatex">\(K\)</span> を選んで、望ましい応答に近づけるのがフィードバックの要点である。</li>
+</ul>
+<p>ただし、<span class="arithmatex">\(K\)</span> ひとつで閉ループの極を s 平面の好きな位置へ置けるわけではない。極を置ける範囲を広げる設計には、本講義では立ち入らない。</p>
 </div>
-<h2 id="_3">比例制御と極の移動</h2>
-<p>最も単純な制御は、偏差 <span class="arithmatex">\(e\)</span> に比例した操作を加える <strong>比例制御（P 制御）</strong> で、ゲイン <span class="arithmatex">\(K\)</span> がその比例係数にあたる。すなわち制御器を <span class="arithmatex">\(C(s)=K\)</span>（定数）、制御対象を <span class="arithmatex">\(P(s)=\dfrac{1}{(s+1)(s+2)}\)</span> とすると、前向き伝達関数は</p>
+<h2 id="_6">比例制御と極の移動</h2>
+<p>部屋の例の <span class="arithmatex">\(v=Ke\)</span> のように、操作量を偏差に比例させる制御を <strong>比例制御</strong>（P 制御）と呼ぶ。制御器は定数 <span class="arithmatex">\(C(s)=K\)</span> で、<span class="arithmatex">\(K\)</span> を <strong>比例ゲイン</strong> と呼ぶ。制御対象を <span class="arithmatex">\(P(s)=\dfrac{1}{(s+1)(s+2)}\)</span>（第7回のステップ応答の例 <span class="arithmatex">\(y''+3y'+2y=x\)</span> の伝達関数）とすると、前向き伝達関数は</p>
 <div class="arithmatex">\[
 G(s)=C(s)P(s)=\frac{K}{(s+1)(s+2)}
 \]</div>
@@ -2909,72 +3060,105 @@ G(s)=C(s)P(s)=\frac{K}{(s+1)(s+2)}
 <div class="arithmatex">\[
 T(s)=\frac{G}{1+G}=\frac{K}{(s+1)(s+2)+K}=\frac{K}{s^2+3s+2+K}
 \]</div>
-<p>である。これを第7回の 2 次系 <span class="arithmatex">\(\dfrac{\omega_n^2}{s^2+2\zeta\omega_n s+\omega_n^2}\)</span> と比べたいが、そのままでは分子が <span class="arithmatex">\(\omega_n^2\)</span> になっていない。DC 利得を括り出して</p>
+<p>である。これを第7回の 2 次系 <span class="arithmatex">\(\dfrac{\omega_n^2}{s^2+2\zeta\omega_n s+\omega_n^2}\)</span> と比べる。<span class="arithmatex">\(T(s)\)</span> の分子は <span class="arithmatex">\(K\)</span> で、2 次系の分子 <span class="arithmatex">\(\omega_n^2\)</span> になっていない。分母の定数項 <span class="arithmatex">\(2+K\)</span> を <span class="arithmatex">\(\omega_n^2\)</span> とおき、<span class="arithmatex">\(T(0)\)</span> を括り出すと</p>
 <div class="arithmatex">\[
 T(s)=\underbrace{\frac{K}{2+K}}_{T(0)}\cdot\frac{\omega_n^2}{s^2+2\zeta\omega_n s+\omega_n^2},
 \qquad \omega_n^2=2+K
 \]</div>
-<p>と書けば、右側が標準形の 2 次系である（分子が <span class="arithmatex">\(\omega_n^2=2+K\)</span> で分母定数項と一致し、この因子の DC 利得は <span class="arithmatex">\(1\)</span>）。<strong>分母は標準形と同じだが、DC 利得は <span class="arithmatex">\(1\)</span> ではなく <span class="arithmatex">\(T(0)=K/(2+K)\)</span></strong> であり、この「<span class="arithmatex">\(1\)</span> に届かない分」が後で扱う定常偏差になる。分母の係数を比べると</p>
+<p>となる。右の因子は 2 次系（DC 利得 <span class="arithmatex">\(1\)</span>）である。<strong><span class="arithmatex">\(T(s)\)</span> の DC 利得は <span class="arithmatex">\(1\)</span> でなく <span class="arithmatex">\(T(0)=\dfrac{K}{2+K}\)</span></strong> で、この「<span class="arithmatex">\(1\)</span> に届かない分」が後で扱う定常偏差になる。分母の係数を比べると</p>
 <div class="arithmatex">\[
 \omega_n=\sqrt{2+K},\qquad
 2\zeta\omega_n=3\ \Rightarrow\ \zeta=\frac{3}{2\sqrt{2+K}}
 \]</div>
-<p>なので、<strong><span class="arithmatex">\(K\)</span> を上げると <span class="arithmatex">\(\omega_n\)</span> が増えて <span class="arithmatex">\(\zeta\)</span> が減る</strong>。<span class="arithmatex">\(\zeta&lt;1\)</span> すなわち <span class="arithmatex">\(K&gt;\dfrac14\)</span> の範囲では極が複素共役対 <span class="arithmatex">\(s=-\zeta\omega_n\pm i\omega_n\sqrt{1-\zeta^2}\)</span> になり、実部は <span class="arithmatex">\(-\zeta\omega_n=-\dfrac{3}{2}\)</span> で <strong>一定</strong> のまま、虚部だけが <span class="arithmatex">\(K\)</span> とともに増える（極が虚軸と平行に上下へ離れていく）。実部が一定なので <strong>整定時間（<span class="arithmatex">\(\approx 4/\zeta\omega_n\)</span>）はほとんど変わらない</strong>。一方で <span class="arithmatex">\(\omega_n\)</span> が上がるぶん <strong>立ち上がりは速くなり</strong>、<span class="arithmatex">\(\zeta\)</span> が下がるぶん <strong>オーバーシュート・振動は増える</strong> ── ゲインを上げたときの「速くなる」とはこの立ち上がりの速さを指す。</p>
+<p>なので、<strong><span class="arithmatex">\(K\)</span> を上げると <span class="arithmatex">\(\omega_n\)</span> が増えて <span class="arithmatex">\(\zeta\)</span> が減る</strong>。<span class="arithmatex">\(\zeta&lt;1\)</span> すなわち <span class="arithmatex">\(K&gt;\dfrac14\)</span> の範囲では極が複素共役の極対 <span class="arithmatex">\(s=-\zeta\omega_n\pm i\omega_n\sqrt{1-\zeta^2}=-\dfrac32\pm i\,\dfrac{\sqrt{4K-1}}{2}\)</span> になり、実部は <span class="arithmatex">\(-\zeta\omega_n=-\dfrac{3}{2}\)</span> で <strong>一定</strong> のまま、虚部だけが <span class="arithmatex">\(K\)</span> とともに増える（極が虚軸と平行に上下へ離れていく）。応答が最終値の <span class="arithmatex">\(\pm2\%\)</span> 以内に収まるまでの時間を <strong>整定時間</strong> と呼ぶ。包絡線 <span class="arithmatex">\(e^{-\zeta\omega_n t}\)</span> が <span class="arithmatex">\(0.02\)</span> を切る <span class="arithmatex">\(t\approx4/(\zeta\omega_n)\)</span> が目安で、実部が一定なので <strong>整定時間はほとんど変わらない</strong>（<span class="arithmatex">\(4/1.5\approx2.7\)</span>）。一方で <span class="arithmatex">\(\omega_n\)</span> が上がるぶん <strong>立ち上がり</strong>（出力が最初に最終値の近くまで上がる速さ）<strong>は速くなり</strong>、<span class="arithmatex">\(\zeta\)</span> が下がるぶん <strong>オーバーシュート・振動は増える</strong> ── ゲインを上げたときの「速くなる」とはこの立ち上がりの速さを指す。</p>
 <div class="admonition note">
 <p class="admonition-title">実部が <span class="arithmatex">\(-1.5\)</span> 一定になるのは <span class="arithmatex">\(K&gt;1/4\)</span> のとき</p>
-<p>「実部一定」は 2 つの極が複素共役対のときの話である。<span class="arithmatex">\(0&lt;K&lt;\dfrac14\)</span> では判別式 <span class="arithmatex">\(9-4(2+K)=1-4K\)</span> が正で、極は <strong>2 つの実極</strong> になる。たとえば <span class="arithmatex">\(K=0.1\)</span> の極は <span class="arithmatex">\(-1.887\)</span> と <span class="arithmatex">\(-1.113\)</span> で、どちらも <span class="arithmatex">\(-1.5\)</span> ではない（和が <span class="arithmatex">\(-3\)</span>、すなわち <strong>平均</strong> が <span class="arithmatex">\(-1.5\)</span> になっているだけ）。<span class="arithmatex">\(K\)</span> を <span class="arithmatex">\(0\)</span> から上げていくと 2 つの実極は互いに近づき、<span class="arithmatex">\(K=\dfrac14\)</span> で重根 <span class="arithmatex">\(-1.5\)</span> に合流し、そこから先が複素対として上下へ離れていく。以下で扱う <span class="arithmatex">\(K=2,8,18\)</span> はすべて <span class="arithmatex">\(K&gt;\dfrac14\)</span> の側にある。</p>
+<p>「実部一定」は 2 つの極が複素共役の極対のときの話である。<span class="arithmatex">\(0&lt;K&lt;\dfrac14\)</span> では判別式 <span class="arithmatex">\(9-4(2+K)=1-4K\)</span> が正で、極は <strong>2 つの実極</strong> になる。たとえば <span class="arithmatex">\(K=0.1\)</span> の極は <span class="arithmatex">\(-1.887\)</span> と <span class="arithmatex">\(-1.113\)</span> で、どちらも <span class="arithmatex">\(-1.5\)</span> ではない（和が <span class="arithmatex">\(-3\)</span>、すなわち <strong>平均</strong> が <span class="arithmatex">\(-1.5\)</span> になっているだけ）。<span class="arithmatex">\(K\)</span> を <span class="arithmatex">\(0\)</span> から上げていくと 2 つの実極は互いに近づき、<span class="arithmatex">\(K=\dfrac14\)</span> で重極 <span class="arithmatex">\(-1.5\)</span> に合流し、そこから先が複素共役の極対として上下へ離れていく。以下で扱う <span class="arithmatex">\(K=2,8,18\)</span> はすべて <span class="arithmatex">\(K&gt;\dfrac14\)</span> の側にある。</p>
 </div>
-<h2 id="_4">最終値定理による定常偏差</h2>
-<p>制御のもう一つの関心事は、<span class="arithmatex">\(t\to\infty\)</span> で出力が目標 <span class="arithmatex">\(r\)</span> にどれだけ近づくか、すなわち <strong>定常偏差</strong></p>
+<h2 id="_7">最終値定理による定常偏差</h2>
+<p>制御のもう一つの関心事は、<span class="arithmatex">\(t\to\infty\)</span> で出力が目標値 <span class="arithmatex">\(r\)</span> にどれだけ近づくかである。<span class="arithmatex">\(t\to\infty\)</span> で残る偏差を <strong>定常偏差</strong> と呼ぶ。</p>
 <div class="arithmatex">\[
-e_{ss}=\lim_{t\to\infty}\bigl(r(t)-y(t)\bigr)
+e_{ss}=\lim_{t\to\infty}e(t)=\lim_{t\to\infty}\bigl(r(t)-y(t)\bigr)
 \]</div>
-<p>である。目標を単位ステップ <span class="arithmatex">\(r(t)=u(t)\)</span>（<span class="arithmatex">\(R(s)=1/s\)</span>）とすると、偏差は <span class="arithmatex">\(E(s)=R-Y=(1-T(s))R(s)\)</span> なので、最終値定理（第7回）より</p>
+<p>目標値を単位ステップ <span class="arithmatex">\(r(t)=u(t)\)</span>（<span class="arithmatex">\(R(s)=1/s\)</span>）とする。偏差の変換は</p>
 <div class="arithmatex">\[
-e_{ss}=\lim_{s\to0}sE(s)=\lim_{s\to0}\bigl(1-T(s)\bigr)=1-T(0)
+E(s)=R(s)-Y(s)=R(s)-T(s)R(s)=\bigl(1-T(s)\bigr)R(s)
 \]</div>
-<p>逆変換せずに、閉ループの DC 利得 <span class="arithmatex">\(T(0)\)</span> だけで定常偏差が読める。<span class="arithmatex">\(T(0)=\dfrac{K}{2+K}\)</span> だから</p>
+<p>である。この後見るように、最終値定理を使えば、<span class="arithmatex">\(e(t)\)</span> を求めなくても、<span class="arithmatex">\(T(0)\)</span> だけで <span class="arithmatex">\(e_{ss}\)</span> が求まる。</p>
+<p><span class="arithmatex">\(sE(s)=1-T(s)\)</span> の極は <span class="arithmatex">\(T(s)\)</span> の極である。<span class="arithmatex">\(K&gt;0\)</span> ならラウス表の第 1 列 <span class="arithmatex">\(1,\,3,\,2+K\)</span> がすべて正なので、極は左半面にあり、最終値定理（第7回）が使える。したがって</p>
+<div class="arithmatex">\[
+e_{ss}=\lim_{s\to0}sE(s)=\lim_{s\to0}s\bigl(1-T(s)\bigr)\frac{1}{s}=1-T(0)
+\]</div>
+<p>となる。逆変換せずに、閉ループの DC 利得 <span class="arithmatex">\(T(0)\)</span> だけで定常偏差が読める。<span class="arithmatex">\(T(0)=\dfrac{K}{2+K}\)</span> だから</p>
 <div class="arithmatex">\[
 e_{ss}=1-\frac{K}{2+K}=\frac{2}{2+K}
 \]</div>
-<p>となり、<strong>ゲイン <span class="arithmatex">\(K\)</span> を上げるほど定常偏差は小さくなる</strong>（<span class="arithmatex">\(K\to\infty\)</span> で <span class="arithmatex">\(e_{ss}\to0\)</span>）。これは開ループの DC 利得 <span class="arithmatex">\(K_p=G(0)=K/2\)</span>（位置誤差定数）を使った <span class="arithmatex">\(e_{ss}=\dfrac{1}{1+K_p}\)</span> とも一致する。<code>scipy.signal</code> で閉ループ応答を計算して確かめる。<code>scipy.signal</code> は第4回の <code>ss.welch</code> と同じモジュールで、<code>ss</code> の名前で読み込む。伝達関数からステップ応答を計算する関数がある。</p>
+<p>となり、<strong>ゲイン <span class="arithmatex">\(K\)</span> を上げるほど定常偏差は小さくなる</strong>（<span class="arithmatex">\(K\to\infty\)</span> で <span class="arithmatex">\(e_{ss}\to0\)</span>）。開ループの DC 利得 <span class="arithmatex">\(G(0)=K/2\)</span> を使えば、<span class="arithmatex">\(e_{ss}=\dfrac{1}{1+G(0)}\)</span> とも書ける。前ページの <code>ss.TransferFunction</code> と <code>ss.step</code> で閉ループ応答を計算して確かめる。時刻の配列 <code>t</code>（<span class="arithmatex">\(0\le t\le15\)</span>）は前ページのものを使う。</p>
 <ul>
-<li><code>ss.TransferFunction(分子, 分母)</code> は伝達関数を作る。分子・分母は、<span class="arithmatex">\(s\)</span> の高いべきから並べた係数のリストである。</li>
-<li><code>ss.step(系, T=時刻の配列)</code> は、時刻の配列とその各時刻でのステップ応答を組で返す。</li>
+<li>変数 <code>T</code> は閉ループ伝達関数 <span class="arithmatex">\(T(s)\)</span> である。<code>ss.step</code> のキーワード <code>T=</code> は時刻の配列を渡すもので、<span class="arithmatex">\(T(s)\)</span> とは別物である。</li>
+<li><code>y[-1]</code> は最後の時刻 <span class="arithmatex">\(t=15\)</span> の値で、<span class="arithmatex">\(t\to\infty\)</span> の値の代わりに使う。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ss</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">for</span> <span class="n">K</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">18</span><span class="p">):</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">T</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">TransferFunction</span><span class="p">([</span><span class="n">K</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">K</span><span class="p">])</span>   <span class="c1"># 閉ループ T=G/(1+G)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">ess</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">K</span><span class="p">)</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">poles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">K</span><span class="p">])</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;K=</span><span class="si">{</span><span class="n">K</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">: T(0)=</span><span class="si">{</span><span class="n">K</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="n">K</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  y(inf)=</span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  &quot;</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>          <span class="sa">f</span><span class="s2">&quot;e_ss=</span><span class="si">{</span><span class="n">ess</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  zeta=</span><span class="si">{</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="n">K</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  極=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">poles</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">18</span><span class="p">):</span>                 <span class="c1"># 数値の K</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">T</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">TransferFunction</span><span class="p">([</span><span class="n">k</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="p">])</span>   <span class="c1"># T=G/(1+G)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">T0</span> <span class="o">=</span> <span class="n">k</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="p">)</span>                 <span class="c1"># 予測した DC 利得 T(0)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">zeta</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">poles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="p">])</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;K=</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">: T(0)=</span><span class="si">{</span><span class="n">T0</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  y(inf)=</span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      e_ss=</span><span class="si">{</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">T0</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  zeta=</span><span class="si">{</span><span class="n">zeta</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      極=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">poles</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>K= 2: T(0)=0.500  y(inf)=0.500  e_ss=0.500  zeta=0.750  極=[-1.5+1.323j -1.5-1.323j]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>K= 8: T(0)=0.800  y(inf)=0.800  e_ss=0.200  zeta=0.474  極=[-1.5+2.784j -1.5-2.784j]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>K=18: T(0)=0.900  y(inf)=0.900  e_ss=0.100  zeta=0.335  極=[-1.5+4.213j -1.5-4.213j]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>K= 2: T(0)=0.500  y(inf)=0.500
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>      e_ss=0.500  zeta=0.750
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>      極=[-1.5+1.323j -1.5-1.323j]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>K= 8: T(0)=0.800  y(inf)=0.800
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>      e_ss=0.200  zeta=0.474
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>      極=[-1.5+2.784j -1.5-2.784j]
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>K=18: T(0)=0.900  y(inf)=0.900
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>      e_ss=0.100  zeta=0.335
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>      極=[-1.5+4.213j -1.5-4.213j]
 </code></pre></div>
-<p>数値計算した定常値 <code>y(inf)</code> は予測した <span class="arithmatex">\(T(0)=\dfrac{K}{2+K}\)</span> にぴたりと一致し、定常偏差は <span class="arithmatex">\(K=2,8,18\)</span> で <span class="arithmatex">\(0.5,0.2,0.1\)</span> と縮んでいく。一方で減衰比 <span class="arithmatex">\(\zeta\)</span> は <span class="arithmatex">\(0.75\to0.474\to0.335\)</span> と下がり、極の実部は <span class="arithmatex">\(-1.5\)</span> のまま虚部だけが <span class="arithmatex">\(1.323\to2.784\to4.213\)</span> と上がっている。</p>
+<p>数値計算した定常値 <code>y(inf)</code> は予測した <span class="arithmatex">\(T(0)=\dfrac{K}{2+K}\)</span> に一致し、定常偏差は <span class="arithmatex">\(K=2,8,18\)</span> で <span class="arithmatex">\(0.5,0.2,0.1\)</span> と縮んでいく。一方で減衰比 <span class="arithmatex">\(\zeta\)</span> は <span class="arithmatex">\(0.75\to0.474\to0.335\)</span> と下がり、極の実部は <span class="arithmatex">\(-1.5\)</span> のまま虚部だけが <span class="arithmatex">\(1.323\to2.784\to4.213\)</span> と上がっている。</p>
+<p>応答と極を図に描く。描き方は前ページの安定性の図と同じで、左右を入れ替え、左の <code>ax1</code> にステップ応答と定常値 <span class="arithmatex">\(T(0)\)</span>（点線）を、右の <code>ax2</code> に閉ループ極を描く。横軸は <code>set_xlim(0, 6)</code> で <span class="arithmatex">\(0\le t\le6\)</span> に絞る。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">T</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">TransferFunction</span><span class="p">([</span><span class="n">k</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="p">])</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;$K=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>      <span class="c1"># 左：応答</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">ax1</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>       <span class="c1"># 定常値 T(0)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">poles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="p">])</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">poles</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">poles</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># 右：極</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">ax1</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>               <span class="c1"># 目標値 r=1</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$t$&quot;</span><span class="p">);</span> <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$y(t)$&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;closed-loop step response&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>              <span class="c1"># 虚軸</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>             <span class="c1"># 実部 -1.5</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Re $s$&quot;</span><span class="p">);</span> <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Im $s$&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;closed-loop poles&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>次の図は、同じ計算を日本語のラベルと矢印を付けて描き直したものである。</p>
 <figure>
   <img alt="ゲインによる定常偏差と振動のトレードオフ" src="../img/feedback.png" width="900" />
 <br />
-<figcaption>左：閉ループ応答 $T(s)=K/(s^2+3s+2+K)$ のステップ応答。ゲイン $K$ を上げると定常値 $T(0)=K/(2+K)$ が目標値 $1$ に近づき、定常偏差 $e_{ss}=2/(2+K)$ が $0.5\to0.2\to0.1$ と縮む。右：対応する閉ループ極（いずれも $K&gt;1/4$ なので複素共役対）。実部は $-1.5$ で一定のまま、$K$ を上げると虚部の絶対値が増え、共役な 2 極が上下へ離れていく。定常偏差が小さくなる代わりにオーバーシュート（振動）が増える、という設計上のトレードオフが読み取れる。</figcaption>
+<figcaption>左：閉ループ応答 $T(s)=K/(s^2+3s+2+K)$ のステップ応答。ゲイン $K$ を上げると定常値 $T(0)=K/(2+K)$ が目標値 $1$ に近づき、定常偏差 $e_{ss}=2/(2+K)$ が $0.5\to0.2\to0.1$ と縮む。右：対応する閉ループ極（いずれも $K&gt;1/4$ なので複素共役の極対）。実部は $-1.5$ で一定のまま、$K$ を上げると虚部の絶対値が増え、共役な 2 極が上下へ離れていく。定常偏差が小さくなる代わりにオーバーシュート（振動）が増える、という設計上のトレードオフが読み取れる。</figcaption>
 </figure>
 <div class="admonition tip">
 <p class="admonition-title">ゲインのトレードオフ</p>
-<p>比例ゲイン <span class="arithmatex">\(K\)</span> を上げると、定常偏差は減る（精度が上がる）が、減衰比 <span class="arithmatex">\(\zeta\)</span> が下がってオーバーシュート・振動が増える（過渡が悪化する）。</p>
-<p>なお、いまの 2 次系 <span class="arithmatex">\(s^2+3s+2+K\)</span> は <span class="arithmatex">\(K&gt;0\)</span> ならつねに係数がすべて正で、<strong>どれだけ <span class="arithmatex">\(K\)</span> を上げても不安定にはならない</strong>（極は虚軸に近づかず、実部 <span class="arithmatex">\(-1.5\)</span> の直線上を離れていくだけ）。不安定化が起きるのは、前ページの 3 次系 <span class="arithmatex">\(s^3+3s^2+2s+K\)</span> のように <strong>極が 3 つ以上ある</strong>、あるいは積分器やむだ時間で位相が余分に遅れる場合である。そこでは <span class="arithmatex">\(K&gt;6\)</span> で極が右半面に出て発散した。</p>
-<p>「定常精度」と「過渡の収まり」と「安定性」を同時に満たすゲイン選び、あるいは比例制御だけでは届かないとき積分・微分動作を足す（PID 制御）のが、制御設計の出発点である。</p>
+<p>比例ゲイン <span class="arithmatex">\(K\)</span> を上げると、定常偏差は減る（精度が上がる）が、減衰比 <span class="arithmatex">\(\zeta\)</span> が下がって振動が増える。</p>
+<p>なお、いまの 2 次系 <span class="arithmatex">\(s^2+3s+2+K\)</span> はラウス表の第 1 列が <span class="arithmatex">\(1,\,3,\,2+K\)</span> で、<span class="arithmatex">\(K&gt;0\)</span> ならつねに正なので、<strong>どれだけ <span class="arithmatex">\(K\)</span> を上げても不安定にはならない</strong>（極は虚軸に近づかず、実部 <span class="arithmatex">\(-1.5\)</span> の直線上を離れていくだけ）。不安定化は、前ページの 3 次系 <span class="arithmatex">\(s^3+3s^2+2s+K\)</span> のように <strong>極が 3 つ以上ある</strong> 系で起こりうる。この 3 次系では <span class="arithmatex">\(K&gt;6\)</span> で極が右半面に出て発散した。</p>
+<p>定常偏差・振動の収まり・安定性を同時に満たすゲインを選ぶのが、制御設計の出発点になる。</p>
 </div>
-<h2 id="_5">まとめ</h2>
+<h2 id="_8">まとめ</h2>
 <ul>
 <li>フィードバックは偏差 <span class="arithmatex">\(E=R-Y\)</span> で前向き伝達関数 <span class="arithmatex">\(G(s)=C(s)P(s)\)</span> を駆動する構造で、<strong>閉ループ伝達関数</strong> は <span class="arithmatex">\(T(s)=\dfrac{G(s)}{1+G(s)}\)</span>、<strong>特性方程式</strong> は <span class="arithmatex">\(1+G(s)=0\)</span>。</li>
 <li>比例ゲイン <span class="arithmatex">\(K\)</span> を上げると、<span class="arithmatex">\(G=K/((s+1)(s+2))\)</span> の閉ループ極は（<span class="arithmatex">\(K&gt;1/4\)</span> なら）実部 <span class="arithmatex">\(-1.5\)</span> 一定のまま虚部が増え、<span class="arithmatex">\(\omega_n\)</span> が増えて <span class="arithmatex">\(\zeta\)</span> が減る（立ち上がりは速いが振動的）。</li>
-<li>ステップ目標への <strong>定常偏差</strong> は最終値定理から <span class="arithmatex">\(e_{ss}=1-T(0)=\dfrac{2}{2+K}\)</span>。ゲインを上げるほど縮むが、過渡は振動的になる ── これがゲイン設計のトレードオフ。さらに前ページの 3 次系のように極が多い系では、上げすぎれば不安定化まで起きる。</li>
+<li>目標値が単位ステップのときの <strong>定常偏差</strong> は最終値定理から <span class="arithmatex">\(e_{ss}=1-T(0)=\dfrac{2}{2+K}\)</span>。ゲインを上げるほど縮むが、過渡は振動的になる ── これがゲイン設計のトレードオフ。さらに前ページの 3 次系のように極が多い系では、上げすぎれば不安定化まで起きる。</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">本講義との接続</p>
